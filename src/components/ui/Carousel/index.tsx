@@ -25,19 +25,14 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 		const [carouselRef, api] = useEmblaCarousel({
 			...opts,
 			axis: 'x',
-			// loop: true,
-			skipSnaps: true,
 		});
 		const [canScrollPrev, setCanScrollPrev] = React.useState(false);
 		const [canScrollNext, setCanScrollNext] = React.useState(false);
-		const [currentIndex, setCurrentIndex] = React.useState(0);
 
 		const onSelect = React.useCallback((api: CarouselApi) => {
 			if (!api) {
 				return;
 			}
-
-			setCurrentIndex(api.selectedScrollSnap());
 
 			setCanScrollPrev(api.canScrollPrev());
 			setCanScrollNext(api.canScrollNext());
@@ -45,18 +40,15 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 
 		const scrollPrev = React.useCallback(() => {
 			if (api?.canScrollPrev()) {
-				const prevIndex = Math.max(currentIndex - 7, 0); // Прокрутка назад на 7 элементов
-				api.scrollTo(prevIndex);
+				api.scrollPrev();
 			}
-		}, [api, currentIndex]);
+		}, [api,]);
 
 		const scrollNext = React.useCallback(() => {
 			if (api?.canScrollNext()) {
-				const maxIndex = api.scrollSnapList().length - 1;
-				const nextIndex = Math.min(currentIndex + 7, maxIndex); // Прокрутка вперед на 7 элементов
-				api.scrollTo(nextIndex);
+				api.scrollNext();
 			}
-		}, [api, currentIndex]);
+		}, [api]);
 
 		const handleKeyDown = React.useCallback(
 			(event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -197,18 +189,25 @@ CarouselNext.displayName = 'CarouselNext';
 
 type customHTMLDivElementAttributes = React.HTMLAttributes<HTMLDivElement> & {
 	index: number;
-	onOpen?: (index: number) => void;
+	dependScroll?: boolean;
 };
 
 const Card = React.forwardRef<HTMLDivElement, customHTMLDivElementAttributes>(
-	({ className, onOpen, index, ...props }, ref) => {
+	({ className, index, dependScroll, ...props }, ref) => {
 		const { api } = useCarousel();
 		const { selectedIndex } = useNodeAction(api);
+
+		React.useEffect(() => {
+			if (dependScroll && index !== selectedIndex) {
+				api?.scrollTo(index);
+			}
+			console.log('1');
+		}, [index]);
+
 		return (
 			<div
 				ref={ref}
 				className={clsx(styles.Card, className, index === selectedIndex && styles.selected)}
-				// onClick={index === selectedIndex ? () => onOpen?.(index) : () => onNodeClick(index)}
 				{...props}
 			/>
 		);

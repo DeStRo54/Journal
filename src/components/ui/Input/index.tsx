@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from './Input.module.css';
 import clsx from 'clsx';
 
@@ -12,7 +10,7 @@ interface InputProps extends React.ComponentProps<'input'> {
 	variant?: InputVarinat;
 }
 
-export const Input = React.forwardRef(({ variant, name, label, ref, className, error, type, ...props }: InputProps) => {
+export const Input = ({ variant, name, label, ref, className, error, type, ...props }: InputProps) => {
 	return (
 		<div className={styles.container}>
 			<label className={styles.label} htmlFor={name}>
@@ -30,4 +28,4 @@ export const Input = React.forwardRef(({ variant, name, label, ref, className, e
 			{error && <p className={styles.error}>{error}</p>}
 		</div>
 	);
-});
+};

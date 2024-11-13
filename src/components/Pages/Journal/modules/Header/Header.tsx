@@ -1,8 +1,8 @@
+import { CiSquarePlus } from "react-icons/ci";
+import { IoMdSettings } from "react-icons/io";
+
 import styles from './Header.module.css';
 import { Typhography } from '@/components/ui/Typhography';
-
-import { IoMdSettings } from "react-icons/io";
-import { CiSquarePlus } from "react-icons/ci";
 
 export const Header = () => {
 	return (

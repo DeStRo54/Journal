@@ -10,8 +10,8 @@ interface ButtonProps extends React.ComponentProps<'button'> {
 	children: React.ReactNode;
 }
 
-export const Button = React.forwardRef(({ variant, className, ref, children, type, ...props }: ButtonProps) => (
+export const Button = ({ variant, className, ref, children, type, ...props }: ButtonProps) => (
 	<button ref={ref} type={type} className={clsx(styles['Button'], styles[variant], className)} {...props}>
 		{children}
 	</button>
-));
+);

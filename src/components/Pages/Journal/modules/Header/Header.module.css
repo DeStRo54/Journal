@@ -6,7 +6,7 @@
   position: fixed;
   padding: 10px 1rem 0;
   width: 100%;
-  max-width: 500px;
+  max-width: var(--max-width-mobile);
 }
 
 .container {

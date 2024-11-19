@@ -1,11 +1,18 @@
 .container {
 	width: 100%;
-	max-width: 547px;
+	max-width: var(--max-width-mobile);
 	margin: auto;
 }
 
 .journal-body {
 	margin-top: 170px;
+}
+
+.navigation-body {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 2.5%;
+	margin-bottom: 1rem;
 }
 
 .carousel-date {

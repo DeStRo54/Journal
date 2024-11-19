@@ -3,15 +3,18 @@ import React from 'react';
 import styles from './Button.module.css';
 import clsx from 'clsx';
 
-type ButtonVariant = 'accept' | 'question' | 'menu-item';
+type ButtonVariant = 'accept' | 'question' | 'menu-item' | 'slide';
 
 interface ButtonProps extends React.ComponentProps<'button'> {
-  variant: ButtonVariant;
-  children: React.ReactNode;
+	variant: ButtonVariant;
+	rotate?: boolean;
+	children: React.ReactNode;
 }
 
-export const Button = ({ variant, className, ref, children, type, ...props }: ButtonProps) => (
-  <button ref={ref} type={type} className={clsx(styles['Button'], styles[variant], className)} {...props}>
-    {children}
-  </button>
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+	({ variant, className, children, rotate, type, ...props }, ref) => (
+		<button ref={ref} type={type} className={clsx(styles['Button'], styles[variant], rotate && styles.rotate, className)} {...props}>
+			{children}
+		</button>
+	)
 );

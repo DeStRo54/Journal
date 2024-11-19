@@ -6,6 +6,10 @@ import { Header } from './modules/Header/Header';
 import { LessonCard } from './modules/LessonCard/LessonCard';
 import clsx from 'clsx';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import { Button } from '@/components/ui/Button';
+import { Slide } from '@/components/ui/Icons/Slide';
+import { Typhography } from '@/components/ui/Typhography';
 
 export const Journal = () => {
 	const dateCarouselRef = React.useRef<SwiperRef | null>(null);
@@ -26,14 +30,13 @@ export const Journal = () => {
 		time: '09:00 - 10:30',
 		cabinet: '263 (C-20)',
 		groups: ['XXXX-XX-23', 'XXXX-XX-23', 'XXXX-XX-23'],
-		teacher: 'THE PASCALINE',
-	}
+		teacher: 'THE PASCALINE'
+	};
 
-	const apiDates = [] as typeof apiData[];
+	const apiDates = [] as (typeof apiData)[];
 
 	for (let i = 0; i < 3; i++) {
 		apiDates.push(apiData);
-
 	}
 	const onDateNodeClick = (index: number) => {
 		setActiveDayNode(index);
@@ -52,11 +55,25 @@ export const Journal = () => {
 			<Header />
 			<div className={styles['journal-body']}>
 				<div className={styles['carousel-date']}>
+					<div className={styles['navigation-body']}>
+						<Button className="custom-prev" variant="slide" rotate={true}>
+							<Slide />
+						</Button>
+						<Typhography tag="h2" variant="secondary" children={'Ноябрь 2024'} />
+						<Button className="custom-next" variant="slide">
+							<Slide />
+						</Button>
+					</div>
 					<Swiper
 						ref={dateCarouselRef}
 						slidesPerView={7}
 						freeMode={true}
 						slidesPerGroup={7}
+						modules={[Navigation]}
+						navigation={{
+							nextEl: '.custom-next',
+							prevEl: '.custom-prev'
+						}}
 						speed={500}
 					>
 						{values.map((value, index) => (

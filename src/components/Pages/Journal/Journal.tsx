@@ -4,9 +4,8 @@ import 'swiper/swiper-bundle.css';
 import styles from './Journal.module.css';
 import { Header } from './modules/Header/Header';
 import { LessonCard } from './modules/LessonCard/LessonCard';
-import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import clsx from 'clsx';
-import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 export const Journal = () => {
 	const dateCarouselRef = React.useRef<SwiperRef | null>(null);
@@ -30,7 +29,7 @@ export const Journal = () => {
 		teacher: 'THE PASCALINE',
 	}
 
-	let apiDates = [];
+	const apiDates = [] as typeof apiData[];
 
 	for (let i = 0; i < 3; i++) {
 		apiDates.push(apiData);
@@ -58,11 +57,6 @@ export const Journal = () => {
 						slidesPerView={7}
 						freeMode={true}
 						slidesPerGroup={7}
-						modules={[Navigation]}
-						navigation={{
-							nextEl: 'custom-next',
-							prevEl: 'custom-prev',
-						}}
 						speed={500}
 					>
 						{values.map((value, index) => (
@@ -77,8 +71,6 @@ export const Journal = () => {
 							</SwiperSlide>
 						))}
 					</Swiper>
-					<div className={'custom-next'}>Next</div>
-					<div className={'custom-prev'}>Prev</div>
 				</div>
 				<div>
 					<Swiper ref={dayCarouselRef} onSlideChange={onDayNodeScroll} freeMode={true}>

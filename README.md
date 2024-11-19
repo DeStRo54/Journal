@@ -1,3 +1,11 @@
 # React + TypeScript + Vite
 
-SUCK SOME DICK (to be frontender...)
+install dependencies:
+```
+npm i
+```
+run project:
+```
+npm run dev
+```
+

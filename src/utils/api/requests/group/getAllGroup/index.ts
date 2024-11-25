@@ -1,6 +1,7 @@
+import { AllGroupsResponse } from './response';
 import { api } from '@/utils/api/instance';
 
-type GetAllGroupsConfig = AxiosRequestConfig;
+export type GetAllGroupsConfig = AxiosRequestConfig;
 
 export const getAllGroups = async (requestConfig?: GetAllGroupsConfig) =>
-	api.get<AllGroupsResponse>('/group/getAllGroup', requestConfig?.config);
+  api.get<AllGroupsResponse>('/group/getAllGroup', requestConfig?.config);

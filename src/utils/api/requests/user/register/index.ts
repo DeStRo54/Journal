@@ -1,6 +1,6 @@
 import { api } from '@/utils/api/instance';
 
-type PostUserRegisterParams = {
+export type PostUserRegisterParams = {
   name: string;
   surname: string;
   email: string;
@@ -8,7 +8,7 @@ type PostUserRegisterParams = {
   groupId: number;
 };
 
-type PostUserRegisterConfig = AxiosRequestConfig<PostUserRegisterParams>;
+export type PostUserRegisterConfig = AxiosRequestConfig<PostUserRegisterParams>;
 
 export const postUserRegister = async ({ params, config }: PostUserRegisterConfig) =>
   api.post<UserRegisterResponse>('/user/register', params, config);

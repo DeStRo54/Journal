@@ -1,4 +1,4 @@
 interface AdminUpdateClassesResponse {
-	data: string;
-	error?: string;
+  data: string;
+  error?: string;
 }

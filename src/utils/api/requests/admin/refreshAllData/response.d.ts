@@ -1,4 +1,4 @@
 interface AdminRefreshAllDataResponse {
-	data: string;
-	error?: string;
+  data: string;
+  error?: string;
 }

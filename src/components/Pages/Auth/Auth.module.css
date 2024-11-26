@@ -1,20 +1,40 @@
 .container {
-  width: 100%;
-  max-width: 450px;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
+	width: 100%;
+	max-width: 450px;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
 }
 
 .title {
-  text-align: center;
-  color: var(--text-invert-color);
+	text-align: center;
+	color: var(--text-invert-color);
 }
 
 .form {
-  margin: 30px auto auto;
-  width: 88%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+	margin: 30px auto auto;
+	width: 88%;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.group-list {
+	position: absolute;
+	top: 123%;
+	left: 0;
+	right: 0;
+	max-height: 200px;
+	overflow-y: auto;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	color: var(--invert-text-color);
+	z-index: 1;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.group-name {
+	padding: 10px;
+	cursor: pointer;
+	border-bottom: 1px solid #ccc;
 }

@@ -15,7 +15,9 @@
   border: 1px solid transparent;
   text-decoration: underline;
   text-underline-offset: 4px;
-  padding: 0.5rem;
+  width: fit-content;
+  margin: auto;
+  /* padding: 0.5rem; */
 }
 
 .menu-item {

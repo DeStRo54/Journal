@@ -1,11 +1,12 @@
 :root {
-  --text-invert-color: #fff;
-  --border-base-color: gray;
-  --border-focus-color: #007bff;
-  --button-accept-color: #007bff;
-  --button-question-color: #6c757d;
+	--main-background-color: #282c34;
+	--text-invert-color: #fff;
+	--border-base-color: gray;
+	--border-focus-color: #007bff;
+	--button-accept-color: #007bff;
+	--button-question-color: #6c757d;
 
-  --max-width-mobile: 547px;
+	--max-width-mobile: 547px;
 
-  font-family: 'Inter', sans-serif;
+	font-family: 'Inter', sans-serif;
 }

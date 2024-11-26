@@ -1,19 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { LogInSchema, LogInSchemaType, RegisterSchema, RegisterSchemaType } from '../schemas';
+import { LogInSchema, RegisterSchema, RegisterSchemaType } from '../schemas';
 
 import { usePostRegisterMutation } from '@/utils/redux/apiSlices/userApiSlice/userApi';
 import { useFormik } from 'formik';
 
 export const useAuth = () => {
 	const [stage, setStage] = React.useState<'login' | 'register'>('login');
+	const [currId, setCurrId] = React.useState<number>(0);
 	const navigate = useNavigate();
 
 	const authInitValues = {
 		name: '',
 		surname: '',
-		group_Id: 0,
+		group_Id: '',
 		email: '',
 		password: ''
 	};
@@ -24,21 +25,40 @@ export const useAuth = () => {
 		form.setTouched({}, false);
 	};
 
-	const setSubmit = (values: LogInSchemaType | RegisterSchemaType) => {
-		console.log(
-			stage === 'login'
-				? {
+	const [postRegister, { isLoading, isError, isSuccess }] = usePostRegisterMutation();
+
+	const setSubmit = async (values: RegisterSchemaType) => {
+		// console.log(
+		// 	stage === 'login'
+		// 		? {
+		// 			email: values.email,
+		// 			password: values.password
+		// 		}
+		// 		: values
+		// );
+
+		if (stage !== 'login') {
+			const postRegisterResponse = await postRegister({
+				params: {
+					name: values.name,
+					surname: values.surname,
 					email: values.email,
-					password: values.password
-				}
-				: values
-		);
-		navigate('/journal');
+					password: values.password,
+					groupId: currId //Першинша момент
+				},
+				config: {}
+			});
+
+			if (!postRegisterResponse.error) {
+				navigate('/journal');
+			}
+			else {
+				console.log(postRegisterResponse.error);
+			}
+		}
 	};
 
 	//Пример с MUTATION
-	// const [postRegister, { isLoading }] = usePostRegisterMutation();
-
 	// const firstTest = async () => {
 	// 	await postRegister({
 	// 		params: {
@@ -51,7 +71,7 @@ export const useAuth = () => {
 	// 	});
 	// }
 
-	const form = useFormik<LogInSchemaType | RegisterSchemaType>({
+	const form = useFormik<RegisterSchemaType>({
 		initialValues: authInitValues,
 		validationSchema: stage === 'login' ? LogInSchema : RegisterSchema,
 		validateOnBlur: false,
@@ -63,6 +83,11 @@ export const useAuth = () => {
 	return {
 		form,
 		stage,
-		changeStage
+		func: { changeStage, setCurrId },
+		state: {
+			isLoading,
+			isError,
+			isSuccess
+		}
 	};
 };

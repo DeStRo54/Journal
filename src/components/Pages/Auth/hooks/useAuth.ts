@@ -5,16 +5,70 @@ import { LogInSchema, RegisterSchema, RegisterSchemaType } from '../schemas';
 
 import { usePostRegisterMutation } from '@/utils/redux/apiSlices/userApiSlice/userApi';
 import { useFormik } from 'formik';
+import { useGetAllGroupsQuery } from '@/utils/redux/apiSlices/groupApiSlice/groupApi';
 
 export const useAuth = () => {
 	const [stage, setStage] = React.useState<'login' | 'register'>('login');
-	const [currId, setCurrId] = React.useState<number>(0);
 	const navigate = useNavigate();
+
+	// const getAllGroups = useGetAllGroupsQuery({ config: {} }, {
+	// 	selectFromResult: (data) => {
+	// 		return data;
+	// 	},
+	// });
+
+	// const getAllGroupsResponse = getAllGroups?.data;
+	// console.log(getAllGroupsResponse);
+
+	const getAllGroupsResponse = [
+		{
+			group_id: 1,
+			name: 'БСБО-01-23',
+			course: 2
+		},
+		{
+			group_id: 2,
+			name: 'БСБО-02-23',
+			course: 2
+		},
+		{
+			group_id: 3,
+			name: 'БСБО-03-23',
+			course: 2
+		},
+		{
+			group_id: 4,
+			name: 'БСБО-04-23',
+			course: 2
+		},
+		{
+			group_id: 5,
+			name: 'БСБО-05-23',
+			course: 2
+		},
+		{
+			group_id: 6,
+			name: 'БСБО-06-23',
+			course: 2
+		},
+		{
+			group_id: 7,
+			name: 'БСБО-07-23',
+			course: 2
+		}
+	];
+
+	const groupsList = getAllGroupsResponse.reduce((acc: Record<string, number>, group) => {
+		acc[group.name] = group.group_id;
+		return acc;
+	}, {});
+
+	console.log(groupsList);
 
 	const authInitValues = {
 		name: '',
 		surname: '',
-		group_Id: '',
+		groupName: '',
 		email: '',
 		password: ''
 	};
@@ -44,32 +98,18 @@ export const useAuth = () => {
 					surname: values.surname,
 					email: values.email,
 					password: values.password,
-					groupId: currId //Першинша момент
+					groupId: groupsList[values.groupName],
 				},
 				config: {}
 			});
 
 			if (!postRegisterResponse.error) {
 				navigate('/journal');
-			}
-			else {
+			} else {
 				console.log(postRegisterResponse.error);
 			}
 		}
 	};
-
-	//Пример с MUTATION
-	// const firstTest = async () => {
-	// 	await postRegister({
-	// 		params: {
-	// 			name: 'Test',
-	// 			surname: 'Test',
-	// 			email: 'test@mail.ri',
-	// 			password: '1233413',
-	// 			groupId: 0
-	// 		}, config: {}
-	// 	});
-	// }
 
 	const form = useFormik<RegisterSchemaType>({
 		initialValues: authInitValues,
@@ -83,7 +123,8 @@ export const useAuth = () => {
 	return {
 		form,
 		stage,
-		func: { changeStage, setCurrId },
+		groups: getAllGroupsResponse,
+		func: { changeStage },
 		state: {
 			isLoading,
 			isError,

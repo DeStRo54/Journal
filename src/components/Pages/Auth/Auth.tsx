@@ -6,80 +6,24 @@ import { RegisterSchemaType } from './schemas';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { CurrentGroup } from '@/utils/api/requests/group/getAllGroup/response';
-import { useGetAllGroupsQuery } from '@/utils/redux/apiSlices/groupApiSlice/groupApi';
 import { FormikTouched } from 'formik';
 
 export const Auth = () => {
-	const { form, stage, func, state } = useAuth();
+	const { form, stage, groups, func, state } = useAuth();
+	const [isOpen, setIsOpen] = useState(false);
 
 	const acceptButtonText = stage === 'login' ? 'Войти' : 'Зарегистрироваться';
 	const stageButtonText = stage === 'login' ? ' Нет аккаунта? Зарегистрироваться' : 'Есть аккаунт? Войти';
 
-	// Пример с QUERY
-	// const getAllGroups = useGetAllGroupsQuery({ config: {} }, {
-	// 	selectFromResult: (data) => {
-	// 		return data;
-	// 	},
-	// });
-
-	// const getAllGroupsResponse = getAllGroups?.data;
-	// console.log(getAllGroupsResponse);
-
-	const getAllGroupsResponse = [
-		{
-			group_id: 1,
-			name: 'БСБО-01-23',
-			course: 2
-		},
-		{
-			group_id: 2,
-			name: 'БСБО-02-23',
-			course: 2
-		},
-		{
-			group_id: 3,
-			name: 'БСБО-03-23',
-			course: 2
-		},
-		{
-			group_id: 4,
-			name: 'БСБО-04-23',
-			course: 2
-		},
-		{
-			group_id: 5,
-			name: 'БСБО-05-23',
-			course: 2
-		},
-		{
-			group_id: 6,
-			name: 'БСБО-06-23',
-			course: 2
-		},
-		{
-			group_id: 7,
-			name: 'БСБО-07-23',
-			course: 2
-		}
-	];
-
 	type groupType = CurrentGroup;
 
-	// const groupsList = [...getAllGroupsResponse.map((group: groupType) => group.name)];
-
-	const [isOpen, setIsOpen] = useState(false);
-
-	// Состояние для хранения текущего выбранного значения
-	// Варианты ответа
-
-	const handleOptionClick = (option: groupType) => {
-		setIsOpen(false); // Закрываем выпадающий список
-		func.setCurrId(option.group_id);
-		form.setFieldValue('group_Id', option.name);
+	const showGroups = (option: groupType) => {
+		setIsOpen(false);
+		form.setFieldValue('groupName', option.name);
 	};
 
-	const handleInputClick = () => {
-		setIsOpen((prev) => !prev); // Переключаем состояние видимости
+	const hideGroups = () => {
+		setIsOpen((prev) => !prev);
 	};
 
 	return (
@@ -118,22 +62,19 @@ export const Auth = () => {
 									label="Группа"
 									type="text"
 									readOnly={true}
-									onClick={handleInputClick}
+									onClick={hideGroups}
 									onChange={form.handleChange}
 									onBlur={form.handleBlur}
-									value={(form.values as RegisterSchemaType).group_Id}
-									{...((form.touched as FormikTouched<RegisterSchemaType>).group_Id && {
-										error: (form.errors as RegisterSchemaType).group_Id
+									value={(form.values as RegisterSchemaType).groupName}
+									{...((form.touched as FormikTouched<RegisterSchemaType>).groupName && {
+										error: (form.errors as RegisterSchemaType).groupName
 									})}
 								/>
 								{isOpen && (
 									<div className={styles['group-list']}>
-										{getAllGroupsResponse.map((option, index) => (
-											<div className={styles['group-name']}
-												key={index}
-												onClick={() => handleOptionClick(option)}
-											>
-												{option.name}
+										{groups.map((group) => (
+											<div className={styles['group-name']} key={group.group_id} onClick={() => showGroups(group)}>
+												{group.name}
 											</div>
 										))}
 									</div>
@@ -161,7 +102,12 @@ export const Auth = () => {
 					/>
 				</div>
 
-				<Button type="submit" variant="accept" disabled={state.isLoading} children={state.isLoading ? 'Отправка...' : acceptButtonText} />
+				<Button
+					type="submit"
+					variant="accept"
+					disabled={state.isLoading}
+					children={state.isLoading ? 'Отправка...' : acceptButtonText}
+				/>
 				<Button type="reset" variant="question" onClick={func.changeStage} children={stageButtonText} />
 			</form>
 		</div>

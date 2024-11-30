@@ -80,18 +80,23 @@ export const useAuth = () => {
     form.setTouched({}, false);
   };
 
-  const [postRegister, { isLoading: isRegisterLoading, isError: isRegisterError, isSuccess: isRegisterSuccess }] = usePostRegisterMutation();
-  const [postAuth, {isLoading: isAuthLoading, isError: isAuthError, isSuccess: isAuthSuccess}] = usePostAuthMutation();
+  const [postRegister, { isLoading: isRegisterLoading, isError: isRegisterError, isSuccess: isRegisterSuccess }] =
+    usePostRegisterMutation();
+  const [postAuth, { isLoading: isAuthLoading, isError: isAuthError, isSuccess: isAuthSuccess }] =
+    usePostAuthMutation();
 
-  const currentState = stage === 'register' ? {
-    isLoading: isRegisterLoading,
-    isError: isRegisterError,
-    isSuccess: isRegisterSuccess,
-  } : {
-    isLoading: isAuthLoading,
-    isError: isAuthError,
-    isSuccess: isAuthSuccess,
-  }
+  const currentState =
+    stage === 'register'
+      ? {
+          isLoading: isRegisterLoading,
+          isError: isRegisterError,
+          isSuccess: isRegisterSuccess
+        }
+      : {
+          isLoading: isAuthLoading,
+          isError: isAuthError,
+          isSuccess: isAuthSuccess
+        };
 
   const setSubmit = async (values: RegisterSchemaType) => {
     if (stage !== 'login') {
@@ -101,7 +106,7 @@ export const useAuth = () => {
           surname: values.surname,
           email: values.email,
           password: values.password,
-          groupId: groupsList?.[values.groupName] as number,
+          groupId: groupsList?.[values.groupName] as number
         },
         config: {}
       });
@@ -141,6 +146,6 @@ export const useAuth = () => {
     stage,
     groups: getAllGroupsResponse,
     func: { changeStage },
-    state: currentState,
+    state: currentState
   };
 };

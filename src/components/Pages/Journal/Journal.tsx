@@ -10,6 +10,7 @@ import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
+import { motion, useAnimation } from 'framer-motion';
 
 export const Journal = () => {
 	const currentDate = new Date();
@@ -62,10 +63,29 @@ export const Journal = () => {
 	const onDayNodeScroll = () => {
 		const dayNodeIndex = (dayCarouselRef.current as SwiperRef).swiper.realIndex;
 		const dateNode = (dateCarouselRef.current as SwiperRef).swiper;
+
 		setActiveDayNode(dayNodeIndex);
-		console.log(dayNodeIndex);
 		dateNode.slideTo(dayNodeIndex, 300);
 	};
+
+	const leftControl = useAnimation();
+	const rightControl = useAnimation();
+
+	const leftAnimationStart = () => {
+		leftControl.start({ opacity: 0.6 });
+	};
+
+	const leftAnimationEnd = () => {
+		leftControl.start({ opacity: 1 });
+	};
+
+	const rightAnimationStart = () => {
+		rightControl.start({ opacity: 0.6 });
+	}
+
+	const rightAnimationEnd = () => {
+		rightControl.start({ opacity: 1 });
+	}
 
 	return (
 		<div className={styles.container}>
@@ -73,17 +93,22 @@ export const Journal = () => {
 			<div className={styles['journal-body']}>
 				<div className={styles['carousel-date']}>
 					<div className={styles['navigation-body']}>
-						<Button className="custom-prev" variant="slide" rotate={true}>
-							<Slide />
-						</Button>
+						<motion.div animate={leftControl} transition={{ duration: 0.15 }} onAnimationComplete={leftAnimationEnd}>
+							<Button className="custom-prev" variant="slide" rotate={true} onClick={leftAnimationStart}>
+								<Slide />
+							</Button>
+						</motion.div>
+
 						<Typhography
 							tag="h2"
 							variant="secondary"
 							children={`${monthData[currentDate.getMonth()]} ${currentDate.getFullYear()}`}
 						/>
-						<Button className="custom-next" variant="slide">
-							<Slide />
-						</Button>
+						<motion.div animate={rightControl} transition={{ duration: 0.15 }} onAnimationComplete={rightAnimationEnd}>
+							<Button className="custom-next" variant="slide" onClick={rightAnimationStart}>
+								<Slide />
+							</Button>
+						</motion.div>
 					</div>
 					<Swiper
 						ref={dateCarouselRef}
@@ -93,12 +118,10 @@ export const Journal = () => {
 						slidesPerGroup={7}
 						modules={[Navigation]}
 						speed={500}
-						loop={true}
 						navigation={{
 							nextEl: '.custom-next',
 							prevEl: '.custom-prev'
 						}}
-
 					>
 						{values.map((value, index) => (
 							<SwiperSlide key={index} className={styles['carousel-date-item']}>
@@ -114,7 +137,7 @@ export const Journal = () => {
 					</Swiper>
 				</div>
 				<div>
-					<Swiper ref={dayCarouselRef} onSlideChange={onDayNodeScroll} freeMode={true} initialSlide={activeDateNode}>
+					<Swiper ref={dayCarouselRef} freeMode={true} initialSlide={activeDateNode} onSlideChange={onDayNodeScroll}>
 						{values.map((index) => (
 							<SwiperSlide key={index} className={clsx(styles['day-card'])}>
 								{apiDates.map((apiData, index) => (

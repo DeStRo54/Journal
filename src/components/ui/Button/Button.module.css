@@ -1,50 +1,50 @@
 .Button {
-  color: var(--text-invert-color);
-  -webkit-tap-highlight-color: transparent;
+	color: var(--text-invert-color);
+	-webkit-tap-highlight-color: transparent;
 }
 
 .accept {
-  background-color: var(--button-accept-color);
-  border: 1px solid var(--button-accept-color);
-  border-radius: 12px;
-  padding: 0.5rem 0;
+	background-color: var(--button-accept-color);
+	border: 1px solid var(--button-accept-color);
+	border-radius: 12px;
+	padding: 0.5rem 0;
 }
 
 .question {
-  color: var(--button-question-color);
-  border: 1px solid transparent;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  width: fit-content;
-  margin: auto;
-  /* padding: 0.5rem; */
+	color: var(--button-question-color);
+	border: 1px solid transparent;
+	text-decoration: underline;
+	text-underline-offset: 4px;
+	width: fit-content;
+	margin: auto;
+	/* padding: 0.5rem; */
 }
 
 .menu-item {
-  font-size: 16px;
-  font-weight: 400;
+	font-size: 16px;
+	font-weight: 400;
 }
 
 .slide {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.15s ease-in-out;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: opacity 0.15s ease-in-out;
 
-  svg {
-    width: 30px;
-    height: 30px;
-  }
+	svg {
+		width: 30px;
+		height: 30px;
+	}
 
-  &:active {
-    opacity: 0.6;
-  }
+	&:active {
+		opacity: 0.6;
+	}
 
-  &:disabled {
-    opacity: 0.4;
-  }
+	&:disabled {
+		opacity: 0.4;
+	}
 }
 
 .rotate {
-  rotate: -180deg;
+	rotate: -180deg;
 }

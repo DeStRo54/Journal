@@ -13,6 +13,7 @@
   justify-content: space-between;
   padding: 0 2.5%;
   margin-bottom: 1rem;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .carousel-date {
@@ -41,7 +42,7 @@
   font-size: 0.8rem;
   border-radius: 50%;
   aspect-ratio: 1 / 1;
-  transition: all 0.15s ease-in-out;
+  transition: all 0.25s ease-in-out;
   -webkit-tap-highlight-color: transparent;
   width: 65%;
 

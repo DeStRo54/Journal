@@ -10,20 +10,37 @@ import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
-import { motion, useAnimation } from 'framer-motion';
+import { getDays } from './helpers/getDays';
+import { findIndexByDate } from './helpers/getIndexOfDay';
 
 export const Journal = () => {
-	const currentDate = new Date();
 	const dateCarouselRef = React.useRef<SwiperRef | null>(null);
 	const dayCarouselRef = React.useRef<SwiperRef | null>(null);
-	const [activeDateNode, setActiveDayNode] = React.useState(currentDate.getDate() - 1);
-
-	const values = [];
-	for (let i = 1; i < 35 + 1; i++) {
-		values.push(i);
-	}
+	const values = getDays();
+	const currentDate = new Date();
+	const monthData = [
+		'Январь',
+		'Февраль',
+		'Март',
+		'Апрель',
+		'Май',
+		'Июнь',
+		'Июль',
+		'Август',
+		'Сентябрь',
+		'Октябрь',
+		'Ноябрь',
+		'Декабрь'
+	];
 
 	const weekDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+	const currentDateIndex = findIndexByDate(values, {
+		month: monthData[currentDate.getMonth()],
+		day: currentDate.getDay()
+	});
+	const [activeDateNode, setActiveDayNode] = React.useState(currentDateIndex);
+	const [currentMonth, setCurrentMonth] = React.useState(monthData[currentDate.getMonth()]);
+	const [currentWeek, setCurrentWeek] = React.useState(Math.ceil((currentDateIndex + 1) / 7));
 
 	const apiData = {
 		type: 'Лекция',
@@ -35,28 +52,15 @@ export const Journal = () => {
 		teacher: 'THE PASCALINE'
 	};
 
-	const monthData = [
-		'Январь',
-		'Февраль',
-		'Март',
-		'Апрель',
-		'Май',
-		'Июнь',
-		'Июль',
-		'Август',
-		'Сентябрь',
-		'Октябрь',
-		'Ноябрь',
-		'Декабрь'
-	];
-
 	const apiDates = [] as (typeof apiData)[];
 
 	for (let i = 0; i < 3; i++) {
 		apiDates.push(apiData);
 	}
+
+	console.log('1');
+
 	const onDateNodeClick = (index: number) => {
-		setActiveDayNode(index);
 		(dayCarouselRef.current as SwiperRef).swiper.slideTo(index, 0);
 	};
 
@@ -65,27 +69,10 @@ export const Journal = () => {
 		const dateNode = (dateCarouselRef.current as SwiperRef).swiper;
 
 		setActiveDayNode(dayNodeIndex);
+		setCurrentMonth(values[dayNodeIndex].month);
+		setCurrentWeek(Math.ceil((dayNodeIndex + 1) / 7));
 		dateNode.slideTo(dayNodeIndex, 300);
 	};
-
-	const leftControl = useAnimation();
-	const rightControl = useAnimation();
-
-	const leftAnimationStart = () => {
-		leftControl.start({ opacity: 0.6 });
-	};
-
-	const leftAnimationEnd = () => {
-		leftControl.start({ opacity: 1 });
-	};
-
-	const rightAnimationStart = () => {
-		rightControl.start({ opacity: 0.6 });
-	}
-
-	const rightAnimationEnd = () => {
-		rightControl.start({ opacity: 1 });
-	}
 
 	return (
 		<div className={styles.container}>
@@ -93,27 +80,24 @@ export const Journal = () => {
 			<div className={styles['journal-body']}>
 				<div className={styles['carousel-date']}>
 					<div className={styles['navigation-body']}>
-						<motion.div animate={leftControl} transition={{ duration: 0.15 }} onAnimationComplete={leftAnimationEnd}>
-							<Button className="custom-prev" variant="slide" rotate={true} onClick={leftAnimationStart}>
-								<Slide />
-							</Button>
-						</motion.div>
+						<Button className="custom-prev" variant="slide" rotate={true}>
+							<Slide />
+						</Button>
 
 						<Typhography
 							tag="h2"
 							variant="secondary"
-							children={`${monthData[currentDate.getMonth()]} ${currentDate.getFullYear()}`}
+							children={`${currentMonth} ${currentDate.getFullYear()} - ${currentWeek} неделя`}
 						/>
-						<motion.div animate={rightControl} transition={{ duration: 0.15 }} onAnimationComplete={rightAnimationEnd}>
-							<Button className="custom-next" variant="slide" onClick={rightAnimationStart}>
-								<Slide />
-							</Button>
-						</motion.div>
+						<Button className="custom-next" variant="slide">
+							<Slide />
+						</Button>
 					</div>
 					<Swiper
 						ref={dateCarouselRef}
-						initialSlide={currentDate.getDate() - 1}
+						lazyPreloadPrevNext={20}
 						slidesPerView={7}
+						initialSlide={currentDateIndex}
 						freeMode={true}
 						slidesPerGroup={7}
 						modules={[Navigation]}
@@ -130,15 +114,21 @@ export const Journal = () => {
 									className={clsx(styles['date-card'], activeDateNode === index && styles.clicked)}
 									onClick={() => onDateNodeClick(index)}
 								>
-									<p>{value}</p>
+									<p>{value.day}</p>
 								</div>
 							</SwiperSlide>
 						))}
 					</Swiper>
 				</div>
 				<div>
-					<Swiper ref={dayCarouselRef} freeMode={true} initialSlide={activeDateNode} onSlideChange={onDayNodeScroll}>
-						{values.map((index) => (
+					<Swiper
+						ref={dayCarouselRef}
+						lazyPreloadPrevNext={20}
+						freeMode={true}
+						initialSlide={currentDateIndex}
+						onSlideChange={onDayNodeScroll}
+					>
+						{values.map((_, index) => (
 							<SwiperSlide key={index} className={clsx(styles['day-card'])}>
 								{apiDates.map((apiData, index) => (
 									<LessonCard key={index} apiData={apiData} />

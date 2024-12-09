@@ -1,3 +1,7 @@
 .Typhography {
   color: var(--text-invert-color);
 }
+
+.secondary {
+  text-align: start;
+}

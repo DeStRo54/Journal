@@ -1,6 +1,7 @@
 import React from 'react';
 
 import 'swiper/swiper-bundle.css';
+import { findIndexByDate } from './helpers/getIndexOfDay';
 import styles from './Journal.module.css';
 import { Header } from './modules/Header/Header';
 import { LessonCard } from './modules/LessonCard/LessonCard';
@@ -10,14 +11,19 @@ import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
-import { getDays } from './helpers/getDays';
-import { findIndexByDate } from './helpers/getIndexOfDay';
+import { useDate } from './hooks/useDate';
+import { calculateWeek } from './helpers/calculateWeek';
 
 export const Journal = () => {
 	const dateCarouselRef = React.useRef<SwiperRef | null>(null);
 	const dayCarouselRef = React.useRef<SwiperRef | null>(null);
-	const values = getDays();
-	const currentDate = new Date();
+	const today = new Date();
+
+	const values = React.useMemo(
+		() => useDate({ currentYear: today.getFullYear(), currentMonthIndex: 9, currentDayIndex: 2 }),
+		[]
+	);
+
 	const monthData = [
 		'Январь',
 		'Февраль',
@@ -34,13 +40,22 @@ export const Journal = () => {
 	];
 
 	const weekDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
-	const currentDateIndex = findIndexByDate(values, {
-		month: monthData[currentDate.getMonth()],
-		day: currentDate.getDay()
+
+	const currentDateIndex = React.useMemo(() => findIndexByDate(values, {
+		year: today.getFullYear(),
+		month: monthData[today.getMonth()],
+		day: today.getDate()
+	}), []);
+
+	const [activeDateNode, setActiveDayNode] = React.useState(() => currentDateIndex);
+
+	const [currentDate, setCurrentDate] = React.useState(() => {
+		return {
+			year: values[currentDateIndex].year,
+			month: values[currentDateIndex].month,
+			week: Math.ceil((currentDateIndex + 1) / 7),
+		}
 	});
-	const [activeDateNode, setActiveDayNode] = React.useState(currentDateIndex);
-	const [currentMonth, setCurrentMonth] = React.useState(monthData[currentDate.getMonth()]);
-	const [currentWeek, setCurrentWeek] = React.useState(Math.ceil((currentDateIndex + 1) / 7));
 
 	const apiData = {
 		type: 'Лекция',
@@ -52,16 +67,26 @@ export const Journal = () => {
 		teacher: 'THE PASCALINE'
 	};
 
+	console.log('a');
+
 	const apiDates = [] as (typeof apiData)[];
 
 	for (let i = 0; i < 3; i++) {
 		apiDates.push(apiData);
 	}
 
-	console.log('1');
-
 	const onDateNodeClick = (index: number) => {
 		(dayCarouselRef.current as SwiperRef).swiper.slideTo(index, 0);
+	};
+
+	const onDateNodeScroll = () => {
+		const dateNodeIndex = (dateCarouselRef.current as SwiperRef).swiper.realIndex;
+
+		setCurrentDate({
+			year: values[dateNodeIndex + 6].year,
+			month: values[dateNodeIndex].month,
+			week: calculateWeek(dateNodeIndex),
+		});
 	};
 
 	const onDayNodeScroll = () => {
@@ -69,8 +94,13 @@ export const Journal = () => {
 		const dateNode = (dateCarouselRef.current as SwiperRef).swiper;
 
 		setActiveDayNode(dayNodeIndex);
-		setCurrentMonth(values[dayNodeIndex].month);
-		setCurrentWeek(Math.ceil((dayNodeIndex + 1) / 7));
+
+		setCurrentDate({
+			year: values[dayNodeIndex].year,
+			month: values[dayNodeIndex].month,
+			week: calculateWeek(dayNodeIndex),
+		});
+
 		dateNode.slideTo(dayNodeIndex, 300);
 	};
 
@@ -84,10 +114,12 @@ export const Journal = () => {
 							<Slide />
 						</Button>
 
+
 						<Typhography
 							tag="h2"
 							variant="secondary"
-							children={`${currentMonth} ${currentDate.getFullYear()} - ${currentWeek} неделя`}
+							className={styles['current-date']}
+							children={`${currentDate.month} ${currentDate.year} — ${currentDate.week} неделя`} //сгладить текст
 						/>
 						<Button className="custom-next" variant="slide">
 							<Slide />
@@ -101,6 +133,7 @@ export const Journal = () => {
 						freeMode={true}
 						slidesPerGroup={7}
 						modules={[Navigation]}
+						onSlideChange={onDateNodeScroll}
 						speed={500}
 						navigation={{
 							nextEl: '.custom-next',

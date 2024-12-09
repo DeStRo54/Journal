@@ -1,72 +1,84 @@
 .container {
-  width: 100%;
-  max-width: var(--max-width-mobile);
-  margin: auto;
+	width: 100%;
+	max-width: var(--max-width-mobile);
+	margin: auto;
 }
 
 .journal-body {
-  margin-top: 170px;
+	margin-top: 170px;
 }
 
 .navigation-body {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 2.5%;
-  margin-bottom: 1rem;
-  -webkit-tap-highlight-color: transparent;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 2.5%;
+	margin-bottom: 1rem;
+	-webkit-tap-highlight-color: transparent;
 }
 
 .carousel-date {
-  margin-bottom: 1.3rem;
+	margin-bottom: 1.3rem;
 }
 
 .carousel-date-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .day {
-  text-align: center;
-  padding-bottom: 1rem;
-  color: gray;
-  font-size: 0.8rem;
+	text-align: center;
+	padding-bottom: 1rem;
+	color: gray;
+	font-size: 0.8rem;
 }
 
 .date-card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: var(--text-invert-color);
-  font-size: 0.8rem;
-  border-radius: 50%;
-  aspect-ratio: 1 / 1;
-  transition: all 0.25s ease-in-out;
-  -webkit-tap-highlight-color: transparent;
-  width: 65%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	color: var(--text-invert-color);
+	font-size: 0.8rem;
+	border-radius: 50%;
+	aspect-ratio: 1 / 1;
+	transition: all 0.25s ease-in-out;
+	-webkit-tap-highlight-color: transparent;
+	width: 65%;
 
-  @media (min-width: 547px) {
-    font-size: 0.9rem;
-  }
+	@media (min-width: 547px) {
+		font-size: 0.9rem;
+	}
+}
+
+.current-date {
+	display: inline-block;
+	text-align: justify;
+	font-size: 0.9rem;
+	font-variant-numeric: monospace;
 }
 
 .clicked {
-  background-color: #625c8a;
+	background-color: #625c8a;
+	font-size: 0.9rem;
+
+	@media (min-width: 547px) {
+		font-size: 1rem;
+	}
 }
 
 .carousel-day {
-  margin-bottom: 3rem;
+	margin-bottom: 3rem;
 }
 
 .carousel-day-item {
-  flex: 0 0 calc(100%);
-  padding: 0 2.2%;
+	flex: 0 0 calc(100%);
+	padding: 0 2.2%;
 }
 
 .day-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0 3%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 0 3%;
 }

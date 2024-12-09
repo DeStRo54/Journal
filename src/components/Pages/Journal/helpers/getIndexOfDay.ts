@@ -1,8 +1,8 @@
 type elem = {
-  month: string;
-  day: number;
+	year: number;
+	month: string;
+	day: number;
 };
 
-export const findIndexByDate = (arr: elem[], target: elem) => {
-  return arr.findIndex((item) => item.month === target.month && item.day === target.day + 1);
-};
+export const findIndexByDate = (arr: elem[], target: elem) =>
+	arr.findIndex((item) => item.month === target.month && item.day === target.day && item.year === target.year);

@@ -1,13 +1,13 @@
 .container {
-	width: 100%;
-	margin: auto;
-	max-width: var(--max-width-mobile);
+  width: 100%;
+  margin: auto;
+  max-width: var(--max-width-mobile);
 
-	@media (min-width: 1050px) {
-		max-width: var(--max-width-desktop);
-	}
+  @media (min-width: 1050px) {
+    max-width: var(--max-width-desktop);
+  }
 }
 
 .journal-body {
-	margin-top: 170px;
+  margin-top: 170px;
 }

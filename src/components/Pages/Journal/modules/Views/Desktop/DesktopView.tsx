@@ -16,22 +16,29 @@ interface DesktopViewProps {
 		cabinet: string;
 		teacher: string;
 		homework: string;
-	}[];
+	}[][];
 }
 
-export const DesktopView = ({ apiDates, values, currentDateIndex }: DesktopViewProps) => {
+export const DesktopView = ({ apiDates, currentDateIndex }: DesktopViewProps) => {
 	const dayCarouselRef = useRef<SwiperRef | null>(null);
 
 	const onDayNodeScroll = () => {
 		console.log('scroll');
 	};
 
-	return <div className={styles.desktop}>
-		<div className={styles['carousel-month']}>
-			<p>Test</p>
+	return (
+		<div className={styles.desktop}>
+			<div className={styles['carousel-month']}>
+				<p>Test</p>
+			</div>
+			<div className={styles['carousel-day']}>
+				<CarouselDay
+					currentDateIndex={currentDateIndex}
+					apiDates={apiDates}
+					onDayNodeScroll={onDayNodeScroll}
+					dayCarouselRef={dayCarouselRef}
+				/>
+			</div>
 		</div>
-		<div className={styles['carousel-day']}>
-			<CarouselDay currentDateIndex={currentDateIndex} values={values} apiDates={apiDates} onDayNodeScroll={onDayNodeScroll} dayCarouselRef={dayCarouselRef} />
-		</div>
-	</div>;
+	);
 };

@@ -22,7 +22,7 @@ interface MobileViewProps {
 		cabinet: string;
 		teacher: string;
 		homework: string;
-	}[];
+	}[][];
 }
 
 export const MobileView = ({ currentDateIndex, values, apiDates }: MobileViewProps) => {
@@ -120,7 +120,8 @@ export const MobileView = ({ currentDateIndex, values, apiDates }: MobileViewPro
 				currentDateIndex={activeDateNode}
 				apiDates={apiDates}
 				onDayNodeScroll={onDayNodeScroll}
-				dayCarouselRef={dayCarouselRef} values={values} />
+				dayCarouselRef={dayCarouselRef}
+			/>
 		</div>
 	);
 };

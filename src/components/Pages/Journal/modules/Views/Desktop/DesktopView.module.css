@@ -13,4 +13,6 @@
 
 .carousel-day {
 	width: 45%;
+	overflow-y: scroll;
+	height: 60vh;
 }

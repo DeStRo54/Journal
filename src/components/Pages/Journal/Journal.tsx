@@ -28,8 +28,14 @@ export const Journal = () => {
 
 	const apiDates = [] as (typeof apiData)[];
 
-	for (let i = 0; i < 3; i++) {
+	const response = [] as (typeof apiDates)[];
+
+	for (let i = 0; i < 6; i++) {
 		apiDates.push(apiData);
+	}
+
+	for (let i = 0; i < 126; i++) {
+		response.push(apiDates);
 	}
 
 	const monthData = [
@@ -61,8 +67,8 @@ export const Journal = () => {
 		<div className={styles.container}>
 			<Header />
 			<div className={styles['journal-body']}>
-				<DesktopView currentDateIndex={currentDateIndex} values={values} apiDates={apiDates} />
-				<MobileView currentDateIndex={currentDateIndex} values={values} apiDates={apiDates} />
+				<DesktopView currentDateIndex={currentDateIndex} values={values} apiDates={response} />
+				<MobileView currentDateIndex={currentDateIndex} values={values} apiDates={response} />
 			</div>
 		</div>
 	);

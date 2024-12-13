@@ -1,0 +1,71 @@
+.mobile {
+	@media (min-width: 1050px) {
+		display: none;
+	}
+}
+
+.carousel-week {
+	margin-bottom: 1.3rem;
+}
+
+.navigation {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 2.5%;
+	margin-bottom: 1rem;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.current-date {
+	display: inline-block;
+	text-align: justify;
+	font-size: 0.9rem;
+	font-variant-numeric: monospace;
+}
+
+.carousel-date-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 40%;
+	height: calc(100% / 7) !important;
+}
+
+.carousel-day-item {
+	flex: 0 0 calc(100%);
+	padding: 0 2.2%;
+}
+
+.date-card {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	color: var(--text-invert-color);
+	font-size: 0.8rem;
+	border-radius: 50%;
+	aspect-ratio: 1 / 1;
+	transition: background-color 0.25s ease-in-out;
+	-webkit-tap-highlight-color: transparent;
+	width: 65%;
+
+	@media (min-width: 547px) {
+		font-size: 0.9rem;
+	}
+}
+
+.day {
+	text-align: center;
+	padding-bottom: 1rem;
+	color: gray;
+	font-size: 0.8rem;
+}
+
+.clicked {
+	background-color: #625c8a;
+	font-size: 0.9rem;
+
+	@media (min-width: 547px) {
+		font-size: 1rem;
+	}
+}

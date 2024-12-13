@@ -11,10 +11,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.header {
-  width: 100%;
-}
-
 .type {
   color: gray;
   font-size: 0.75rem;
@@ -43,4 +39,16 @@
   font-size: 0.8rem;
   color: gray;
   gap: 5px;
+}
+
+.homework {
+  margin-top: 0.3rem;
+  font-size: 1rem;
+}
+
+.task {
+  margin-top: 0.4rem;
+  color: gray;
+  padding: 0 1rem;
+  font-size: small;
 }

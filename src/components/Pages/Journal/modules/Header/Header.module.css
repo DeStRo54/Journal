@@ -7,6 +7,10 @@
   padding: 10px 1rem 0;
   width: 100%;
   max-width: var(--max-width-mobile);
+
+  @media (min-width: 850px) {
+    max-width: var(--max-width-desktop);
+  }
 }
 
 .container {

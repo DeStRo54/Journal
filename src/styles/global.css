@@ -1,31 +1,31 @@
 :root {
-	--main-background-color: #282c34;
-	--text-invert-color: #fff;
-	--border-base-color: gray;
-	--border-focus-color: #007bff;
-	--button-accept-color: #007bff;
-	--button-question-color: #6c757d;
+  --main-background-color: #282c34;
+  --text-invert-color: #fff;
+  --border-base-color: gray;
+  --border-focus-color: #007bff;
+  --button-accept-color: #007bff;
+  --button-question-color: #6c757d;
 
-	--max-width-mobile: 547px;
-	--max-width-desktop: 1000px;
+  --max-width-mobile: 547px;
+  --max-width-desktop: 1000px;
 
-	font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .html {
-	scrollbar-color: var(--button-question-color) #888;
-	scrollbar-width: thin;
+  scrollbar-color: var(--button-question-color) #888;
+  scrollbar-width: thin;
 }
 
 ::-webkit-scrollbar {
-	width: 9px;
+  width: 9px;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: var(--button-question-color);
-	border-radius: 8px;
+  background: var(--button-question-color);
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #888;
+  background: #888;
 }

@@ -10,4 +10,10 @@
 
 .journal-body {
   margin-top: 170px;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 1050px) {
+    flex-direction: row;
+  }
 }

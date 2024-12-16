@@ -1,0 +1,12 @@
+.carousel-day {
+  @media (min-width: 1050px) {
+    width: 45%;
+  }
+}
+
+.day-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 3%;
+}

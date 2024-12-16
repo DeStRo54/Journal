@@ -1,11 +1,9 @@
-.mobile {
+.carousel-week {
+  margin-bottom: 1.3rem;
+
   @media (min-width: 1050px) {
     display: none;
   }
-}
-
-.carousel-week {
-  margin-bottom: 1.3rem;
 }
 
 .navigation {
@@ -43,7 +41,7 @@
   cursor: pointer;
   color: var(--text-invert-color);
   font-size: 0.8rem;
-  border-radius: 50%;
+  border-radius: 35%;
   aspect-ratio: 1 / 1;
   transition: background-color 0.25s ease-in-out;
   -webkit-tap-highlight-color: transparent;

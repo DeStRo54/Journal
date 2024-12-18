@@ -3,12 +3,12 @@ import styles from './CarouselMonth.module.css';
 import React from 'react';
 import { getDaysForCarouselMonth } from '../../helpers/getDaysByMonth';
 import clsx from 'clsx';
-import { findIndexByDate } from '../../helpers/getIndexOfDay';
 import { findDayIndexInMonth } from '../../helpers/findDayIndexInMonth';
 import { Typhography } from '@/components/ui/Typhography';
 import { Button } from '@/components/ui/Button';
 import { AnimatePresence, motion } from 'framer-motion';
 import { createfirstMonthsNodes } from '../../helpers/createfirstMonthsNodes';
+import { findIndexByDate } from '../../helpers/findIndexByDate';
 
 interface carouselWeekProps {
   currentDateIndex: number;
@@ -37,17 +37,11 @@ export const CarouselMonth = ({
   );
   const firstMonthsNodes = React.useMemo(() => createfirstMonthsNodes(values), []);
 
-  console.log(firstMonthsNodes);
-
-  const onDayNodeClick = (value: { year: number; month: string; day: number }) => {
-    dayCarouselRef.current?.swiper.slideTo(findIndexByDate(values, value), 0);
-  };
-
   const onDropDownClick = () => {
     setDropdownActive(!dropdownActive);
   };
 
-  const onMonthClick = (dayIndex: number) => {
+  const onScrollClick = (dayIndex: number) => {
     dayCarouselRef.current?.swiper.slideTo(dayIndex, 0);
   };
 
@@ -82,7 +76,7 @@ export const CarouselMonth = ({
                       tag="p"
                       variant="secondary"
                       className={styles['dropdown-item']}
-                      onClick={() => onMonthClick(value[1])}
+                      onClick={() => onScrollClick(value[1])}
                     >
                       {value[0]}
                     </Typhography>
@@ -104,7 +98,11 @@ export const CarouselMonth = ({
         {daysByMonth.map((value, slideIndex) => (
           <SwiperSlide key={slideIndex} className={styles['month-card']}>
             {value.map((value, dayIndex) => (
-              <div key={dayIndex} className={styles['month-container']} onClick={() => onDayNodeClick(value)}>
+              <div
+                key={dayIndex}
+                className={styles['month-container']}
+                onClick={() => onScrollClick(findIndexByDate(values, value))}
+              >
                 <div
                   className={clsx(
                     styles['day-card'],

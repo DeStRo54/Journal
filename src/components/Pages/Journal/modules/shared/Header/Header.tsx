@@ -8,7 +8,7 @@ export const Header = () => {
   return (
     <header className={styles.header}>
       <Typhography tag="h1" variant="primary">
-        Бан хоумисам
+        Группа
       </Typhography>
       <div className={styles.container}>
         <Typhography tag="h2" variant="primary">

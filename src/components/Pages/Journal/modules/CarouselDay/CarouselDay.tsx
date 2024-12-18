@@ -24,7 +24,7 @@ export const CarouselDay = ({ currentDateIndex, apiDates, onDayNodeScroll, dayCa
     <div className={styles['carousel-day']}>
       <Swiper
         ref={dayCarouselRef}
-        lazyPreloadPrevNext={20}
+        lazyPreloadPrevNext={14}
         freeMode={true}
         initialSlide={currentDateIndex}
         onSlideChange={onDayNodeScroll}

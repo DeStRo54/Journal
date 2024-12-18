@@ -14,13 +14,15 @@ interface LessonCardProps {
 
 export const LessonCard = ({ apiData }: LessonCardProps) => (
   <div className={styles.container}>
-    <p className={styles['type']}>{apiData.type}</p>
-    <h1 className={styles['subject']}>{apiData.subject}</h1>
+    <div className={styles.header}>
+      <h1 className={styles['subject']}>{apiData.subject}</h1>
+      <p className={styles['type']}>{apiData.type}</p>
+    </div>
     <div className={styles['time-info']}>
       <p>{apiData.para} пара</p>
       <p>{apiData.time}</p>
     </div>
-    <div className={styles.body}>
+    <div className={styles['cabinet-info']}>
       <p>{apiData.cabinet}</p>
       <p>{apiData.teacher}</p>
     </div>

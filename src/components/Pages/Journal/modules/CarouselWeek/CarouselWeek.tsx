@@ -1,16 +1,16 @@
 import { Button } from '@/components/ui/Button';
-import { Slide } from '@/components/ui/Icons/Slide';
 import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 import styles from './CarouselWeek.module.css';
+import { Slide } from '@/components/ui/Icons/Slide';
 
 interface carouselWeekProps {
   currentDateIndex: number;
   currentDate: { year: number; month: string; week: number };
-  activeDateNode: number;
+  activeWeekNode: number;
   weekDays: string[];
   values: { year: number; month: string; day: number }[];
   onWeekNodeScroll: () => void;
@@ -21,7 +21,7 @@ interface carouselWeekProps {
 export const CarouselWeek = ({
   currentDateIndex,
   currentDate,
-  activeDateNode,
+  activeWeekNode,
   weekDays,
   values,
   onWeekNodeScroll,
@@ -40,9 +40,9 @@ export const CarouselWeek = ({
         </Button>
         <Typhography
           tag="h2"
-          variant="secondary"
+          variant="primary"
           className={styles['current-date']}
-          children={`${currentDate.month} ${currentDate.year} — ${currentDate.week} неделя`} //сгладить текст
+          children={`${currentDate.month} ${currentDate.year} — ${currentDate.week} неделя`}
         />
         <Button className="custom-next" variant="slide">
           <Slide />
@@ -67,7 +67,7 @@ export const CarouselWeek = ({
           <SwiperSlide key={index} className={styles['carousel-date-item']}>
             <p className={styles['day']}>{weekDays[index % 7]}</p>
             <div
-              className={clsx(styles['date-card'], activeDateNode === index && styles.clicked)}
+              className={clsx(styles['date-card'], activeWeekNode === index && styles.clicked)}
               onClick={() => onDateNodeClick(index)}
             >
               <p>{value.day}</p>

@@ -1,7 +1,19 @@
 .Typhography {
   color: var(--text-invert-color);
+  font-size: 20px;
+}
+
+.primary {
+  text-align: start;
+  font-size: 20px;
 }
 
 .secondary {
   text-align: start;
+  font-size: 18px;
+}
+
+.thirdy {
+  text-align: start;
+  font-size: 16px;
 }

@@ -60,7 +60,7 @@
 }
 
 .clicked {
-  background-color: #625c8a;
+  background-color: var(--time-color);
   font-size: 0.9rem;
 
   @media (min-width: 547px) {

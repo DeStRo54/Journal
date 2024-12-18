@@ -2,7 +2,7 @@ import React from 'react';
 
 import 'swiper/swiper-bundle.css';
 import { createDate } from './helpers/createDate';
-import { findIndexByDate } from './helpers/getIndexOfDay';
+import { findIndexByDate } from './helpers/getIndexOfDay.ts';
 import styles from './Journal.module.css';
 import { Header } from './modules/shared/Header/Header.tsx';
 import { SwiperRef } from 'swiper/react';
@@ -12,7 +12,8 @@ import { CarouselWeek } from './modules/CarouselWeek/CarouselWeek.tsx';
 import { CarouselMonth } from './modules/CarouselMonth/CarouselMonth.tsx';
 
 export const Journal = () => {
-  const dateCarouselRef = React.useRef<SwiperRef | null>(null);
+  const monthCarouselRef = React.useRef<SwiperRef | null>(null);
+  const weekCarouselRef = React.useRef<SwiperRef | null>(null);
   const dayCarouselRef = React.useRef<SwiperRef | null>(null);
 
   const today = new Date();
@@ -32,6 +33,8 @@ export const Journal = () => {
     teacher: 'THE PASCALINE'
   };
 
+  //типо данные с сервера
+
   const apiDates = [] as (typeof apiData)[];
 
   const getDatesResponse = [] as (typeof apiDates)[];
@@ -43,6 +46,8 @@ export const Journal = () => {
   for (let i = 0; i < 126; i++) {
     getDatesResponse.push(apiDates);
   }
+
+  //
 
   const monthData = [
     'Январь',
@@ -77,25 +82,26 @@ export const Journal = () => {
     };
   });
 
-  const [activeDateNode, setActiveDayNode] = React.useState(() => currentDateIndex);
+  const [activeWeekNode, setActiveWeekNode] = React.useState(() => currentDateIndex);
 
   const weekDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
-  const onDateNodeScroll = () => {
-    const dateNodeIndex = (dateCarouselRef.current as SwiperRef).swiper.realIndex;
-
+  const onWeekNodeScroll = () => {
+    const weekNodeIndex = (weekCarouselRef.current as SwiperRef).swiper.realIndex;
     setCurrentDate({
-      year: values[dateNodeIndex + 6].year,
-      month: values[dateNodeIndex].month,
-      week: calculateWeek(dateNodeIndex)
+      // year: values[dateNodeIndex + 6].year, //зачем я это сделал?
+      year: values[weekNodeIndex].year,
+      month: values[weekNodeIndex].month,
+      week: calculateWeek(weekNodeIndex)
     });
   };
 
   const onDayNodeScroll = () => {
     const dayNodeIndex = (dayCarouselRef.current as SwiperRef).swiper.realIndex;
-    const dateNode = (dateCarouselRef.current as SwiperRef).swiper;
+    const weekNode = (weekCarouselRef.current as SwiperRef).swiper;
+    const monthNode = (monthCarouselRef.current as SwiperRef).swiper;
 
-    setActiveDayNode(dayNodeIndex);
+    setActiveWeekNode(dayNodeIndex);
 
     setCurrentDate({
       year: values[dayNodeIndex].year,
@@ -103,7 +109,8 @@ export const Journal = () => {
       week: calculateWeek(dayNodeIndex)
     });
 
-    dateNode.slideTo(dayNodeIndex, 300);
+    weekNode.slideTo(dayNodeIndex, 300);
+    monthNode.slideTo(Math.ceil((dayNodeIndex + 1) / 35) - 1, 0);
   };
 
   return (
@@ -111,23 +118,26 @@ export const Journal = () => {
       <Header />
       <div className={styles['journal-body']}>
         <CarouselMonth
+          weekDays={weekDays}
           values={values}
           currentDate={currentDate}
-          activeDateNode={activeDateNode}
+          activeDateNode={activeWeekNode}
           currentDateIndex={currentDateIndex}
+          monthCarouselRef={monthCarouselRef}
+          dayCarouselRef={dayCarouselRef}
         />
         <CarouselWeek
           currentDateIndex={currentDateIndex}
           currentDate={currentDate}
-          activeDateNode={activeDateNode}
+          activeWeekNode={activeWeekNode}
           weekDays={weekDays}
           values={values}
-          onWeekNodeScroll={onDateNodeScroll}
-          weekCarouselRef={dateCarouselRef}
+          onWeekNodeScroll={onWeekNodeScroll}
+          weekCarouselRef={weekCarouselRef}
           dayCarouselRef={dayCarouselRef}
         />
         <CarouselDay
-          currentDateIndex={activeDateNode}
+          currentDateIndex={activeWeekNode}
           apiDates={getDatesResponse}
           onDayNodeScroll={onDayNodeScroll}
           dayCarouselRef={dayCarouselRef}

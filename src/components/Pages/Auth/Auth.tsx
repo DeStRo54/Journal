@@ -17,9 +17,9 @@ export const Auth = () => {
 
   type groupType = CurrentGroup;
 
-  const showGroups = (option: groupType) => {
+  const showGroups = (currentGroup: groupType) => {
     setIsOpen(false);
-    form.setFieldValue('groupName', option.name);
+    form.setFieldValue('groupName', currentGroup.name);
   };
 
   const hideGroups = () => {
@@ -72,7 +72,7 @@ export const Auth = () => {
                 />
                 {isOpen && (
                   <div className={styles['group-list']}>
-                    {groups.map((group) => (
+                    {groups?.map((group) => (
                       <div className={styles['group-name']} key={group.group_id} onClick={() => showGroups(group)}>
                         {group.name}
                       </div>

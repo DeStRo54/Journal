@@ -5,7 +5,7 @@ import { useAuth } from './hooks/useAuth';
 import { RegisterSchemaType } from './schemas';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { CurrentGroup } from '@/utils/api/requests/group/getAllGroup/response';
+import { CurrentGroup } from '@/utils/api/requests/group/getAll/response';
 import { FormikTouched } from 'formik';
 
 export const Auth = () => {

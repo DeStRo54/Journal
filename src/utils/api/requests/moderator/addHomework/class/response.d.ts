@@ -1,0 +1,3 @@
+interface ModeratorAddHomeworkClassResponse {
+  data: string;
+}

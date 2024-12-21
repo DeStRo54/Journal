@@ -5,15 +5,15 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery(),
-  tagTypes: ['User'],
+  tagTypes: ['PostUserRegister', 'PostUserAuth'],
   endpoints: (builder) => ({
     postRegister: builder.mutation({
       queryFn: ({ params, config }: PostUserRegisterConfig) => postUserRegister({ params, config }),
-      invalidatesTags: ['User']
+      invalidatesTags: ['PostUserRegister']
     }),
     postAuth: builder.mutation({
       queryFn: ({ params, config }: PostUserAuthConfig) => postUserAuth({ params, config }),
-      invalidatesTags: ['User']
+      invalidatesTags: ['PostUserAuth']
     })
   })
 });

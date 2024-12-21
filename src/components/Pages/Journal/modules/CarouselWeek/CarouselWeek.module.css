@@ -9,6 +9,7 @@
 .navigation {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 2.5%;
   margin-bottom: 1rem;
   -webkit-tap-highlight-color: transparent;
@@ -17,8 +18,6 @@
 .current-date {
   display: inline-block;
   text-align: justify;
-  font-size: 0.9rem;
-  font-variant-numeric: monospace;
 }
 
 .carousel-date-item {

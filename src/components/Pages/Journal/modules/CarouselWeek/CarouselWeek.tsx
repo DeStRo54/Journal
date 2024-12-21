@@ -40,7 +40,7 @@ export const CarouselWeek = ({
         </Button>
         <Typhography
           tag="h2"
-          variant="primary"
+          variant="thirdy"
           className={styles['current-date']}
           children={`${currentDate.month} ${currentDate.year} — ${currentDate.week} неделя`}
         />

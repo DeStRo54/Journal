@@ -4,9 +4,14 @@
   }
 }
 
+.swiper-layout {
+  height: auto !important;
+}
+
 .day-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0 3%;
+  max-height: 200vh;
 }

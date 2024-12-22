@@ -1,4 +1,5 @@
 import { getAllSchedule, GetAllScheduleConfig } from '@/utils/api/requests/schedule/get';
+import { AllScheduleResponse } from '@/utils/api/requests/schedule/get/response';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const scheduleApi = createApi({

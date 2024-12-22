@@ -8,6 +8,7 @@ type Homework = {
 
 export type ClassDetails = {
   subjectId: number;
+  description: string;
   startTime: string; // ISO 8601 format
   endTime: string; // ISO 8601 format
   summary: string;

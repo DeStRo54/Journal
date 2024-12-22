@@ -9,6 +9,8 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
   const para = apiData.class;
   const homeworks = apiData.homework;
 
+  const [type, subject] = [para.summary.split(' ').shift(), para.summary.split(' ').splice(1).join(' ')];
+
   const convertDateToTime = (rawDate: string) => {
     const timePart = rawDate.split('T')[1];
     const [hours, minutes] = timePart.split(':');
@@ -28,10 +30,20 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
     '19:40': 7
   };
 
+  const getTeacher = (rawDescrciption: string) => {
+    const stageA = rawDescrciption.split('\n')[0].split(' ');
+    const stageB = stageA.splice(1, stageA.length - 1);
+
+    if (stageB[0] === undefined) return '';
+
+    return `${stageB[0]} ${stageB[1]?.substring(0, 1)}. ${stageB[2]?.substring(0, 1)}.`;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles['subject']}>{para.summary}</h1>
+        <h1 className={styles['subject']}>{subject}</h1>
+        <p className={styles['type']}>{type}</p>
       </div>
       <div className={styles['time-info']}>
         <p>{`${lessonsNumbers[paraBegin as keyof typeof lessonsNumbers]} пара`}</p>
@@ -39,7 +51,7 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
       </div>
       <div className={styles['cabinet-info']}>
         <p>{para.location}</p>
-        {/* <p>{apiData.teacher}</p> */}
+        <p>{getTeacher(para.description)}</p>
       </div>
       {homeworks.map((homework, index) => (
         <div key={index} className={styles['homework']}>

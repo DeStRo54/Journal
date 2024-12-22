@@ -5,10 +5,10 @@ interface ProtectedRouteProps {
 }
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  // const isAuth = !!document.cookie.match('session_key=');
+  // const isAuth = !!document.cookie.match('session_key='); //потом починить
   const isAuth = true;
-  if (!isAuth) {
-    return <Navigate to="/" replace />;
+  if (isAuth) {
+    return children;
   }
-  return children;
+  return <Navigate to="/" replace />;
 };

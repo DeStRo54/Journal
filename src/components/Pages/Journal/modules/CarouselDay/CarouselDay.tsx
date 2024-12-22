@@ -1,6 +1,5 @@
-import { LessonCard } from './LessonCard/LessonCard';
-
 import styles from './CarouselDay.module.css';
+import { LessonCard } from './LessonCard/LessonCard';
 import clsx from 'clsx';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 

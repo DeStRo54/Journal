@@ -1,11 +1,10 @@
+import styles from './CarouselWeek.module.css';
 import { Button } from '@/components/ui/Button';
+import { Slide } from '@/components/ui/Icons/Slide';
 import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
-
-import styles from './CarouselWeek.module.css';
-import { Slide } from '@/components/ui/Icons/Slide';
 
 interface carouselWeekProps {
   currentDateIndex: number;

@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux';
 
 import { groupApi } from './apiSlices/groupApiSlice/groupApi';
+import { moderatorApi } from './apiSlices/moderatorApiSlice/moderatorApi';
+import { scheduleApi } from './apiSlices/scheduleApiSlice/scheduleApi';
 import { userApi } from './apiSlices/userApiSlice/userApi';
 import { prefix as userPrefix, userReducer } from './storeSlices/userSlice/slice';
 import { configureStore } from '@reduxjs/toolkit';
-import { moderatorApi } from './apiSlices/moderatorApiSlice/moderatorApi';
-import { scheduleApi } from './apiSlices/scheduleApiSlice/scheduleApi';
 
 export const store = configureStore({
   reducer: {

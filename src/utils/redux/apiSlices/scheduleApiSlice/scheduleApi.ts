@@ -7,7 +7,7 @@ export const scheduleApi = createApi({
   tagTypes: ['GetAllSchedule'],
   endpoints: (builder) => ({
     getAllSchedule: builder.query<AllScheduleResponse, GetAllScheduleConfig>({
-      queryFn: (requestConfig?: GetAllScheduleConfig) => getAllSchedule(requestConfig),
+      queryFn: ({ params, config }: GetAllScheduleConfig) => getAllSchedule({ params, config }),
       providesTags: ['GetAllSchedule']
     })
   })

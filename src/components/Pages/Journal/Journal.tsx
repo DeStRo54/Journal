@@ -1,15 +1,15 @@
 import React from 'react';
 
 import 'swiper/swiper-bundle.css';
+import { calculateWeek } from './helpers/calculateWeek.ts';
 import { createDate } from './helpers/createDate';
+import { findIndexByDate } from './helpers/findIndexByDate.ts';
 import styles from './Journal.module.css';
+import { CarouselDay } from './modules/CarouselDay/CarouselDay.tsx';
+import { CarouselMonth } from './modules/CarouselMonth/CarouselMonth.tsx';
+import { CarouselWeek } from './modules/CarouselWeek/CarouselWeek.tsx';
 import { Header } from './modules/shared/Header/Header.tsx';
 import { SwiperRef } from 'swiper/react';
-import { CarouselDay } from './modules/CarouselDay/CarouselDay.tsx';
-import { calculateWeek } from './helpers/calculateWeek.ts';
-import { CarouselWeek } from './modules/CarouselWeek/CarouselWeek.tsx';
-import { CarouselMonth } from './modules/CarouselMonth/CarouselMonth.tsx';
-import { findIndexByDate } from './helpers/findIndexByDate.ts';
 
 export const Journal = () => {
   const monthCarouselRef = React.useRef<SwiperRef | null>(null);

@@ -6,7 +6,7 @@ export interface TodosState {
 }
 const initialState: TodosState = {
   data: {
-    role: 'default',
+    role: 'admin',
     name: '',
     surname: '',
     email: '',

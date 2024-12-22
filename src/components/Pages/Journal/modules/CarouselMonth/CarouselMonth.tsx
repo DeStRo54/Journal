@@ -1,14 +1,16 @@
-import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
-import styles from './CarouselMonth.module.css';
 import React from 'react';
-import { getDaysForCarouselMonth } from '../../helpers/getDaysByMonth';
-import clsx from 'clsx';
-import { findDayIndexInMonth } from '../../helpers/findDayIndexInMonth';
-import { Typhography } from '@/components/ui/Typhography';
-import { Button } from '@/components/ui/Button';
-import { AnimatePresence, motion } from 'framer-motion';
+
 import { createfirstMonthsNodes } from '../../helpers/createfirstMonthsNodes';
+import { findDayIndexInMonth } from '../../helpers/findDayIndexInMonth';
 import { findIndexByDate } from '../../helpers/findIndexByDate';
+import { getDaysForCarouselMonth } from '../../helpers/getDaysByMonth';
+
+import styles from './CarouselMonth.module.css';
+import { Button } from '@/components/ui/Button';
+import { Typhography } from '@/components/ui/Typhography';
+import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 interface carouselWeekProps {
   currentDateIndex: number;

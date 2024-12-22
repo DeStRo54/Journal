@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 
 import 'swiper/swiper-bundle.css';
@@ -9,6 +10,8 @@ import { CarouselDay } from './modules/CarouselDay/CarouselDay.tsx';
 import { CarouselMonth } from './modules/CarouselMonth/CarouselMonth.tsx';
 import { CarouselWeek } from './modules/CarouselWeek/CarouselWeek.tsx';
 import { Header } from './modules/shared/Header/Header.tsx';
+import { AllScheduleResponse } from '@/utils/api/requests/schedule/get/response.js';
+import { useGetAllScheduleQuery } from '@/utils/redux/apiSlices/scheduleApiSlice/scheduleApi.ts';
 import { SwiperRef } from 'swiper/react';
 
 export const Journal = () => {
@@ -18,36 +21,29 @@ export const Journal = () => {
 
   const today = new Date();
 
+  const getSchedule = useGetAllScheduleQuery(
+    {
+      params: {
+        from_time: '02.09.2024',
+        days_count: 126
+      }
+    },
+    {
+      selectFromResult: (data) => {
+        return data;
+      }
+    }
+  );
+
+  const getScheduleResponse = getSchedule?.data;
+  const success = getSchedule?.isSuccess;
+
+  const data = success ? Object.values(getScheduleResponse as AllScheduleResponse) : [];
+
   const values = React.useMemo(
     () => createDate({ currentYear: today.getFullYear(), currentMonthIndex: 9, currentDayIndex: 2 }),
     []
   );
-
-  const apiData = {
-    type: 'Лекция',
-    subject: 'Матан',
-    para: 1,
-    time: '09:00 - 10:30',
-    cabinet: '263 (C-20)',
-    homework: 'Задание',
-    teacher: 'THE PASCALINE'
-  };
-
-  //типо данные с сервера
-
-  const apiDates = [] as (typeof apiData)[];
-
-  const getDatesResponse = [] as (typeof apiDates)[];
-
-  for (let i = 0; i < 6; i++) {
-    apiDates.push(apiData);
-  }
-
-  for (let i = 0; i < 126; i++) {
-    getDatesResponse.push(apiDates);
-  }
-
-  //
 
   const monthData = [
     'Январь',
@@ -89,7 +85,6 @@ export const Journal = () => {
   const onWeekNodeScroll = () => {
     const weekNodeIndex = (weekCarouselRef.current as SwiperRef).swiper.realIndex;
     setCurrentDate({
-      // year: values[dateNodeIndex + 6].year, //зачем я это сделал?
       year: values[weekNodeIndex].year,
       month: values[weekNodeIndex].month,
       week: calculateWeek(weekNodeIndex)
@@ -116,33 +111,35 @@ export const Journal = () => {
   return (
     <div className={styles.container}>
       <Header />
-      <div className={styles['journal-body']}>
-        <CarouselMonth
-          weekDays={weekDays}
-          values={values}
-          currentDate={currentDate}
-          activeDateNode={activeWeekNode}
-          currentDateIndex={currentDateIndex}
-          monthCarouselRef={monthCarouselRef}
-          dayCarouselRef={dayCarouselRef}
-        />
-        <CarouselWeek
-          currentDateIndex={currentDateIndex}
-          currentDate={currentDate}
-          activeWeekNode={activeWeekNode}
-          weekDays={weekDays}
-          values={values}
-          onWeekNodeScroll={onWeekNodeScroll}
-          weekCarouselRef={weekCarouselRef}
-          dayCarouselRef={dayCarouselRef}
-        />
-        <CarouselDay
-          currentDateIndex={activeWeekNode}
-          apiDates={getDatesResponse}
-          onDayNodeScroll={onDayNodeScroll}
-          dayCarouselRef={dayCarouselRef}
-        />
-      </div>
+      {success && (
+        <div className={styles['journal-body']}>
+          <CarouselMonth
+            weekDays={weekDays}
+            values={values}
+            currentDate={currentDate}
+            activeDateNode={activeWeekNode}
+            currentDateIndex={currentDateIndex}
+            monthCarouselRef={monthCarouselRef}
+            dayCarouselRef={dayCarouselRef}
+          />
+          <CarouselWeek
+            currentDateIndex={currentDateIndex}
+            currentDate={currentDate}
+            activeWeekNode={activeWeekNode}
+            weekDays={weekDays}
+            values={values}
+            onWeekNodeScroll={onWeekNodeScroll}
+            weekCarouselRef={weekCarouselRef}
+            dayCarouselRef={dayCarouselRef}
+          />
+          <CarouselDay
+            currentDateIndex={activeWeekNode}
+            apiDates={data}
+            onDayNodeScroll={onDayNodeScroll}
+            dayCarouselRef={dayCarouselRef}
+          />
+        </div>
+      )}
     </div>
   );
 };

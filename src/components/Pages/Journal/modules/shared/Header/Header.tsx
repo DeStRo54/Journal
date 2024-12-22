@@ -20,11 +20,11 @@ export const Header = () => {
         Группа
       </Typhography>
       <div className={styles.container}>
-        {showAdminComponent &&
+        {showAdminComponent && (
           <Typhography tag="h2" variant="primary" onClick={goToAdminPanel}>
             <AdminLogo className={styles['icon']} />
           </Typhography>
-        }
+        )}
         <Typhography tag="h2" variant="primary">
           <AddLogo className={styles['icon']} />
         </Typhography>

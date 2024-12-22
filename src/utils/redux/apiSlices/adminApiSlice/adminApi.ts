@@ -1,6 +1,6 @@
 import { postAdminAddGroup, PostAdminAddGroupConfig } from '@/utils/api/requests/admin/addGroup';
-import { patchAdminRefreshAllData,PatchAdminRefreshAllDataConfig } from '@/utils/api/requests/admin/refreshAllData';
-import { PatchAdminUpdateClasses,patchAdminUpdateClasses } from '@/utils/api/requests/admin/updateClasses';
+import { patchAdminRefreshAllData, PatchAdminRefreshAllDataConfig } from '@/utils/api/requests/admin/refreshAllData';
+import { PatchAdminUpdateClasses, patchAdminUpdateClasses } from '@/utils/api/requests/admin/updateClasses';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const adminApi = createApi({

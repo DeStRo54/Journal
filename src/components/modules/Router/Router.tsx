@@ -9,7 +9,6 @@ import { Auth } from '@/components/Pages/Auth/Auth';
 import { Journal } from '@/components/Pages/Journal/Journal';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 
-
 export const Router = () => {
   const userRole = useSelector(getUserRole);
   const showAdminComponent = userRole === 'admin';
@@ -29,5 +28,5 @@ export const Router = () => {
       </Route>
     )
   );
-  return <RouterProvider router={router}></RouterProvider>
+  return <RouterProvider router={router}></RouterProvider>;
 };

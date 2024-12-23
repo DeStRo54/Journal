@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { CurrentGroup } from '@/utils/api/requests/group/getAll/response';
 import { FormikTouched } from 'formik';
+import { Typhography } from '@/components/ui/Typhography';
 
 export const Auth = () => {
   const { form, stage, groups, func, state } = useAuth();
@@ -38,6 +39,7 @@ export const Auth = () => {
                 name="name"
                 label="Имя"
                 type="text"
+                variant="primary"
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 value={(form.values as RegisterSchemaType).name}
@@ -49,6 +51,7 @@ export const Auth = () => {
                 name="surname"
                 label="Фамилия"
                 type="text"
+                variant="primary"
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 value={(form.values as RegisterSchemaType).surname}
@@ -61,6 +64,7 @@ export const Auth = () => {
                   name="group_Id"
                   label="Группа"
                   type="text"
+                  variant="primary"
                   readOnly={true}
                   onClick={hideGroups}
                   onChange={form.handleChange}
@@ -86,6 +90,7 @@ export const Auth = () => {
             name="email"
             label="Почта"
             type="text"
+            variant="primary"
             onChange={form.handleChange}
             onBlur={form.handleBlur}
             value={form.values.email}
@@ -95,6 +100,7 @@ export const Auth = () => {
             name="password"
             label="Пароль"
             type="password"
+            variant="primary"
             onChange={form.handleChange}
             onBlur={form.handleBlur}
             value={form.values.password}
@@ -108,6 +114,8 @@ export const Auth = () => {
           disabled={state.isLoading}
           children={state.isLoading ? 'Отправка...' : acceptButtonText}
         />
+        {state.isError && <Typhography tag="h1" variant="secondary" children={'Ошибка, повторите попытку позже!'} />}
+
         <Button type="reset" variant="question" onClick={func.changeStage} children={stageButtonText} />
       </form>
     </div>

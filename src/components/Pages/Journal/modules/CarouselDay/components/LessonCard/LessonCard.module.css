@@ -1,13 +1,13 @@
 .container {
   display: flex;
   flex-direction: column;
-  background-color: #373d48;
+  background-color: var(--component-background-color);
   width: 100%;
   border-radius: 4px;
   padding: 1rem 0.7rem;
-  cursor: pointer;
   color: var(--text-invert-color);
   margin-bottom: 0.8rem;
+  gap: 5px;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -17,7 +17,6 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 5px;
-  margin-bottom: 10px;
 }
 
 .subject {
@@ -28,11 +27,11 @@
 
 .type {
   height: fit-content;
-  padding: .1rem .6rem;
+  padding: 0.1rem 0.6rem;
   border-radius: 16px;
   color: var(--text-invert-color);
   background-color: var(--time-color);
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .time-info {
@@ -41,7 +40,6 @@
   justify-content: space-between;
   color: var(--time-color);
   font-size: 0.75rem;
-  margin-bottom: 5px;
 }
 
 .cabinet-info {
@@ -53,7 +51,17 @@
   gap: 5px;
 }
 
-.homework {
+.add-homework {
+  display: flex;
+  flex-direction: column;
+}
+
+.homework-title {
+  text-align: start;
+  font-size: 14px;
+}
+
+.homework-info {
   margin-top: 0.3rem;
   font-size: 1rem;
 }
@@ -63,4 +71,28 @@
   color: gray;
   padding: 0 1rem;
   font-size: small;
+}
+
+.lect {
+  background-color: #e48cd1;
+}
+
+.pract {
+  background-color: #e7bd84;
+}
+
+.lab {
+  background-color: #ff0016;
+}
+
+.cons {
+  background-color: #b3fff2;
+}
+
+.zach {
+  background-color: #5032ff;
+}
+
+.exam {
+  background-color: #fb6a6a;
 }

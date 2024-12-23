@@ -121,7 +121,6 @@ export const useAuth = () => {
       if (!postAuthResponse.error) {
         navigate('/journal');
       } else {
-        console.log(postAuthResponse.error);
       }
     }
   };

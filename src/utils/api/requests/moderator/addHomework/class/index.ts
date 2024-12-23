@@ -4,7 +4,7 @@ export type PostmModeratorAddHomeworkClassParams = {
   classSemNumber: number;
   subjectId: number;
   homeworkText: string;
-  dueDate: Date;
+  dueDate: string;
 };
 
 export type PostModeratorAddHomeworkClassConfig = AxiosRequestConfig<PostmModeratorAddHomeworkClassParams>;

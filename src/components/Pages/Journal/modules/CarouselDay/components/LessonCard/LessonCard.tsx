@@ -1,11 +1,15 @@
+import React from 'react';
 import styles from './LessonCard.module.css';
 import { OutputClass } from '@/utils/api/requests/schedule/get/response';
+import { LessonInfo } from './LessonInfo/LessonInfo';
+import clsx from 'clsx';
 
 interface LessonCardProps {
   apiData: OutputClass;
 }
 
 export const LessonCard = ({ apiData }: LessonCardProps) => {
+  const [showInfo, setShowInfo] = React.useState(false);
   const para = apiData.class;
   const homeworks = apiData.homework;
 
@@ -37,28 +41,41 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
     if (stageB[0] === undefined) return '';
 
     return `${stageB[0]} ${stageB[1]?.substring(0, 1)}. ${stageB[2]?.substring(0, 1)}.`;
+  };
+
+  const showDetails = () => setShowInfo(!showInfo);
+
+  const lessonColor = {
+    'ЛК': 'lect',
+    'ПР': 'pract',
+    'Лаб': 'lab',
+    'Зачет': 'zach',
+    'Экзамен': 'exam'
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles['subject']}>{subject}</h1>
-        <p className={styles['type']}>{type}</p>
-      </div>
-      <div className={styles['time-info']}>
-        <p>{`${lessonsNumbers[paraBegin as keyof typeof lessonsNumbers]} пара`}</p>
-        <p>{`${paraBegin} - ${paraEnd}`}</p>
-      </div>
-      <div className={styles['cabinet-info']}>
-        <p>{para.location}</p>
-        <p>{getTeacher(para.description)}</p>
-      </div>
-      {homeworks.map((homework, index) => (
-        <div key={index} className={styles['homework']}>
-          <h1>Задание</h1>
-          <p className={styles['task']}>{homework.homeworkText}</p>
+    <React.Fragment>
+      <div className={styles.container} onClick={showDetails}>
+        <div className={styles.header}>
+          <h1 className={styles['subject']}>{subject}</h1>
+          <p className={clsx(styles['type'], styles[lessonColor[type as keyof typeof lessonColor]])}>{type}</p>
         </div>
-      ))}
-    </div>
+        <div className={styles['time-info']}>
+          <p>{`${lessonsNumbers[paraBegin as keyof typeof lessonsNumbers]} пара`}</p>
+          <p>{`${paraBegin} - ${paraEnd}`}</p>
+        </div>
+        <div className={styles['cabinet-info']}>
+          <p>{para.location}</p>
+          <p>{getTeacher(para.description)}</p>
+        </div>
+        {homeworks.map((homework, index) => (
+          <div key={index} className={styles['homework-info']}>
+            <h1>Задание</h1>
+            <p className={styles['task']}>{homework.homeworkText}</p>
+          </div>
+        ))}
+      </div>
+      {showInfo && <LessonInfo apiData={apiData} showDetails={showDetails} />}
+    </React.Fragment>
   );
 };

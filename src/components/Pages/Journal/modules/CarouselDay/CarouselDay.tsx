@@ -20,6 +20,7 @@ export const CarouselDay = ({ currentDateIndex, apiDates, onDayNodeScroll, dayCa
         freeMode={true}
         initialSlide={currentDateIndex}
         onSlideChange={onDayNodeScroll}
+        autoHeight={true}
       >
         {apiDates.map((apiData, index) => (
           <SwiperSlide key={index} className={styles['swiper-layout']}>

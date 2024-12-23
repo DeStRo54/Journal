@@ -1,11 +1,12 @@
 :root {
-  --main-background-color: #1e1f26;
+  --main-background-color: #17171c;
   --text-invert-color: #f8f9fa;
-  --time-color: #5d89b3;
+  --time-color: #ff0016;
   --button-question-color: #8793a6;
   --border-base-color: gray;
-  --border-focus-color: #5d89b3;
-  --button-accept-color: #5d89b3;
+  --border-focus-color: #ff0016;
+  --button-accept-color: #ff0016;
+  --component-background-color: #373d48;
   --max-width-mobile: 547px;
   --max-width-desktop: 1000px;
 

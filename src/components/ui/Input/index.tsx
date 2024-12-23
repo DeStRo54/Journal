@@ -3,13 +3,13 @@ import React from 'react';
 import styles from './Input.module.css';
 import clsx from 'clsx';
 
-type InputVarinat = 'primary' | 'secondary';
+type InputVarinat = 'primary' | 'homework';
 
 interface InputProps extends React.ComponentProps<'input'> {
   label: string;
   name: string;
   error?: string;
-  variant?: InputVarinat;
+  variant: InputVarinat;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(

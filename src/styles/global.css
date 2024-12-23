@@ -1,11 +1,11 @@
 :root {
   --main-background-color: #17171c;
   --text-invert-color: #f8f9fa;
-  --time-color: #ff0016;
+  --time-color: #AE8BFF;
   --button-question-color: #8793a6;
   --border-base-color: gray;
-  --border-focus-color: #ff0016;
-  --button-accept-color: #ff0016;
+  --border-focus-color: #AE8BFF;
+  --button-accept-color: #AE8BFF;
   --component-background-color: #373d48;
   --max-width-mobile: 547px;
   --max-width-desktop: 1000px;

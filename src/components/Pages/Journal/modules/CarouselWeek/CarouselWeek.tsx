@@ -1,16 +1,19 @@
+import { WeekHeader } from '../shared/WeekHeader/WeekHeader';
+
 import styles from './CarouselWeek.module.css';
 import { Button } from '@/components/ui/Button';
 import { Slide } from '@/components/ui/Icons/Slide';
-import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 interface carouselWeekProps {
   currentDateIndex: number;
-  currentDate: { year: number; month: string; week: number };
+  currentDate: { year: number; month: string; day: number };
   activeWeekNode: number;
   weekDays: string[];
+  firstSessionDay: number;
+  monthsNumbers: number[];
   values: { year: number; month: string; day: number }[];
   onWeekNodeScroll: () => void;
   weekCarouselRef: React.RefObject<SwiperRef>;
@@ -23,6 +26,8 @@ export const CarouselWeek = ({
   activeWeekNode,
   weekDays,
   values,
+  firstSessionDay,
+  monthsNumbers,
   onWeekNodeScroll,
   weekCarouselRef,
   dayCarouselRef
@@ -37,11 +42,12 @@ export const CarouselWeek = ({
         <Button className="custom-prev" variant="slide" rotate={true}>
           <Slide />
         </Button>
-        <Typhography
-          tag="h2"
-          variant="thirdy"
-          className={styles['current-date']}
-          children={`${currentDate.month} ${currentDate.year} — ${currentDate.week} неделя`}
+        <WeekHeader
+          currentDate={values[currentDate.day]}
+          firstSessionDay={firstSessionDay}
+          monthsNumbers={monthsNumbers}
+          index={currentDate.day}
+          variant="mobile"
         />
         <Button className="custom-next" variant="slide">
           <Slide />

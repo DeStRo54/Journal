@@ -21,7 +21,9 @@
   font-size: 16px;
   outline: none;
   transition: all 0.3s ease-in-out;
+}
 
+.onfocus {
   &:focus {
     border-color: var(--border-focus-color);
   }

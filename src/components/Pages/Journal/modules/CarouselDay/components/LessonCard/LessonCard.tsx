@@ -1,7 +1,8 @@
 import React from 'react';
+
 import styles from './LessonCard.module.css';
-import { OutputClass } from '@/utils/api/requests/schedule/get/response';
 import { LessonInfo } from './LessonInfo/LessonInfo';
+import { OutputClass } from '@/utils/api/requests/schedule/get/response';
 import clsx from 'clsx';
 
 interface LessonCardProps {
@@ -46,12 +47,12 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
   const showDetails = () => setShowInfo(!showInfo);
 
   const lessonColor = {
-    'ЛК': 'lect',
-    'ПР': 'pract',
-    'Лаб': 'lab',
-    'Зачет': 'zach',
-    'Экзамен': 'exam'
-  }
+    ЛК: 'lect',
+    ПР: 'pract',
+    Лаб: 'lab',
+    Зачет: 'zach',
+    Экзамен: 'exam'
+  };
 
   return (
     <React.Fragment>

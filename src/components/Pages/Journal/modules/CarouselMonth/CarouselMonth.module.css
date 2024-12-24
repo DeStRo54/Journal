@@ -30,13 +30,13 @@
 
 .dropdown-btn {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
   padding: 0.4rem 0.9rem;
   border: 2px solid var(--main-background-color);
   border-radius: 8px;
   font-size: 18px;
   transition: border-color 0.2s ease-in-out;
-  display: flex;
-  justify-content: space-between;
 }
 
 .dropdown-active {
@@ -56,9 +56,7 @@
 
 .dropdown-content {
   position: absolute;
-  display: flex;
   right: 0;
-  flex-direction: column;
   z-index: 1000;
   padding: 0.5rem;
   margin-top: 0.25rem;
@@ -71,6 +69,7 @@
 .dropdown-item {
   margin: 0.5rem;
   cursor: pointer;
+  text-align: left;
 }
 
 .week-container {

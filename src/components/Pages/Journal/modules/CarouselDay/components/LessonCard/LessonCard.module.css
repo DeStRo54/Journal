@@ -13,16 +13,19 @@
 
 .header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   gap: 5px;
+
+  @media (min-width: 1050px) {
+    flex-direction: row;
+  }
 }
 
 .subject {
   font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 3px;
 }
 
 .type {

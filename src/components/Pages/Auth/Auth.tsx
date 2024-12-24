@@ -1,30 +1,36 @@
-import { useState } from 'react';
+import React from 'react';
 
 import styles from './Auth.module.css';
 import { useAuth } from './hooks/useAuth';
-import { RegisterSchemaType } from './schemas';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { CurrentGroup } from '@/utils/api/requests/group/getAll/response';
-import { FormikTouched } from 'formik';
 import { Typhography } from '@/components/ui/Typhography';
+import { CurrentGroup } from '@/utils/api/requests/group/getAll/response';
+import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export const Auth = () => {
   const { form, stage, groups, func, state } = useAuth();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const acceptButtonText = stage === 'login' ? 'Войти' : 'Зарегистрироваться';
   const stageButtonText = stage === 'login' ? ' Нет аккаунта? Зарегистрироваться' : 'Есть аккаунт? Войти';
 
   type groupType = CurrentGroup;
 
-  const showGroups = (currentGroup: groupType) => {
-    setIsOpen(false);
+  const chooseGroup = (currentGroup: groupType) => {
     form.setFieldValue('groupName', currentGroup.name);
+    setIsOpen(false);
+  };
+
+  const getGroups = () => {
+    setIsOpen((prev) => !prev);
+    console.log('b');
   };
 
   const hideGroups = () => {
-    setIsOpen((prev) => !prev);
+    setIsOpen(false);
+    console.log('a');
   };
 
   return (
@@ -40,11 +46,12 @@ export const Auth = () => {
                 label="Имя"
                 type="text"
                 variant="primary"
+                autoComplete='name'
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
-                value={(form.values as RegisterSchemaType).name}
-                {...((form.touched as FormikTouched<RegisterSchemaType>).name && {
-                  error: (form.errors as RegisterSchemaType).name
+                value={form.values.name}
+                {...(form.touched.name && {
+                  error: form.errors.name
                 })}
               />
               <Input
@@ -52,37 +59,50 @@ export const Auth = () => {
                 label="Фамилия"
                 type="text"
                 variant="primary"
+                autoComplete='family-name'
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
-                value={(form.values as RegisterSchemaType).surname}
-                {...((form.touched as FormikTouched<RegisterSchemaType>).surname && {
-                  error: (form.errors as RegisterSchemaType).surname
+                value={form.values.surname}
+                {...(form.touched.surname && {
+                  error: form.errors.surname
                 })}
               />
-              <div style={{ position: 'relative' }}>
+              <div onBlur={hideGroups}>
+                <p className={styles.label}>{'Группа'}</p>
                 <Input
                   name="group_Id"
                   label="Группа"
                   type="text"
                   variant="primary"
+                  custom={true}
+                  autoComplete='off'
+                  className={clsx(styles['group-input'], isOpen && styles['active'])}
                   readOnly={true}
-                  onClick={hideGroups}
-                  onChange={form.handleChange}
+                  onClick={getGroups}
                   onBlur={form.handleBlur}
-                  value={(form.values as RegisterSchemaType).groupName}
-                  {...((form.touched as FormikTouched<RegisterSchemaType>).groupName && {
-                    error: (form.errors as RegisterSchemaType).groupName
+                  onChange={form.handleChange}
+                  value={form.values.groupName}
+                  {...(form.touched.groupName && {
+                    error: form.errors.groupName
                   })}
                 />
-                {isOpen && (
-                  <div className={styles['group-list']}>
-                    {groups?.map((group) => (
-                      <div className={styles['group-name']} key={group.group_id} onClick={() => showGroups(group)}>
-                        {group.name}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.15, ease: 'easeInOut' }}
+                      className={styles['group-list']}
+                    >
+                      {groups?.map((group) => (
+                        <div className={styles['group-name']} key={group.group_id} onClick={() => chooseGroup(group)}>
+                          {group.name}
+                        </div>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </>
           )}
@@ -91,6 +111,7 @@ export const Auth = () => {
             label="Почта"
             type="text"
             variant="primary"
+            autoComplete='email'
             onChange={form.handleChange}
             onBlur={form.handleBlur}
             value={form.values.email}
@@ -101,6 +122,7 @@ export const Auth = () => {
             label="Пароль"
             type="password"
             variant="primary"
+            autoComplete='current-password'
             onChange={form.handleChange}
             onBlur={form.handleBlur}
             value={form.values.password}

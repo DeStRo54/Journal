@@ -19,44 +19,6 @@ export const useAuth = () => {
 
   const getAllGroupsResponse = getAllGroups?.data;
 
-  // const getAllGroupsResponse = [
-  // 	{
-  // 		group_id: 1,
-  // 		name: 'БСБО-01-23',
-  // 		course: 2
-  // 	},
-  // 	{
-  // 		group_id: 2,
-  // 		name: 'БСБО-02-23',
-  // 		course: 2
-  // 	},
-  // 	{
-  // 		group_id: 3,
-  // 		name: 'БСБО-03-23',
-  // 		course: 2
-  // 	},
-  // 	{
-  // 		group_id: 4,
-  // 		name: 'БСБО-04-23',
-  // 		course: 2
-  // 	},
-  // 	{
-  // 		group_id: 5,
-  // 		name: 'БСБО-05-23',
-  // 		course: 2
-  // 	},
-  // 	{
-  // 		group_id: 6,
-  // 		name: 'БСБО-06-23',
-  // 		course: 2
-  // 	},
-  // 	{
-  // 		group_id: 7,
-  // 		name: 'БСБО-07-23',
-  // 		course: 2
-  // 	}
-  // ];
-
   const groupsList = getAllGroupsResponse?.reduce((acc: Record<string, number>, group) => {
     acc[group.name] = group.group_id;
     return acc;
@@ -120,7 +82,6 @@ export const useAuth = () => {
       });
       if (!postAuthResponse.error) {
         navigate('/journal');
-      } else {
       }
     }
   };

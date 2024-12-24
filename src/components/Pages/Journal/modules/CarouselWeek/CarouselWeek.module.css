@@ -15,11 +15,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.current-date {
-  display: inline-block;
-  text-align: justify;
-}
-
 .carousel-date-item {
   display: flex;
   flex-direction: column;

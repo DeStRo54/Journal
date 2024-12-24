@@ -1,11 +1,11 @@
 :root {
   --main-background-color: #17171c;
   --text-invert-color: #f8f9fa;
-  --time-color: #AE8BFF;
+  --time-color: #ae8bff;
   --button-question-color: #8793a6;
   --border-base-color: gray;
-  --border-focus-color: #AE8BFF;
-  --button-accept-color: #AE8BFF;
+  --border-focus-color: #ae8bff;
+  --button-accept-color: #ae8bff;
   --component-background-color: #373d48;
   --max-width-mobile: 547px;
   --max-width-desktop: 1000px;
@@ -13,20 +13,24 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* .html {
+.html {
   scrollbar-color: var(--button-question-color) #888;
   scrollbar-width: thin;
 }
 
 ::-webkit-scrollbar {
-  width: 9px;
+  @media (max-width: 1050px) {
+    display: none;
+  }
+
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--button-question-color);
-  border-radius: 8px;
+  border-radius: 16px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #888;
-} */
+}

@@ -5,6 +5,7 @@ import { createfirstMonthsNodes } from '../../helpers/createfirstMonthsNodes';
 import { findDayIndexInMonth } from '../../helpers/findDayIndexInMonth';
 import { findIndexByDate } from '../../helpers/findIndexByDate';
 import { getDaysForCarouselMonth } from '../../helpers/getDaysByMonth';
+import { WeekHeader } from '../shared/WeekHeader/WeekHeader';
 
 import styles from './CarouselMonth.module.css';
 import { Button } from '@/components/ui/Button';
@@ -14,10 +15,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 interface carouselWeekProps {
-  currentDateIndex: number;
-  currentDate: { year: number; month: string; week: number };
+  currentDate: { year: number; month: string; day: number };
   activeDateNode: number;
   weekDays: string[];
+  firstSessionDay: number;
+  monthsNumbers: number[];
   values: { year: number; month: string; day: number }[];
   monthCarouselRef: React.RefObject<SwiperRef>;
   dayCarouselRef: React.RefObject<SwiperRef>;
@@ -27,12 +29,15 @@ export const CarouselMonth = ({
   weekDays,
   activeDateNode,
   values,
+  firstSessionDay,
+  monthsNumbers,
   monthCarouselRef,
   currentDate,
   dayCarouselRef
 }: carouselWeekProps) => {
   const daysByMonth = React.useMemo(() => getDaysForCarouselMonth(values), []);
   const [dropdownActive, setDropdownActive] = React.useState(false);
+  const btnref = React.useRef<HTMLButtonElement>(null);
 
   const [currentSlide, dayIndexInSlide] = React.useMemo(
     () => findDayIndexInMonth(values[activeDateNode], daysByMonth),
@@ -52,17 +57,20 @@ export const CarouselMonth = ({
     <div className={styles['carousel-month']}>
       <div className={styles['header']}>
         <div className={styles['date-container']}>
-          <Typhography
-            tag="h2"
-            variant="primary"
-            className={styles['current-date']}
-            children={`${currentDate.month} ${currentDate.year} — ${currentDate.week} неделя`}
+          <WeekHeader
+            currentDate={values[currentDate.day]}
+            firstSessionDay={firstSessionDay}
+            monthsNumbers={monthsNumbers}
+            index={currentDate.day}
+            variant="desktop"
           />
           <div className={styles['dropdown']}>
             <Button
+              ref={btnref}
               children={`${daysByMonth[currentSlide][dayIndexInSlide].month}`}
               className={clsx(styles['dropdown-btn'], dropdownActive && styles['dropdown-active'])}
               onClick={onDropDownClick}
+              onBlur={() => setDropdownActive(false)}
             />
             <AnimatePresence>
               {dropdownActive && (

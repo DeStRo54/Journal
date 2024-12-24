@@ -2,14 +2,13 @@
 import React from 'react';
 
 import 'swiper/swiper-bundle.css';
-import { calculateWeek } from './helpers/calculateWeek.ts';
 import { createDate } from './helpers/createDate';
 import { findIndexByDate } from './helpers/findIndexByDate.ts';
 import styles from './Journal.module.css';
 import { CarouselDay } from './modules/CarouselDay/CarouselDay.tsx';
 import { CarouselMonth } from './modules/CarouselMonth/CarouselMonth.tsx';
 import { CarouselWeek } from './modules/CarouselWeek/CarouselWeek.tsx';
-import { Header } from './modules/shared/Header/Header.tsx';
+import { Header } from './modules/Header/Header.tsx';
 import { AllScheduleResponse } from '@/utils/api/requests/schedule/get/response.js';
 import { useGetAllScheduleQuery } from '@/utils/redux/apiSlices/scheduleApiSlice/scheduleApi.ts';
 import { SwiperRef } from 'swiper/react';
@@ -25,7 +24,7 @@ export const Journal = () => {
     {
       params: {
         from_time: '02.09.2024',
-        days_count: 126
+        days_count: 154
       }
     },
     {
@@ -41,9 +40,12 @@ export const Journal = () => {
   const data = success ? Object.values(getScheduleResponse as AllScheduleResponse) : [];
 
   const values = React.useMemo(
-    () => createDate({ currentYear: today.getFullYear(), currentMonthIndex: 9, currentDayIndex: 2 }),
+    () => createDate({ currentYear: today.getFullYear(), currentMonthIndex: 9, currentDayIndex: 2, daysCount: 154 }),
     []
-  );
+  ); //массив дней семестра
+
+  const monthsNumbers = [9, 10, 11, 12]; //месяца обучения
+  const firstSessionDay = 24; //первый день сессии
 
   const monthData = [
     'Январь',
@@ -74,7 +76,7 @@ export const Journal = () => {
     return {
       year: values[currentDateIndex].year,
       month: values[currentDateIndex].month,
-      week: Math.ceil((currentDateIndex + 1) / 7)
+      day: currentDateIndex
     };
   });
 
@@ -87,7 +89,7 @@ export const Journal = () => {
     setCurrentDate({
       year: values[weekNodeIndex].year,
       month: values[weekNodeIndex].month,
-      week: calculateWeek(weekNodeIndex)
+      day: weekNodeIndex
     });
   };
 
@@ -101,7 +103,7 @@ export const Journal = () => {
     setCurrentDate({
       year: values[dayNodeIndex].year,
       month: values[dayNodeIndex].month,
-      week: calculateWeek(dayNodeIndex)
+      day: dayNodeIndex
     });
 
     weekNode.slideTo(dayNodeIndex, 300);
@@ -116,9 +118,10 @@ export const Journal = () => {
           <CarouselMonth
             weekDays={weekDays}
             values={values}
+            firstSessionDay={firstSessionDay}
+            monthsNumbers={monthsNumbers}
             currentDate={currentDate}
             activeDateNode={activeWeekNode}
-            currentDateIndex={currentDateIndex}
             monthCarouselRef={monthCarouselRef}
             dayCarouselRef={dayCarouselRef}
           />
@@ -127,6 +130,8 @@ export const Journal = () => {
             currentDate={currentDate}
             activeWeekNode={activeWeekNode}
             weekDays={weekDays}
+            firstSessionDay={firstSessionDay}
+            monthsNumbers={monthsNumbers}
             values={values}
             onWeekNodeScroll={onWeekNodeScroll}
             weekCarouselRef={weekCarouselRef}

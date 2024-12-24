@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/Button';
 import styles from './AdminPanel.module.css';
+import { Button } from '@/components/ui/Button';
 import { Typhography } from '@/components/ui/Typhography';
 import { usePostAdminAddGroupMutation } from '@/utils/redux/apiSlices/adminApiSlice/adminApi';
 
@@ -7,7 +7,7 @@ export const AdminPanel = () => {
   const [postGroup] = usePostAdminAddGroupMutation();
 
   const addGroup = async () => {
-    const a = await postGroup({
+    await postGroup({
       params: {
         name: 'БСБО-01-23',
         course: 1,

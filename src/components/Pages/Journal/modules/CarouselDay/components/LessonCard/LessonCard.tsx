@@ -4,6 +4,7 @@ import styles from './LessonCard.module.css';
 import { LessonInfo } from './LessonInfo/LessonInfo';
 import { OutputClass } from '@/utils/api/requests/schedule/get/response';
 import clsx from 'clsx';
+import { AnimatePresence } from 'framer-motion';
 
 interface LessonCardProps {
   apiData: OutputClass;
@@ -76,7 +77,7 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
           </div>
         ))}
       </div>
-      {showInfo && <LessonInfo apiData={apiData} showDetails={showDetails} />}
+      <AnimatePresence>{showInfo && <LessonInfo apiData={apiData} showDetails={showDetails} />}</AnimatePresence>
     </React.Fragment>
   );
 };

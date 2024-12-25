@@ -25,12 +25,10 @@ export const Auth = () => {
 
   const getGroups = () => {
     setIsOpen((prev) => !prev);
-    console.log('b');
   };
 
   const hideGroups = () => {
     setIsOpen(false);
-    console.log('a');
   };
 
   return (
@@ -46,7 +44,7 @@ export const Auth = () => {
                 label="Имя"
                 type="text"
                 variant="primary"
-                autoComplete='name'
+                autoComplete="name"
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 value={form.values.name}
@@ -59,7 +57,7 @@ export const Auth = () => {
                 label="Фамилия"
                 type="text"
                 variant="primary"
-                autoComplete='family-name'
+                autoComplete="family-name"
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 value={form.values.surname}
@@ -75,7 +73,7 @@ export const Auth = () => {
                   type="text"
                   variant="primary"
                   custom={true}
-                  autoComplete='off'
+                  autoComplete="off"
                   className={clsx(styles['group-input'], isOpen && styles['active'])}
                   readOnly={true}
                   onClick={getGroups}
@@ -111,7 +109,7 @@ export const Auth = () => {
             label="Почта"
             type="text"
             variant="primary"
-            autoComplete='email'
+            autoComplete="email"
             onChange={form.handleChange}
             onBlur={form.handleBlur}
             value={form.values.email}
@@ -122,7 +120,7 @@ export const Auth = () => {
             label="Пароль"
             type="password"
             variant="primary"
-            autoComplete='current-password'
+            autoComplete="current-password"
             onChange={form.handleChange}
             onBlur={form.handleBlur}
             value={form.values.password}

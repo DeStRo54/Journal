@@ -24,6 +24,7 @@
 }
 
 .dropdown {
+  z-index: 900;
   position: relative;
   width: 27%;
 }
@@ -67,7 +68,7 @@
 }
 
 .dropdown-item {
-  margin: 0.5rem;
+  padding: 0.5rem;
   cursor: pointer;
   text-align: left;
 }

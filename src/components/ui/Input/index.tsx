@@ -20,7 +20,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {!custom && (
           <label className={styles.label} htmlFor={name}>
             {label}
-          </label>)}
+          </label>
+        )}
         <input
           ref={ref}
           id={name}

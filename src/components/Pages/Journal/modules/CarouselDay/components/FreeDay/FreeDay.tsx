@@ -5,8 +5,8 @@ import { Typhography } from '@/components/ui/Typhography';
 export const FreeDay = () => {
   return (
     <div className={styles['container']}>
-      <Typhography tag="p" variant="primary" children={'Без пар'} className={styles['title']} />
       <BezParIcon className={styles['icon']} />
+      <Typhography tag="p" variant="primary" children={`Без пар`} className={styles['title']} />
     </div>
   );
 };

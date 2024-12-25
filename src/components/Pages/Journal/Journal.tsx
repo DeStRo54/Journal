@@ -72,13 +72,11 @@ export const Journal = () => {
     []
   );
 
-  const [currentDate, setCurrentDate] = React.useState(() => {
-    return {
-      year: values[currentDateIndex].year,
-      month: values[currentDateIndex].month,
-      day: currentDateIndex
-    };
-  });
+  const [currentDate, setCurrentDate] = React.useState(() => ({
+    year: values[currentDateIndex].year,
+    month: values[currentDateIndex].month,
+    day: currentDateIndex
+  }));
 
   const [activeWeekNode, setActiveWeekNode] = React.useState(() => currentDateIndex);
 
@@ -114,7 +112,7 @@ export const Journal = () => {
     <div className={styles.container}>
       <Header />
       {success && (
-        <div className={styles['journal-body']}>
+        <div className={styles['journal-body']} id="journal">
           <CarouselMonth
             weekDays={weekDays}
             values={values}

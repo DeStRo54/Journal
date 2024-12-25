@@ -37,7 +37,10 @@ export const CarouselMonth = ({
 }: carouselWeekProps) => {
   const daysByMonth = React.useMemo(() => getDaysForCarouselMonth(values), []);
   const [dropdownActive, setDropdownActive] = React.useState(false);
-  const btnref = React.useRef<HTMLButtonElement>(null);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+  const timeoutRef = React.useRef<number | null>(null);
+
+  const [prevTest, setPrevTest] = React.useState(false);
 
   const [currentSlide, dayIndexInSlide] = React.useMemo(
     () => findDayIndexInMonth(values[activeDateNode], daysByMonth),
@@ -46,12 +49,38 @@ export const CarouselMonth = ({
   const firstMonthsNodes = React.useMemo(() => createfirstMonthsNodes(values), []);
 
   const onDropDownClick = () => {
-    setDropdownActive(!dropdownActive);
+    setDropdownActive((prev) => !prev);
   };
 
-  const onScrollClick = (dayIndex: number) => {
-    dayCarouselRef.current?.swiper.slideTo(dayIndex, 0);
+  const clearExistingTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
   };
+
+  React.useEffect(() => {
+    return () => {
+      clearExistingTimeout();
+    };
+  }, []);
+
+  const onScrollClick = (dayIndex: number) => {
+    clearExistingTimeout();
+    dayCarouselRef.current?.swiper.slideTo(dayIndex, 0);
+    timeoutRef.current = window.setTimeout(() => {
+      setDropdownActive(false);
+      setPrevTest(false); // Сброс состояния
+    }, 250);
+  };
+
+  const handleClickOutside = () => {
+    clearExistingTimeout();
+    if (prevTest) return;
+    timeoutRef.current = window.setTimeout(() => {
+      setDropdownActive(false);
+    }, 100);
+  };
+
 
   return (
     <div className={styles['carousel-month']}>
@@ -64,13 +93,11 @@ export const CarouselMonth = ({
             index={currentDate.day}
             variant="desktop"
           />
-          <div className={styles['dropdown']}>
+          <div className={styles['dropdown']} ref={dropdownRef} onBlur={handleClickOutside}>
             <Button
-              ref={btnref}
               children={`${daysByMonth[currentSlide][dayIndexInSlide].month}`}
               className={clsx(styles['dropdown-btn'], dropdownActive && styles['dropdown-active'])}
               onClick={onDropDownClick}
-              onBlur={() => setDropdownActive(false)}
             />
             <AnimatePresence>
               {dropdownActive && (

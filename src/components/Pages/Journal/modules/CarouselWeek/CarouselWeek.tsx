@@ -1,3 +1,7 @@
+import React from 'react';
+
+import { findDayIndex } from '../../helpers/findDayIndex';
+import { getDaysForOtherCarousels } from '../../helpers/getDaysForOtherCarousels';
 import { WeekHeader } from '../shared/WeekHeader/WeekHeader';
 
 import styles from './CarouselWeek.module.css';

@@ -3,6 +3,7 @@ import { api } from '@/utils/api/instance';
 export type PostmModeratorAddHomeworkClassParams = {
   classSemNumber: number;
   subjectId: number;
+  Category: string;
   homeworkText: string;
   dueDate: string;
 };

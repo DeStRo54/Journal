@@ -15,7 +15,7 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
   const para = apiData.class;
   const homeworks = apiData.homework;
 
-  const [type, subject] = [para.summary.split(' ').shift(), para.summary.split(' ').splice(1).join(' ')];
+  // const subject = para.summary.split(' ').splice(1).join(' '); //ждём фикс 
 
   const convertDateToTime = (rawDate: string) => {
     const timePart = rawDate.split('T')[1];
@@ -59,8 +59,8 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
     <React.Fragment>
       <div className={styles.container} onClick={showDetails}>
         <div className={styles.header}>
-          <h1 className={styles['subject']}>{subject}</h1>
-          <p className={clsx(styles['type'], styles[lessonColor[type as keyof typeof lessonColor]])}>{type}</p>
+          <h1 className={styles['subject']}>{para.summary}</h1>
+          <p className={clsx(styles['type'], styles[lessonColor[para.category as keyof typeof lessonColor]])}>{para.category}</p>
         </div>
         <div className={styles['time-info']}>
           <p>{`${lessonsNumbers[paraBegin as keyof typeof lessonsNumbers]} пара`}</p>

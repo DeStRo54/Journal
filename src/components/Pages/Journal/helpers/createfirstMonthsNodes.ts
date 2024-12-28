@@ -1,7 +1,7 @@
-type test_m = [string, number][];
+type uniqData = [string, number][];
 
 export const createfirstMonthsNodes = (values: { year: number; month: string; day: number }[]) => {
-  const new_values = [] as test_m;
+  const new_values = [] as uniqData;
   const uniqueMonths = new Set();
 
   for (let i = 0; i < values.length; i++) {

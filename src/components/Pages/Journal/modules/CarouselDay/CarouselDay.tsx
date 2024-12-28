@@ -28,7 +28,7 @@ export const CarouselDay = ({ currentDateIndex, apiDates, onDayNodeScroll, dayCa
               {apiData.outputClasses.map((value, index) => (
                 <LessonCard key={index} apiData={value} />
               ))}
-              {!apiData.outputClasses.length && <FreeDay />}
+              {apiData.outputClasses.length === 0 && <FreeDay />}
             </div>
           </SwiperSlide>
         ))}

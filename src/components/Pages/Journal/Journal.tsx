@@ -42,10 +42,10 @@ export const Journal = () => {
   const values = React.useMemo(
     () => createDate({ currentYear: today.getFullYear(), currentMonthIndex: 9, currentDayIndex: 2, daysCount: 154 }),
     []
-  ); //массив дней семестра
+  );
 
-  const monthsNumbers = [9, 10, 11, 12]; //месяца обучения
-  const firstSessionDay = 24; //первый день сессии
+  const monthsNumbers = [9, 10, 11, 12];
+  const firstSessionDay = 24;
 
   const monthData = [
     'Январь',

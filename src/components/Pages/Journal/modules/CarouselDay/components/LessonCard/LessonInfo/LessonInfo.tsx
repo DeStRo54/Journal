@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 
 import styles from './LessonInfo.module.css';
 import { Button } from '@/components/ui/Button';
@@ -6,7 +7,6 @@ import { Input } from '@/components/ui/Input';
 import { Typhography } from '@/components/ui/Typhography';
 import { OutputClass } from '@/utils/api/requests/schedule/get/response';
 import { usePostModeratorAddHomeworkClassMutation } from '@/utils/redux/apiSlices/moderatorApiSlice/moderatorApi';
-import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 
 interface LessonInfoProps {
@@ -20,34 +20,30 @@ export const LessonInfo = ({ apiData, showDetails }: LessonInfoProps) => {
 
   const portalTarget = document.getElementById('journal');
   if (!portalTarget) {
-    console.error('Элемент с классом journal-body не найден');
     return null;
   }
 
   const sendLessonHomework = async () => {
-    try {
-      await postModeratorAddHomeworkClassMutation({
-        params: {
-          classSemNumber: apiData.class.semClassNumber,
-          subjectId: apiData.class.subjectId,
-          homeworkText: homeworkText,
-          dueDate: apiData.class.startTime
-        }
-      });
-    } catch (error) {
-      console.error('Ошибка при отправке задания:', error);
-    }
+    await postModeratorAddHomeworkClassMutation({
+      params: {
+        classSemNumber: apiData.class.semClassNumber,
+        subjectId: apiData.class.subjectId,
+        Category: apiData.class.category,
+        homeworkText: homeworkText,
+        dueDate: apiData.class.startTime
+      }
+    });
   };
 
   return createPortal(
     <motion.div
-      initial={{ x: "100%" }} // Начальная позиция за пределами экрана справа
-      animate={{ x: 0 }} // Конечная позиция
-      exit={{ x: "100%" }} // Позиция при выходе (опционально)
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100%" }}
       transition={{
-        type: "spring", // Тип анимации (можно использовать 'tween')
-        stiffness: 120, // Жёсткость пружины (регулирует скорость и эффект упругости)
-        damping: 20, // Амортизация
+        duration: 0.35,
+        ease: "easeInOut",
+
       }}
       className={styles['environment']}
     >

@@ -2,9 +2,9 @@
 import React from 'react';
 
 import { createfirstMonthsNodes } from '../../helpers/createfirstMonthsNodes';
-import { findDayIndexInMonth } from '../../helpers/findDayIndexInMonth';
+import { findDayIndex } from '../../helpers/findDayIndex';
 import { findIndexByDate } from '../../helpers/findIndexByDate';
-import { getDaysForCarouselMonth } from '../../helpers/getDaysByMonth';
+import { getDaysForOtherCarousels } from '../../helpers/getDaysForOtherCarousels';
 import { WeekHeader } from '../shared/WeekHeader/WeekHeader';
 
 import styles from './CarouselMonth.module.css';
@@ -35,7 +35,7 @@ export const CarouselMonth = ({
   currentDate,
   dayCarouselRef
 }: carouselWeekProps) => {
-  const daysByMonth = React.useMemo(() => getDaysForCarouselMonth(values), []);
+  const daysByMonth = React.useMemo(() => getDaysForOtherCarousels(values, 35), []);
   const [dropdownActive, setDropdownActive] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
   const timeoutRef = React.useRef<number | null>(null);
@@ -43,7 +43,7 @@ export const CarouselMonth = ({
   const [prevTest, setPrevTest] = React.useState(false);
 
   const [currentSlide, dayIndexInSlide] = React.useMemo(
-    () => findDayIndexInMonth(values[activeDateNode], daysByMonth),
+    () => findDayIndex(values[activeDateNode], daysByMonth),
     [activeDateNode, daysByMonth]
   );
   const firstMonthsNodes = React.useMemo(() => createfirstMonthsNodes(values), []);

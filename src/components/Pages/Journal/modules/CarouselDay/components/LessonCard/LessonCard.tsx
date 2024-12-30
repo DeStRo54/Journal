@@ -5,17 +5,17 @@ import { LessonInfo } from './LessonInfo/LessonInfo';
 import { OutputClass } from '@/utils/api/requests/schedule/get/response';
 import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
+import { Typhography } from '@/components/ui/Typhography';
 
 interface LessonCardProps {
   apiData: OutputClass;
 }
 
 export const LessonCard = ({ apiData }: LessonCardProps) => {
-  const [showInfo, setShowInfo] = React.useState(false);
   const para = apiData.class;
   const homeworks = apiData.homework;
 
-  // const subject = para.summary.split(' ').splice(1).join(' '); //ждём фикс 
+  const [showInfo, setShowInfo] = React.useState(false);
 
   const convertDateToTime = (rawDate: string) => {
     const timePart = rawDate.split('T')[1];
@@ -60,22 +60,28 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
       <div className={styles.container} onClick={showDetails}>
         <div className={styles.header}>
           <h1 className={styles['subject']}>{para.summary}</h1>
-          <p className={clsx(styles['type'], styles[lessonColor[para.category as keyof typeof lessonColor]])}>{para.category}</p>
+          <p className={clsx(styles['type'], styles[lessonColor[para.category as keyof typeof lessonColor]])}>
+            {para.category}
+          </p>
         </div>
         <div className={styles['time-info']}>
           <p>{`${lessonsNumbers[paraBegin as keyof typeof lessonsNumbers]} пара`}</p>
           <p>{`${paraBegin} - ${paraEnd}`}</p>
         </div>
         <div className={styles['cabinet-info']}>
-          <p>{para.location}</p>
-          <p>{getTeacher(para.description)}</p>
+          <Typhography tag="p" variant="additional" children={para.location} />
+          <Typhography tag="p" variant="additional" children={getTeacher(para.description)} />
         </div>
-        {homeworks.map((homework, index) => (
-          <div key={index} className={styles['homework-info']}>
+        {homeworks.length > 0 && (
+          <div className={styles['homework-info']}>
             <h1>Задание</h1>
-            <p className={styles['task']}>{homework.homeworkText}</p>
+            {homeworks.map((homework, index) => (
+              <p key={index} className={styles['task']}>
+                {homework.homeworkText}
+              </p>
+            ))}
           </div>
-        ))}
+        )}
       </div>
       <AnimatePresence>{showInfo && <LessonInfo apiData={apiData} showDetails={showDetails} />}</AnimatePresence>
     </React.Fragment>

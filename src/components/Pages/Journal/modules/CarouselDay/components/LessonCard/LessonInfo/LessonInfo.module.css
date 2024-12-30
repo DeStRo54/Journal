@@ -3,21 +3,65 @@ body {
 }
 
 .environment {
-  position: absolute;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
   width: 100%;
   height: 100%;
-  max-width: 700px;
   top: 0;
   right: 0;
-  background-color: var(--component-background-color);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 1500;
 }
 
-.container {
+.background {
+  flex-grow: 1;
+}
+
+.layout {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #1f1f1f;
   gap: 10px;
   width: 100%;
+  max-width: 700px;
   height: 100%;
+  overflow-y: auto;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.close {
+  left: 12px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+}
+
+.section {
+  padding: 34px 20px;
+  border-bottom: 2px solid var(--component-underline-color);
+}
+
+.info {
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.moderator {
+  border: none;
 }

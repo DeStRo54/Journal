@@ -6,12 +6,12 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Typhography } from '@/components/ui/Typhography';
 import { CurrentGroup } from '@/utils/api/requests/group/getAll/response';
-import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export const Auth = () => {
   const { form, stage, groups, func, state } = useAuth();
   const [isOpen, setIsOpen] = React.useState(false);
+  const menuRef = React.useRef<HTMLDivElement>(null);
 
   const acceptButtonText = stage === 'login' ? 'Войти' : 'Зарегистрироваться';
   const stageButtonText = stage === 'login' ? ' Нет аккаунта? Зарегистрироваться' : 'Есть аккаунт? Войти';
@@ -23,18 +23,27 @@ export const Auth = () => {
     setIsOpen(false);
   };
 
+  React.useEffect(() => {
+    const handler = (event: MouseEvent | TouchEvent) => {
+      if (isOpen && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    document.addEventListener('touchstart', handler);
+    return () => {
+      document.removeEventListener('mousedown', handler);
+      document.removeEventListener('touchstart', handler);
+    };
+  }, [isOpen]);
+
   const getGroups = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const hideGroups = () => {
-    setIsOpen(false);
-  };
-
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <h1 className={styles.title}>Здесь будет какой-то заголовок и логотип</h1>
-
       <form onSubmit={form.handleSubmit} className={styles.form}>
         <div>
           {stage === 'register' && (
@@ -65,16 +74,13 @@ export const Auth = () => {
                   error: form.errors.surname
                 })}
               />
-              <div onBlur={hideGroups}>
-                <p className={styles.label}>{'Группа'}</p>
+              <div style={{ position: 'relative' }} ref={menuRef}>
                 <Input
                   name="group_Id"
                   label="Группа"
                   type="text"
                   variant="primary"
-                  custom={true}
                   autoComplete="off"
-                  className={clsx(styles['group-input'], isOpen && styles['active'])}
                   readOnly={true}
                   onClick={getGroups}
                   onBlur={form.handleBlur}
@@ -86,19 +92,19 @@ export const Auth = () => {
                 />
                 <AnimatePresence>
                   {isOpen && (
-                    <motion.div
+                    <motion.ul
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.15, ease: 'easeInOut' }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
                       className={styles['group-list']}
                     >
                       {groups?.map((group) => (
-                        <div className={styles['group-name']} key={group.group_id} onClick={() => chooseGroup(group)}>
+                        <li className={styles['group-name']} key={group.group_id} onClick={() => chooseGroup(group)}>
                           {group.name}
-                        </div>
+                        </li>
                       ))}
-                    </motion.div>
+                    </motion.ul>
                   )}
                 </AnimatePresence>
               </div>
@@ -138,6 +144,6 @@ export const Auth = () => {
 
         <Button type="reset" variant="question" onClick={func.changeStage} children={stageButtonText} />
       </form>
-    </div>
+    </main>
   );
 };

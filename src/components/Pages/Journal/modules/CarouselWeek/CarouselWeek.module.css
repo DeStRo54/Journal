@@ -15,6 +15,11 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.carousel-week-slide {
+  display: flex;
+  flex-direction: row;
+}
+
 .carousel-date-item {
   display: flex;
   flex-direction: column;
@@ -23,9 +28,10 @@
   height: calc(100% / 7) !important;
 }
 
-.carousel-day-item {
-  flex: 0 0 calc(100%);
-  padding: 0 2.2%;
+.day {
+  padding-bottom: 1rem;
+  color: gray;
+  font-size: 0.8rem;
 }
 
 .date-card {
@@ -37,20 +43,13 @@
   font-size: 0.8rem;
   border-radius: 35%;
   aspect-ratio: 1 / 1;
-  transition: background-color 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
   -webkit-tap-highlight-color: transparent;
   width: 65%;
 
   @media (min-width: 547px) {
     font-size: 0.9rem;
   }
-}
-
-.day {
-  text-align: center;
-  padding-bottom: 1rem;
-  color: gray;
-  font-size: 0.8rem;
 }
 
 .clicked {

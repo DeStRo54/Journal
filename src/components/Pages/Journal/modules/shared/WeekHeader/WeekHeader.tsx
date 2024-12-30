@@ -8,7 +8,7 @@ type WeekHeaderVariant = 'mobile' | 'desktop';
 
 interface WeekHeaderProps {
   currentDate: { year: number; month: string; day: number };
-  firstSessionDay: number;
+  firstSessionDay: { year: number; month: string; day: number };
   monthsNumbers: number[];
   index: number;
   variant: WeekHeaderVariant;
@@ -31,7 +31,15 @@ const Months = {
 
 export const WeekHeader = ({ currentDate, index, variant, firstSessionDay, monthsNumbers }: WeekHeaderProps) => {
   const isMonthInList = monthsNumbers.includes(Months[currentDate.month as keyof typeof Months]);
-  const weekData = isMonthInList && currentDate.day < firstSessionDay ? `${calculateWeek(index)} неделя` : 'сессия';
+  const sessionStartDate = new Date(
+    firstSessionDay.year,
+    Months[firstSessionDay.month as keyof typeof Months],
+    firstSessionDay.day
+  );
+  const isSession =
+    new Date(currentDate.year, Months[currentDate.month as keyof typeof Months], currentDate.day) >= sessionStartDate;
+
+  const weekData = isMonthInList && !isSession ? `${calculateWeek(index)} неделя` : 'сессия';
 
   return (
     <React.Fragment>

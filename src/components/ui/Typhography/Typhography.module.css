@@ -4,16 +4,30 @@
 }
 
 .primary {
-  text-align: center;
   font-size: 20px;
 }
 
 .secondary {
-  text-align: center;
   font-size: 18px;
 }
 
 .thirdy {
-  text-align: center;
   font-size: 16px;
+}
+
+.small {
+  font-size: 14px;
+}
+
+.smallest {
+  font-size: 12px;
+}
+
+.additional {
+  color: gray;
+  font-size: 0.8rem;
+
+  @media (min-width: 1050px) {
+    font-size: 0.85rem;
+  }
 }

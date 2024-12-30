@@ -18,7 +18,7 @@ interface carouselWeekProps {
   currentDate: { year: number; month: string; day: number };
   activeDateNode: number;
   weekDays: string[];
-  firstSessionDay: number;
+  firstSessionDay: { year: number; month: string; day: number };
   monthsNumbers: number[];
   values: { year: number; month: string; day: number }[];
   monthCarouselRef: React.RefObject<SwiperRef>;
@@ -36,11 +36,8 @@ export const CarouselMonth = ({
   dayCarouselRef
 }: carouselWeekProps) => {
   const daysByMonth = React.useMemo(() => getDaysForOtherCarousels(values, 35), []);
-  const [dropdownActive, setDropdownActive] = React.useState(false);
-  const dropdownRef = React.useRef<HTMLDivElement>(null);
-  const timeoutRef = React.useRef<number | null>(null);
-
-  const [prevTest, setPrevTest] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const menuRef = React.useRef<HTMLDivElement>(null);
 
   const [currentSlide, dayIndexInSlide] = React.useMemo(
     () => findDayIndex(values[activeDateNode], daysByMonth),
@@ -49,38 +46,27 @@ export const CarouselMonth = ({
   const firstMonthsNodes = React.useMemo(() => createfirstMonthsNodes(values), []);
 
   const onDropDownClick = () => {
-    setDropdownActive((prev) => !prev);
-  };
-
-  const clearExistingTimeout = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+    setIsOpen((prev) => !prev);
   };
 
   React.useEffect(() => {
-    return () => {
-      clearExistingTimeout();
+    const handler = (event: MouseEvent | TouchEvent) => {
+      if (isOpen && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
     };
-  }, []);
+    document.addEventListener('mousedown', handler);
+    document.addEventListener('touchstart', handler);
+    return () => {
+      document.removeEventListener('mousedown', handler);
+      document.removeEventListener('touchstart', handler);
+    };
+  }, [isOpen]);
 
   const onScrollClick = (dayIndex: number) => {
-    clearExistingTimeout();
     dayCarouselRef.current?.swiper.slideTo(dayIndex, 0);
-    timeoutRef.current = window.setTimeout(() => {
-      setDropdownActive(false);
-      setPrevTest(false); // Сброс состояния
-    }, 250);
+    setIsOpen(false);
   };
-
-  const handleClickOutside = () => {
-    clearExistingTimeout();
-    if (prevTest) return;
-    timeoutRef.current = window.setTimeout(() => {
-      setDropdownActive(false);
-    }, 100);
-  };
-
 
   return (
     <div className={styles['carousel-month']}>
@@ -93,19 +79,19 @@ export const CarouselMonth = ({
             index={currentDate.day}
             variant="desktop"
           />
-          <div className={styles['dropdown']} ref={dropdownRef} onBlur={handleClickOutside}>
+          <div className={styles['dropdown']} ref={menuRef}>
             <Button
               children={`${daysByMonth[currentSlide][dayIndexInSlide].month}`}
-              className={clsx(styles['dropdown-btn'], dropdownActive && styles['dropdown-active'])}
+              className={clsx(styles['dropdown-btn'], isOpen && styles['dropdown-active'])}
               onClick={onDropDownClick}
             />
             <AnimatePresence>
-              {dropdownActive && (
+              {isOpen && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.25, ease: 'easeInOut' }}
                   className={styles['dropdown-content']}
                 >
                   {firstMonthsNodes.map((value) => (

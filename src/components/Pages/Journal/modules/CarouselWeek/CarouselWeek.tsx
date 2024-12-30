@@ -10,13 +10,14 @@ import { Slide } from '@/components/ui/Icons/Slide';
 import clsx from 'clsx';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
+import { findIndexByDate } from '../../helpers/findIndexByDate';
 
 interface carouselWeekProps {
   currentDateIndex: number;
   currentDate: { year: number; month: string; day: number };
   activeWeekNode: number;
   weekDays: string[];
-  firstSessionDay: number;
+  firstSessionDay: { year: number; month: string; day: number };
   monthsNumbers: number[];
   values: { year: number; month: string; day: number }[];
   onWeekNodeScroll: () => void;
@@ -25,7 +26,6 @@ interface carouselWeekProps {
 }
 
 export const CarouselWeek = ({
-  currentDateIndex,
   currentDate,
   activeWeekNode,
   weekDays,
@@ -39,6 +39,13 @@ export const CarouselWeek = ({
   const onDateNodeClick = (index: number) => {
     (dayCarouselRef.current as SwiperRef).swiper.slideTo(index, 0);
   };
+
+  const daysByWeeks = React.useMemo(() => getDaysForOtherCarousels(values, 7), []);
+
+  const [currentSlide, dayIndexInSlide] = React.useMemo(
+    () => findDayIndex(values[activeWeekNode], daysByWeeks),
+    [activeWeekNode, daysByWeeks]
+  );
 
   return (
     <div className={styles['carousel-week']}>
@@ -60,10 +67,8 @@ export const CarouselWeek = ({
       <Swiper
         ref={weekCarouselRef}
         lazyPreloadPrevNext={20}
-        slidesPerView={7}
-        initialSlide={currentDateIndex}
+        initialSlide={currentSlide}
         freeMode={true}
-        slidesPerGroup={7}
         modules={[Navigation]}
         onSlideChange={onWeekNodeScroll}
         speed={500}
@@ -72,15 +77,25 @@ export const CarouselWeek = ({
           prevEl: '.custom-prev'
         }}
       >
-        {values.map((value, index) => (
-          <SwiperSlide key={index} className={styles['carousel-date-item']}>
-            <p className={styles['day']}>{weekDays[index % 7]}</p>
-            <div
-              className={clsx(styles['date-card'], activeWeekNode === index && styles.clicked)}
-              onClick={() => onDateNodeClick(index)}
-            >
-              <p>{value.day}</p>
-            </div>
+        {daysByWeeks.map((value, slideIndex) => (
+          <SwiperSlide key={slideIndex} className={styles['carousel-week-slide']}>
+            {value.map((value, dayIndex) => (
+              <div
+                key={dayIndex}
+                className={styles['carousel-date-item']}
+                onClick={() => onDateNodeClick(findIndexByDate(values, value))}
+              >
+                <p className={styles['day']}>{weekDays[dayIndex]}</p>
+                <div
+                  className={clsx(
+                    styles['date-card'],
+                    currentSlide === slideIndex && dayIndexInSlide === dayIndex && styles.clicked
+                  )}
+                >
+                  <p>{value.day}</p>
+                </div>
+              </div>
+            ))}
           </SwiperSlide>
         ))}
       </Swiper>

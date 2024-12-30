@@ -45,7 +45,7 @@ export const Journal = () => {
   );
 
   const monthsNumbers = [9, 10, 11, 12];
-  const firstSessionDay = 24;
+  const firstSessionDay = { year: 2024, month: 'Декабрь', day: 24 };
 
   const monthData = [
     'Январь',
@@ -85,9 +85,9 @@ export const Journal = () => {
   const onWeekNodeScroll = () => {
     const weekNodeIndex = (weekCarouselRef.current as SwiperRef).swiper.realIndex;
     setCurrentDate({
-      year: values[weekNodeIndex].year,
-      month: values[weekNodeIndex].month,
-      day: weekNodeIndex
+      year: values[weekNodeIndex * 7].year,
+      month: values[weekNodeIndex * 7].month,
+      day: weekNodeIndex * 7,
     });
   };
 
@@ -104,12 +104,12 @@ export const Journal = () => {
       day: dayNodeIndex
     });
 
-    weekNode.slideTo(dayNodeIndex, 300);
+    weekNode.slideTo(Math.ceil((dayNodeIndex + 1) / 7) - 1, 0);
     monthNode.slideTo(Math.ceil((dayNodeIndex + 1) / 35) - 1, 0);
   };
 
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <Header />
       {success && (
         <div className={styles['journal-body']} id="journal">
@@ -143,6 +143,6 @@ export const Journal = () => {
           />
         </div>
       )}
-    </div>
+    </main>
   );
 };

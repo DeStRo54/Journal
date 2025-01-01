@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/Input';
 import { Typhography } from '@/components/ui/Typhography';
 import { CurrentGroup } from '@/utils/api/requests/group/getAll/response';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Skeleton } from '@/components/shared/Skeleton';
 
 export const Auth = () => {
   const { form, stage, groups, func, state } = useAuth();
@@ -138,7 +139,7 @@ export const Auth = () => {
           type="submit"
           variant="accept"
           disabled={state.isLoading}
-          children={state.isLoading ? 'Отправка...' : acceptButtonText}
+          children={state.isLoading ? <Skeleton /> : acceptButtonText}
         />
         {state.isError && <Typhography tag="h1" variant="secondary" children={'Ошибка, повторите попытку позже!'} />}
 

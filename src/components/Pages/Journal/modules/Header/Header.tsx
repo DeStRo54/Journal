@@ -6,18 +6,18 @@ import { AddLogo } from '@/components/ui/Icons/Add';
 import { AdminLogo } from '@/components/ui/Icons/Admin';
 import { SettingsLogo } from '@/components/ui/Icons/Settings';
 import { Typhography } from '@/components/ui/Typhography';
-import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
+import { getUser } from '@/utils/redux/storeSlices/userSlice/selectors';
 
 export const Header = () => {
   const navigate = useNavigate();
-  const role = useSelector(getUserRole);
-  const showAdminComponent = role === 'admin';
-  const goToAdminPanel = () => navigate('/journal/moderator');
+  const { role, group_id } = useSelector(getUser);
+  const showAdminComponent = role === 2;
+  const goToAdminPanel = () => navigate('/admin');
 
   return (
     <header className={styles.header}>
       <Typhography tag="h1" variant="primary">
-        Группа
+        {group_id}
       </Typhography>
       <div className={styles.container}>
         {showAdminComponent && (

@@ -40,7 +40,7 @@ export const Journal = () => {
   const data = success ? Object.values(getScheduleResponse as AllScheduleResponse) : [];
 
   const values = React.useMemo(
-    () => createDate({ currentYear: today.getFullYear(), currentMonthIndex: 9, currentDayIndex: 2, daysCount: 154 }),
+    () => createDate({ currentYear: 2024, currentMonthIndex: 9, currentDayIndex: 2, daysCount: 154 }),
     []
   );
 
@@ -85,9 +85,9 @@ export const Journal = () => {
   const onWeekNodeScroll = () => {
     const weekNodeIndex = (weekCarouselRef.current as SwiperRef).swiper.realIndex;
     setCurrentDate({
-      year: values[weekNodeIndex * 7].year,
-      month: values[weekNodeIndex * 7].month,
-      day: weekNodeIndex * 7,
+      year: values[weekNodeIndex * 7 + 6].year,
+      month: values[weekNodeIndex * 7 + 6].month,
+      day: weekNodeIndex * 7 + 6
     });
   };
 
@@ -104,7 +104,7 @@ export const Journal = () => {
       day: dayNodeIndex
     });
 
-    weekNode.slideTo(Math.ceil((dayNodeIndex + 1) / 7) - 1, 0);
+    weekNode.slideTo(Math.ceil((dayNodeIndex + 1) / 7) - 1, 300);
     monthNode.slideTo(Math.ceil((dayNodeIndex + 1) / 35) - 1, 0);
   };
 

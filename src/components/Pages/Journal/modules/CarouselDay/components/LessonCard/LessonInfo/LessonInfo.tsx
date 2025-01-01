@@ -1,15 +1,14 @@
-import React from 'react';
 import { createPortal } from 'react-dom';
 
 import styles from './LessonInfo.module.css';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
 import { Typhography } from '@/components/ui/Typhography';
 import { OutputClass } from '@/utils/api/requests/schedule/get/response';
-import { usePostModeratorAddHomeworkClassMutation } from '@/utils/redux/apiSlices/moderatorApiSlice/moderatorApi';
 import { motion } from 'framer-motion';
 import { Slide } from '@/components/ui/Icons/Slide';
-import clsx from 'clsx';
+import { ModeratorBlock } from './ModeratorBlock/ModeratorBlock';
+import { useSelector } from 'react-redux';
+import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 
 interface LessonInfoProps {
   apiData: OutputClass;
@@ -17,25 +16,12 @@ interface LessonInfoProps {
 }
 
 export const LessonInfo = ({ apiData, showDetails }: LessonInfoProps) => {
-  const [postModeratorAddHomeworkClassMutation, { isLoading, isError }] = usePostModeratorAddHomeworkClassMutation();
-  const [homeworkText, setHomeworkText] = React.useState('');
-
   const portalTarget = document.getElementById('journal');
   if (!portalTarget) {
     return null;
   }
 
-  const sendLessonHomework = async () => {
-    await postModeratorAddHomeworkClassMutation({
-      params: {
-        classSemNumber: apiData.class.semClassNumber,
-        subjectId: apiData.class.subjectId,
-        Category: apiData.class.category,
-        homeworkText: homeworkText,
-        dueDate: apiData.class.startTime
-      }
-    });
-  };
+  const role = useSelector(getUserRole);
 
   return createPortal(
     <motion.div
@@ -78,22 +64,7 @@ export const LessonInfo = ({ apiData, showDetails }: LessonInfoProps) => {
             <Typhography tag="h3" variant="additional" className={styles['info']} children={'Преподаватели'} />
             <Typhography tag="p" variant="thirdy" children={apiData.class.description} />
           </section>
-          <section className={clsx(styles['section'], styles['moderator'])}>
-            <Input
-              onChange={(e) => setHomeworkText(e.target.value)}
-              label="Добавить задание"
-              variant="homework"
-              name={`${apiData.class.startTime}`}
-            />
-            <Button variant="accept" disabled={isLoading || !homeworkText} onClick={sendLessonHomework}>
-              {isLoading ? 'Отправка...' : 'Добавить'}
-            </Button>
-            {isError && (
-              <Typhography tag="p" variant="thirdy">
-                Ошибка
-              </Typhography>
-            )}
-          </section>
+          {role > 0 && <ModeratorBlock apiData={apiData} />}
         </div>
       </motion.div>
     </motion.div>,

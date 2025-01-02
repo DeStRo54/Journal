@@ -15,12 +15,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 interface carouselWeekProps {
-  currentDate: { year: number; month: string; day: number };
+  currentDate: CustomDate;
   activeDateNode: number;
   weekDays: string[];
-  firstSessionDay: { year: number; month: string; day: number };
+  firstSessionDay: CustomDate;
   monthsNumbers: number[];
-  values: { year: number; month: string; day: number }[];
+  values: CustomDates;
   monthCarouselRef: React.RefObject<SwiperRef>;
   dayCarouselRef: React.RefObject<SwiperRef>;
 }

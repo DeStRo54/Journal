@@ -10,13 +10,15 @@ function App() {
     const setUserData = async () => {
       try {
         const { data } = await getUserData(undefined);
-        dispatch(logIn({
-          role: 2, //data.role,
-          name: data.name,
-          surname: data.surname,
-          email: data.email,
-          group_id: data.group_id
-        }));
+        dispatch(
+          logIn({
+            role: 2, //data.role,
+            name: data.name,
+            surname: data.surname,
+            email: data.email,
+            group_id: data.group_id
+          })
+        );
       } catch (error) {
         console.log(error);
       }

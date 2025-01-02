@@ -14,12 +14,12 @@ import { findIndexByDate } from '../../helpers/findIndexByDate';
 
 interface carouselWeekProps {
   currentDateIndex: number;
-  currentDate: { year: number; month: string; day: number };
+  currentDate: CustomDate;
   activeWeekNode: number;
   weekDays: string[];
-  firstSessionDay: { year: number; month: string; day: number };
+  firstSessionDay: CustomDate;
   monthsNumbers: number[];
-  values: { year: number; month: string; day: number }[];
+  values: CustomDates;
   onWeekNodeScroll: () => void;
   weekCarouselRef: React.RefObject<SwiperRef>;
   dayCarouselRef: React.RefObject<SwiperRef>;

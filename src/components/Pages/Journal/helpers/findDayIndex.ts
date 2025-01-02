@@ -1,7 +1,4 @@
-type day = { year: number; month: string; day: number };
-type daysByMonth = { year: number; month: string; day: number }[][];
-
-export const findDayIndex = (day: day, daysByMonth: daysByMonth) => {
+export const findDayIndex = (day: CustomDate, daysByMonth: CustomDatesByWeeks) => {
   const result = [-1, -1];
   daysByMonth.forEach((value, index) => {
     const dayIndex = value.map((value) => JSON.stringify(value)).indexOf(JSON.stringify(day));

@@ -1,5 +1,5 @@
-type monthsIndexes = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-type daysIndexes =
+type MonthsIndexes = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+type DaysIndexes =
   | 1
   | 2
   | 3
@@ -32,15 +32,17 @@ type daysIndexes =
   | 30
   | 31;
 
+type MonthDataType = { month: Months; days: number };
+
 interface createDateProps {
   currentYear: number;
-  currentMonthIndex: monthsIndexes;
-  currentDayIndex: daysIndexes;
+  currentMonthIndex: MonthsIndexes;
+  currentDayIndex: DaysIndexes;
   daysCount: number;
 }
 
 export const createDate = ({ currentYear, currentMonthIndex, currentDayIndex, daysCount }: createDateProps) => {
-  const monthData = [
+  const monthData: MonthDataType[] = [
     { month: 'Январь', days: 31 },
     { month: 'Февраль', days: 28 },
     { month: 'Март', days: 31 },
@@ -55,12 +57,7 @@ export const createDate = ({ currentYear, currentMonthIndex, currentDayIndex, da
     { month: 'Декабрь', days: 31 }
   ];
 
-  const generateValues = (
-    year: number,
-    monthIndex: number,
-    dayIndex: number,
-    remaining: number
-  ): { year: number; month: string; day: number }[] => {
+  const generateValues = (year: number, monthIndex: number, dayIndex: number, remaining: number): CustomDates => {
     if (remaining === 0) return [];
 
     const currentMonth = monthData[monthIndex];

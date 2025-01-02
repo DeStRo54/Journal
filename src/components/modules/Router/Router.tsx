@@ -8,7 +8,6 @@ import { ProtectedRoute } from './components/RotectedRoute';
 import { Auth, Journal, AdminPanel } from './constants.module';
 import { Skeleton } from '@/components/shared/Skeleton';
 
-
 export const Router = () => {
   const isAuth = !!document.cookie.match('session_key='); // потом починить
   const userRole = useSelector(getUserRole);

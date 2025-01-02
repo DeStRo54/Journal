@@ -13,6 +13,23 @@ import { AllScheduleResponse } from '@/utils/api/requests/schedule/get/response.
 import { useGetAllScheduleQuery } from '@/utils/redux/apiSlices/scheduleApiSlice/scheduleApi.ts';
 import { SwiperRef } from 'swiper/react';
 
+const monthData: Months[] = [
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь'
+];
+
+const weekDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+
 export const Journal = () => {
   const monthCarouselRef = React.useRef<SwiperRef | null>(null);
   const weekCarouselRef = React.useRef<SwiperRef | null>(null);
@@ -45,22 +62,7 @@ export const Journal = () => {
   );
 
   const monthsNumbers = [9, 10, 11, 12];
-  const firstSessionDay = { year: 2024, month: 'Декабрь', day: 24 };
-
-  const monthData = [
-    'Январь',
-    'Февраль',
-    'Март',
-    'Апрель',
-    'Май',
-    'Июнь',
-    'Июль',
-    'Август',
-    'Сентябрь',
-    'Октябрь',
-    'Ноябрь',
-    'Декабрь'
-  ];
+  const firstSessionDay: CustomDate = { year: 2024, month: 'Декабрь', day: 24 };
 
   const currentDateIndex = React.useMemo(
     () =>
@@ -79,8 +81,6 @@ export const Journal = () => {
   }));
 
   const [activeWeekNode, setActiveWeekNode] = React.useState(() => currentDateIndex);
-
-  const weekDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
   const onWeekNodeScroll = () => {
     const weekNodeIndex = (weekCarouselRef.current as SwiperRef).swiper.realIndex;

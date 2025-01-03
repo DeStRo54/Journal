@@ -3,10 +3,11 @@ import { useSelector } from 'react-redux';
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from 'react-router-dom';
 
 import { Layout } from '../Layout/Layout';
-import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
+
 import { ProtectedRoute } from './components/RotectedRoute';
-import { Auth, Journal, AdminPanel } from './constants.module';
+import { AdminPanel,Auth, Journal } from './constants.module';
 import { Skeleton } from '@/components/shared/Skeleton';
+import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 
 export const Router = () => {
   const isAuth = !!document.cookie.match('session_key='); // потом починить

@@ -2,12 +2,12 @@ import React from 'react';
 
 import styles from './Auth.module.css';
 import { useAuth } from './hooks/useAuth';
+import { Skeleton } from '@/components/shared/Skeleton';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Typhography } from '@/components/ui/Typhography';
 import { CurrentGroup } from '@/utils/api/requests/group/getAll/response';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Skeleton } from '@/components/shared/Skeleton';
 
 export const Auth = () => {
   const { form, stage, groups, func, state } = useAuth();

@@ -104,7 +104,7 @@ export const Journal = () => {
       day: dayNodeIndex
     });
 
-    weekNode.slideTo(Math.ceil((dayNodeIndex + 1) / 7) - 1, 300);
+    weekNode.slideTo(Math.ceil((dayNodeIndex + 1) / 7) - 1, 400);
     monthNode.slideTo(Math.ceil((dayNodeIndex + 1) / 35) - 1, 0);
   };
 

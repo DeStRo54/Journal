@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { findDayIndex } from '../../helpers/findDayIndex';
+import { findIndexByDate } from '../../helpers/findIndexByDate';
 import { getDaysForOtherCarousels } from '../../helpers/getDaysForOtherCarousels';
 import { WeekHeader } from '../shared/WeekHeader/WeekHeader';
 
@@ -10,7 +11,6 @@ import { Slide } from '@/components/ui/Icons/Slide';
 import clsx from 'clsx';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
-import { findIndexByDate } from '../../helpers/findIndexByDate';
 
 interface carouselWeekProps {
   currentDateIndex: number;

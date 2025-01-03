@@ -6,7 +6,7 @@ import { logIn } from './utils/redux/storeSlices/userSlice/slice';
 
 function App() {
   const dispatch = useDispatch();
-  if (!!document.cookie.match('session_key=')) {
+  if (document.cookie.match('session_key=')) {
     const setUserData = async () => {
       try {
         const { data } = await getUserData(undefined);

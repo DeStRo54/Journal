@@ -62,6 +62,17 @@ body {
   text-transform: uppercase;
 }
 
+.homework-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.homework-list-item {
+  font-size: 15px;
+  color: var(--text-invert-color);
+}
+
 .moderator {
   border: none;
 }

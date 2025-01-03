@@ -2,18 +2,36 @@ import React from 'react';
 
 import styles from './LessonCard.module.css';
 import { LessonInfo } from './LessonInfo/LessonInfo';
+import { Typhography } from '@/components/ui/Typhography';
 import { OutputClass } from '@/utils/api/requests/schedule/get/response';
 import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
-import { Typhography } from '@/components/ui/Typhography';
 
 interface LessonCardProps {
   apiData: OutputClass;
 }
 
+const lessonsNumbers = {
+  '09:00': 1,
+  '10:40': 2,
+  '12:40': 3,
+  '14:20': 4,
+  '16:20': 5,
+  '18:00': 6,
+  '19:40': 7
+};
+
+const lessonColor = {
+  ЛК: 'lect',
+  ПР: 'pract',
+  Лаб: 'lab',
+  Зачет: 'zach',
+  Экзамен: 'exam'
+};
+
 export const LessonCard = ({ apiData }: LessonCardProps) => {
   const para = apiData.class;
-  const homeworks = apiData.homework;
+  const [homeworks, setHomeworks] = React.useState(apiData.homework.map((value) => value.homeworkText));
 
   const [showInfo, setShowInfo] = React.useState(false);
 
@@ -26,16 +44,6 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
   const paraBegin = convertDateToTime(para.startTime);
   const paraEnd = convertDateToTime(para.endTime);
 
-  const lessonsNumbers = {
-    '09:00': 1,
-    '10:40': 2,
-    '12:40': 3,
-    '14:20': 4,
-    '16:20': 5,
-    '18:00': 6,
-    '19:40': 7
-  };
-
   const getTeacher = (rawDescrciption: string) => {
     const stageA = rawDescrciption.split('\n')[0].split(' ');
     const stageB = stageA.splice(1, stageA.length - 1);
@@ -47,12 +55,8 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
 
   const showDetails = () => setShowInfo(!showInfo);
 
-  const lessonColor = {
-    ЛК: 'lect',
-    ПР: 'pract',
-    Лаб: 'lab',
-    Зачет: 'zach',
-    Экзамен: 'exam'
+  const addHomework = (homework: string) => {
+    setHomeworks((prev) => [...prev, homework]);
   };
 
   return (
@@ -64,6 +68,16 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
             {para.category}
           </p>
         </div>
+        {homeworks.length > 0 && (
+          <ul className={styles['homework-info']}>
+            <h1>Задание</h1>
+            {homeworks.map((homework, index) => (
+              <ol key={index} className={styles['task']}>
+                {homework}
+              </ol>
+            ))}
+          </ul>
+        )}
         <div className={styles['time-info']}>
           <p>{`${lessonsNumbers[paraBegin as keyof typeof lessonsNumbers]} пара`}</p>
           <p>{`${paraBegin} - ${paraEnd}`}</p>
@@ -72,18 +86,8 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
           <Typhography tag="p" variant="additional" children={para.location} />
           <Typhography tag="p" variant="additional" children={getTeacher(para.description)} />
         </div>
-        {homeworks.length > 0 && (
-          <div className={styles['homework-info']}>
-            <h1>Задание</h1>
-            {homeworks.map((homework, index) => (
-              <p key={index} className={styles['task']}>
-                {homework.homeworkText}
-              </p>
-            ))}
-          </div>
-        )}
       </div>
-      <AnimatePresence>{showInfo && <LessonInfo apiData={apiData} showDetails={showDetails} />}</AnimatePresence>
+      <AnimatePresence>{showInfo && <LessonInfo apiData={apiData} showDetails={showDetails} homeworks={homeworks} addHomework={addHomework} />}</AnimatePresence>
     </React.Fragment>
   );
 };

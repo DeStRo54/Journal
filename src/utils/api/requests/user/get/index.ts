@@ -1,5 +1,5 @@
-import { api } from '@/utils/api/instance';
 import { UserResponse } from './response';
+import { api } from '@/utils/api/instance';
 
 export type GetUserConfig = AxiosRequestConfig | undefined;
 

@@ -1,22 +1,24 @@
+import React from 'react';
+
+import styles from './ModeratorBlock.module.css';
+import { Skeleton } from '@/components/shared/Skeleton';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Typhography } from '@/components/ui/Typhography';
-import { usePostModeratorAddHomeworkClassMutation } from '@/utils/redux/apiSlices/moderatorApiSlice/moderatorApi';
-import React from 'react';
-import styles from './ModeratorBlock.module.css';
 import { OutputClass } from '@/utils/api/requests/schedule/get/response';
-import { Skeleton } from '@/components/shared/Skeleton';
+import { usePostModeratorAddHomeworkClassMutation } from '@/utils/redux/apiSlices/moderatorApiSlice/moderatorApi';
 
 interface ModeratorBlockProps {
   apiData: OutputClass;
+  addHomework: (homework: string) => void;
 }
 
-export const ModeratorBlock = ({ apiData }: ModeratorBlockProps) => {
+export const ModeratorBlock = ({ apiData, addHomework }: ModeratorBlockProps) => {
   const [postModeratorAddHomeworkClassMutation, { isLoading, isError }] = usePostModeratorAddHomeworkClassMutation();
   const [homeworkText, setHomeworkText] = React.useState('');
 
   const sendLessonHomework = async () => {
-    await postModeratorAddHomeworkClassMutation({
+    const postModeratorAddHomeworkClassResponse = await postModeratorAddHomeworkClassMutation({
       params: {
         classSemNumber: apiData.class.semClassNumber,
         subjectId: apiData.class.subjectId,
@@ -25,6 +27,11 @@ export const ModeratorBlock = ({ apiData }: ModeratorBlockProps) => {
         dueDate: apiData.class.startTime
       }
     });
+    if (isError) {
+      console.log(postModeratorAddHomeworkClassResponse.error);
+      return;
+    }
+    addHomework(homeworkText);
   };
 
   return (

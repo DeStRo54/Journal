@@ -13,6 +13,7 @@ import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
+import { LessonsList } from '../shared/LessonsList/LessonsList';
 
 interface carouselWeekProps {
   currentDate: CustomDate;
@@ -20,7 +21,7 @@ interface carouselWeekProps {
   weekDays: string[];
   firstSessionDay: CustomDate;
   monthsNumbers: number[];
-  values: CustomDates;
+  values: ValuesDates;
   monthCarouselRef: React.RefObject<SwiperRef>;
   dayCarouselRef: React.RefObject<SwiperRef>;
 }
@@ -135,6 +136,7 @@ export const CarouselMonth = ({
                 >
                   <p>{value.day}</p>
                 </div>
+                {value.lessons.length > 0 && <LessonsList lessons={value.lessons} />}
               </div>
             ))}
           </SwiperSlide>

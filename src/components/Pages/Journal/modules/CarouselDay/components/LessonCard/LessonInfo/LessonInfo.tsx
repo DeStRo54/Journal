@@ -63,7 +63,15 @@ export const LessonInfo = ({ apiData, showDetails, homeworks, addHomework }: Les
             {homeworks.length === 0 && <Typhography tag="p" variant="thirdy" children={'Отсутствует'} />}
             <ul className={styles['homework-list']}>
               {homeworks.map((value, index) => (
-                <ol key={index} className={styles['homework-list-item']}>{value}</ol>
+                <motion.ol
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.35, ease: 'easeInOut' }}
+                  key={index}
+                  className={styles['homework-list-item']}
+                >
+                  {value}
+                </motion.ol>
               ))}
             </ul>
           </section>

@@ -39,9 +39,16 @@ interface createDateProps {
   currentMonthIndex: MonthsIndexes;
   currentDayIndex: DaysIndexes;
   daysCount: number;
+  AllLessons: AllLessons;
 }
 
-export const createDate = ({ currentYear, currentMonthIndex, currentDayIndex, daysCount }: createDateProps) => {
+export const createDate = ({
+  currentYear,
+  currentMonthIndex,
+  currentDayIndex,
+  daysCount,
+  AllLessons
+}: createDateProps) => {
   const monthData: MonthDataType[] = [
     { month: 'Январь', days: 31 },
     { month: 'Февраль', days: 28 },
@@ -57,7 +64,7 @@ export const createDate = ({ currentYear, currentMonthIndex, currentDayIndex, da
     { month: 'Декабрь', days: 31 }
   ];
 
-  const generateValues = (year: number, monthIndex: number, dayIndex: number, remaining: number): CustomDates => {
+  const generateValues = (year: number, monthIndex: number, dayIndex: number, remaining: number): ValuesDates => {
     if (remaining === 0) return [];
 
     const currentMonth = monthData[monthIndex];
@@ -68,7 +75,7 @@ export const createDate = ({ currentYear, currentMonthIndex, currentDayIndex, da
     }
 
     return [
-      { year, month: currentMonth.month, day: dayIndex },
+      { year, month: currentMonth.month, day: dayIndex, lessons: AllLessons[remaining - 1] },
       ...generateValues(year, monthIndex, dayIndex + 1, remaining - 1)
     ];
   };

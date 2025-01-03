@@ -5,7 +5,7 @@ import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterP
 import { Layout } from '../Layout/Layout';
 
 import { ProtectedRoute } from './components/RotectedRoute';
-import { AdminPanel,Auth, Journal } from './constants.module';
+import { AdminPanel, Auth, Journal } from './constants.module';
 import { Skeleton } from '@/components/shared/Skeleton';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 

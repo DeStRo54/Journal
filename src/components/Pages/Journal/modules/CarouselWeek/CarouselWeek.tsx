@@ -11,15 +11,15 @@ import { Slide } from '@/components/ui/Icons/Slide';
 import clsx from 'clsx';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
+import { LessonsList } from '../shared/LessonsList/LessonsList';
 
 interface carouselWeekProps {
-  currentDateIndex: number;
   currentDate: CustomDate;
   activeWeekNode: number;
   weekDays: string[];
   firstSessionDay: CustomDate;
   monthsNumbers: number[];
-  values: CustomDates;
+  values: ValuesDates;
   onWeekNodeScroll: () => void;
   weekCarouselRef: React.RefObject<SwiperRef>;
   dayCarouselRef: React.RefObject<SwiperRef>;
@@ -50,7 +50,7 @@ export const CarouselWeek = ({
   return (
     <div className={styles['carousel-week']}>
       <div className={styles['navigation']}>
-        <Button className="custom-prev" variant="slide" rotate={true}>
+        <Button className="custom-prev" variant="slide" rotate={true} onClick={onWeekNodeScroll}>
           <Slide />
         </Button>
         <WeekHeader
@@ -60,7 +60,7 @@ export const CarouselWeek = ({
           index={currentDate.day}
           variant="mobile"
         />
-        <Button className="custom-next" variant="slide">
+        <Button className="custom-next" variant="slide" onClick={onWeekNodeScroll}>
           <Slide />
         </Button>
       </div>
@@ -70,16 +70,15 @@ export const CarouselWeek = ({
         initialSlide={currentSlide}
         freeMode={true}
         modules={[Navigation]}
-        onSlideChange={onWeekNodeScroll}
         speed={500}
         navigation={{
           nextEl: '.custom-next',
           prevEl: '.custom-prev'
         }}
       >
-        {daysByWeeks.map((value, slideIndex) => (
+        {daysByWeeks.map((week, slideIndex) => (
           <SwiperSlide key={slideIndex} className={styles['carousel-week-slide']}>
-            {value.map((value, dayIndex) => (
+            {week.map((value, dayIndex) => (
               <div
                 key={dayIndex}
                 className={styles['carousel-date-item']}
@@ -92,8 +91,9 @@ export const CarouselWeek = ({
                     currentSlide === slideIndex && dayIndexInSlide === dayIndex && styles.clicked
                   )}
                 >
-                  <p>{value.day}</p>
+                  <p className={styles['date']}>{value.day}</p>
                 </div>
+                {value.lessons.length > 0 && <LessonsList lessons={value.lessons} />}
               </div>
             ))}
           </SwiperSlide>

@@ -16,6 +16,7 @@
 }
 
 .carousel-week-slide {
+  padding: 0 2%;
   display: flex;
   flex-direction: row;
 }
@@ -36,16 +37,19 @@
 
 .date-card {
   display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
   color: var(--text-invert-color);
-  font-size: 0.8rem;
-  border-radius: 35%;
+  border-radius: 30%;
   aspect-ratio: 1 / 1;
-  transition: all 0.25s ease-in-out;
+  transition: background-color 0.25s ease-in-out;
   -webkit-tap-highlight-color: transparent;
-  width: 65%;
+  width: 75%;
+}
+
+.date {
+  margin: auto;
+  font-size: 0.8rem;
+  width: fit-content;
 
   @media (min-width: 547px) {
     font-size: 0.9rem;
@@ -54,9 +58,8 @@
 
 .clicked {
   background-color: var(--time-color);
-  font-size: 0.9rem;
 
-  @media (min-width: 547px) {
-    font-size: 1rem;
+  p {
+    transform: scale(1.1);
   }
 }

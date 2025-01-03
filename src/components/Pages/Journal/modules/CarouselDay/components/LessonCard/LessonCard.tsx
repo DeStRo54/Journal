@@ -26,6 +26,7 @@ const lessonColor = {
   ПР: 'pract',
   Лаб: 'lab',
   Зачет: 'zach',
+  Консультация: 'cons',
   Экзамен: 'exam'
 };
 
@@ -87,7 +88,11 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
           <Typhography tag="p" variant="additional" children={getTeacher(para.description)} />
         </div>
       </div>
-      <AnimatePresence>{showInfo && <LessonInfo apiData={apiData} showDetails={showDetails} homeworks={homeworks} addHomework={addHomework} />}</AnimatePresence>
+      <AnimatePresence>
+        {showInfo && (
+          <LessonInfo apiData={apiData} showDetails={showDetails} homeworks={homeworks} addHomework={addHomework} />
+        )}
+      </AnimatePresence>
     </React.Fragment>
   );
 };

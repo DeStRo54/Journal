@@ -29,8 +29,7 @@ const Months = {
   Декабрь: 12
 };
 
-export const WeekHeader = ({ currentDate, index, variant, firstSessionDay, monthsNumbers }: WeekHeaderProps) => {
-  const isMonthInList = monthsNumbers.includes(Months[currentDate.month as keyof typeof Months]);
+export const WeekHeader = ({ currentDate, index, variant, firstSessionDay }: WeekHeaderProps) => {
   const sessionStartDate = new Date(
     firstSessionDay.year,
     Months[firstSessionDay.month as keyof typeof Months],
@@ -39,7 +38,7 @@ export const WeekHeader = ({ currentDate, index, variant, firstSessionDay, month
   const isSession =
     new Date(currentDate.year, Months[currentDate.month as keyof typeof Months], currentDate.day) >= sessionStartDate;
 
-  const weekData = isMonthInList && !isSession ? `${calculateWeek(index)} неделя` : 'сессия';
+  const weekData = !isSession ? `${calculateWeek(index)} неделя` : 'сессия';
 
   return (
     <React.Fragment>

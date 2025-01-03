@@ -26,9 +26,6 @@ export const Header = () => {
           </Typhography>
         )}
         <Typhography tag="h2" variant="primary">
-          <AddLogo className={styles['icon']} />
-        </Typhography>
-        <Typhography tag="h2" variant="primary">
           <SettingsLogo className={styles['icon']} />
         </Typhography>
       </div>

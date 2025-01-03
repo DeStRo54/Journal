@@ -30,13 +30,12 @@ const monthData: Months[] = [
 
 const weekDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
+const today = new Date();
+
 export const Journal = () => {
   const monthCarouselRef = React.useRef<SwiperRef | null>(null);
   const weekCarouselRef = React.useRef<SwiperRef | null>(null);
   const dayCarouselRef = React.useRef<SwiperRef | null>(null);
-
-  const today = new Date();
-
   const getSchedule = useGetAllScheduleQuery(
     {
       params: {
@@ -52,13 +51,24 @@ export const Journal = () => {
   );
 
   const getScheduleResponse = getSchedule?.data;
-  const success = getSchedule?.isSuccess;
+  const success = getSchedule.isSuccess;
 
-  const data = success ? Object.values(getScheduleResponse as AllScheduleResponse) : [];
+  const transformData = () => (success ? Object.values(getScheduleResponse as AllScheduleResponse) : []);
+
+  const data = React.useMemo(transformData, [getScheduleResponse]);
+
+  const scheduleLessons = React.useMemo(() => data.map((item) => item.outputClasses).reverse(), [data]);
 
   const values = React.useMemo(
-    () => createDate({ currentYear: 2024, currentMonthIndex: 9, currentDayIndex: 2, daysCount: 154 }),
-    []
+    () =>
+      createDate({
+        currentYear: 2024,
+        currentMonthIndex: 9,
+        currentDayIndex: 2,
+        daysCount: 154,
+        AllLessons: scheduleLessons
+      }),
+    [data]
   );
 
   const monthsNumbers = [9, 10, 11, 12];
@@ -80,14 +90,15 @@ export const Journal = () => {
     day: currentDateIndex
   }));
 
-  const [activeWeekNode, setActiveWeekNode] = React.useState(() => currentDateIndex);
+  const [activeWeekNode, setActiveWeekNode] = React.useState(currentDateIndex);
 
   const onWeekNodeScroll = () => {
     const weekNodeIndex = (weekCarouselRef.current as SwiperRef).swiper.realIndex;
+
     setCurrentDate({
-      year: values[weekNodeIndex * 7 + 6].year,
-      month: values[weekNodeIndex * 7 + 6].month,
-      day: weekNodeIndex * 7 + 6
+      year: values[weekNodeIndex * 7 + 3].year,
+      month: values[weekNodeIndex * 7 + 3].month,
+      day: weekNodeIndex * 7 + 3
     });
   };
 
@@ -114,22 +125,21 @@ export const Journal = () => {
       {success && (
         <div className={styles['journal-body']} id="journal">
           <CarouselMonth
+            monthsNumbers={monthsNumbers}
             weekDays={weekDays}
             values={values}
             firstSessionDay={firstSessionDay}
-            monthsNumbers={monthsNumbers}
             currentDate={currentDate}
             activeDateNode={activeWeekNode}
             monthCarouselRef={monthCarouselRef}
             dayCarouselRef={dayCarouselRef}
           />
           <CarouselWeek
-            currentDateIndex={currentDateIndex}
+            monthsNumbers={monthsNumbers}
             currentDate={currentDate}
             activeWeekNode={activeWeekNode}
             weekDays={weekDays}
             firstSessionDay={firstSessionDay}
-            monthsNumbers={monthsNumbers}
             values={values}
             onWeekNodeScroll={onWeekNodeScroll}
             weekCarouselRef={weekCarouselRef}

@@ -78,25 +78,25 @@
 }
 
 .lect {
-  background-color: #5b40fd;
+  background-color: var(--lect-background-color);
 }
 
 .pract {
-  background-color: #e48cd1;
+  background-color: var(--pract-background-color);
 }
 
 .lab {
-  background-color: #ff0016;
+  background-color: var(--lab-background-color);
 }
 
 .cons {
-  background-color: #b3fff2;
+  background-color: var(--cons-background-color);
 }
 
 .zach {
-  background-color: #e7bd84;
+  background-color: var(--zach-background-color);
 }
 
 .exam {
-  background-color: #fb6a6a;
+  background-color: var(--exam-background-color);
 }

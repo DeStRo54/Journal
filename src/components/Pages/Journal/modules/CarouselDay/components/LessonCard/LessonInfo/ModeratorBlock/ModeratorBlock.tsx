@@ -27,10 +27,12 @@ export const ModeratorBlock = ({ apiData, addHomework }: ModeratorBlockProps) =>
         dueDate: apiData.class.startTime
       }
     });
+
     if (isError) {
       console.log(postModeratorAddHomeworkClassResponse.error);
       return;
     }
+
     addHomework(homeworkText);
   };
 

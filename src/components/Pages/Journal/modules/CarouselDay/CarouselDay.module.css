@@ -16,7 +16,7 @@
   padding: 0 3%;
 
   @media (min-width: 1050px) {
-    max-height: 500px;
+    max-height: 600px;
     overflow-y: auto;
   }
 }

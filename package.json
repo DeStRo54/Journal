@@ -9,7 +9,7 @@
     "lint": "eslint . || eslint . --fix",
     "format": "prettier --write .",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky init"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",

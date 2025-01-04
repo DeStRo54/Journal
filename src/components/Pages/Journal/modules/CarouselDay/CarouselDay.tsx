@@ -1,7 +1,6 @@
 import styles from './CarouselDay.module.css';
 import { FreeDay } from './components/FreeDay/FreeDay';
 import { LessonCard } from './components/LessonCard/LessonCard';
-import { DaySchedule } from '@/utils/api/requests/schedule/get/response';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 interface carouselDayProps {

@@ -6,7 +6,6 @@ import { Skeleton } from '@/components/shared/Skeleton';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Typhography } from '@/components/ui/Typhography';
-import { CurrentGroup } from '@/utils/api/requests/group/getAll/response';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export const Auth = () => {

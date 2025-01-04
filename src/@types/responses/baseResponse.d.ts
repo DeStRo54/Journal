@@ -1,4 +1,4 @@
-interface UserAuthResponse {
+interface BaseMutationResponse {
   data: string;
   error?: string;
 }

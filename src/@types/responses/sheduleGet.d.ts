@@ -6,7 +6,7 @@ type Homework = {
   dueDate: string; // ISO 8601 format
 };
 
-export type ClassDetails = {
+type ClassDetails = {
   subjectId: number;
   category: string;
   description: string;
@@ -17,16 +17,16 @@ export type ClassDetails = {
   location: string;
 };
 
-export type OutputClass = {
+type OutputClass = {
   class: ClassDetails;
   homework: Homework[];
 };
 
-export type DaySchedule = {
+type DaySchedule = {
   outputClasses: OutputClass[];
   independentHomeworks: Homework[];
 };
 
-export type AllScheduleResponse = {
+type AllScheduleResponse = {
   [date: string]: DaySchedule;
 };

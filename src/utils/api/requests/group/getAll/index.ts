@@ -1,4 +1,3 @@
-import { AllGroupsResponse } from './response';
 import { api } from '@/utils/api/instance';
 
 export type GetAllGroupsConfig = AxiosRequestConfig | undefined;

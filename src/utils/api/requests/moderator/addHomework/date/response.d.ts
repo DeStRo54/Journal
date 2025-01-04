@@ -1,3 +1,0 @@
-interface ModeratorAddHomeworkDateResponse {
-  data: string;
-}

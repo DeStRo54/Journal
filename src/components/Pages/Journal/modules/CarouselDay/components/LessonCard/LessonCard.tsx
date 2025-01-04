@@ -3,7 +3,6 @@ import React from 'react';
 import styles from './LessonCard.module.css';
 import { LessonInfo } from './LessonInfo/LessonInfo';
 import { Typhography } from '@/components/ui/Typhography';
-import { OutputClass } from '@/utils/api/requests/schedule/get/response';
 import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
 

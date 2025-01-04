@@ -37,6 +37,6 @@
   display: inline-block;
 
   @media (min-width: 547px) {
-    border: .25em solid;
+    border: 0.25em solid;
   }
 }

@@ -5,6 +5,7 @@ import { createfirstMonthsNodes } from '../../helpers/createfirstMonthsNodes';
 import { findDayIndex } from '../../helpers/findDayIndex';
 import { findIndexByDate } from '../../helpers/findIndexByDate';
 import { getDaysForOtherCarousels } from '../../helpers/getDaysForOtherCarousels';
+import { LessonsList } from '../shared/LessonsList/LessonsList';
 import { WeekHeader } from '../shared/WeekHeader/WeekHeader';
 
 import styles from './CarouselMonth.module.css';
@@ -13,7 +14,6 @@ import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
-import { LessonsList } from '../shared/LessonsList/LessonsList';
 
 interface carouselWeekProps {
   currentDate: CustomDate;

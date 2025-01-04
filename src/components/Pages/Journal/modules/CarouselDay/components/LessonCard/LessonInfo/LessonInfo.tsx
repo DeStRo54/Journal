@@ -6,7 +6,6 @@ import { ModeratorBlock } from './ModeratorBlock/ModeratorBlock';
 import { Button } from '@/components/ui/Button';
 import { Slide } from '@/components/ui/Icons/Slide';
 import { Typhography } from '@/components/ui/Typhography';
-import { OutputClass } from '@/utils/api/requests/schedule/get/response';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 import { motion } from 'framer-motion';
 

@@ -1,4 +1,3 @@
-import { AllScheduleResponse } from './response';
 import { api } from '@/utils/api/instance';
 
 type GetAllScheduleParams = {

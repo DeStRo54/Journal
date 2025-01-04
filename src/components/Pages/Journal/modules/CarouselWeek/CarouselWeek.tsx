@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 
 import { findDayIndex } from '../../helpers/findDayIndex';
 import { findIndexByDate } from '../../helpers/findIndexByDate';
 import { getDaysForOtherCarousels } from '../../helpers/getDaysForOtherCarousels';
+import { LessonsList } from '../shared/LessonsList/LessonsList';
 import { WeekHeader } from '../shared/WeekHeader/WeekHeader';
 
 import styles from './CarouselWeek.module.css';
@@ -11,7 +13,6 @@ import { Slide } from '@/components/ui/Icons/Slide';
 import clsx from 'clsx';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
-import { LessonsList } from '../shared/LessonsList/LessonsList';
 
 interface carouselWeekProps {
   currentDate: CustomDate;

@@ -9,7 +9,6 @@ import { CarouselDay } from './modules/CarouselDay/CarouselDay.tsx';
 import { CarouselMonth } from './modules/CarouselMonth/CarouselMonth.tsx';
 import { CarouselWeek } from './modules/CarouselWeek/CarouselWeek.tsx';
 import { Header } from './modules/Header/Header.tsx';
-import { AllScheduleResponse } from '@/utils/api/requests/schedule/get/response.js';
 import { useGetAllScheduleQuery } from '@/utils/redux/apiSlices/scheduleApiSlice/scheduleApi.ts';
 import { SwiperRef } from 'swiper/react';
 

@@ -1,5 +1,4 @@
 import { getAllGroups, GetAllGroupsConfig } from '@/utils/api/requests/group/getAll';
-import { CurrentGroup } from '@/utils/api/requests/group/getAll/response';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const groupApi = createApi({

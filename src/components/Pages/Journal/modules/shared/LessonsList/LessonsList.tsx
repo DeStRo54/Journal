@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import styles from './LessonsList.module.css';
+import clsx from 'clsx';
 
 interface LessonsListProps {
   lessons: Lessons;

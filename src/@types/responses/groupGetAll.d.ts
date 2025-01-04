@@ -1,4 +1,4 @@
-export interface CurrentGroup {
+interface CurrentGroup {
   group_id: number;
   name: string;
   course: number;

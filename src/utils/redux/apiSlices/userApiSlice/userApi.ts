@@ -1,6 +1,5 @@
 import { postUserAuth, PostUserAuthConfig } from '@/utils/api/requests/user/auth';
-import { GetUserConfig, getUserData } from '@/utils/api/requests/user/get';
-import { UserResponse } from '@/utils/api/requests/user/get/response';
+import { GetUserConfig,getUserData } from '@/utils/api/requests/user/get';
 import { postUserRegister, PostUserRegisterConfig } from '@/utils/api/requests/user/register';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -17,7 +16,7 @@ export const userApi = createApi({
       queryFn: ({ params, config }: PostUserAuthConfig) => postUserAuth({ params, config }),
       invalidatesTags: ['PostUserAuth']
     }),
-    getUser: builder.query<UserResponse, GetUserConfig>({
+    getUser: builder.query<GetUserResponse, GetUserConfig>({
       queryFn: (requestConfig: GetUserConfig) => getUserData(requestConfig),
       providesTags: ['GetUserConfig']
     })

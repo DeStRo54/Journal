@@ -11,6 +11,7 @@ import { WeekHeader } from '../shared/WeekHeader/WeekHeader';
 import styles from './CarouselMonth.module.css';
 import { Button } from '@/components/ui/Button';
 import { Typhography } from '@/components/ui/Typhography';
+import { useDropdown } from '@/utils/hooks/useDropdown';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
@@ -37,32 +38,17 @@ export const CarouselMonth = ({
   dayCarouselRef
 }: carouselWeekProps) => {
   const daysByMonth = React.useMemo(() => getDaysForOtherCarousels(values, 35), []);
-  const [isOpen, setIsOpen] = React.useState(false);
-  const menuRef = React.useRef<HTMLDivElement>(null);
-
   const [currentSlide, dayIndexInSlide] = React.useMemo(
     () => findDayIndex(values[activeDateNode], daysByMonth),
     [activeDateNode, daysByMonth]
   );
   const firstMonthsNodes = React.useMemo(() => createfirstMonthsNodes(values), []);
 
+  const [menuRef, isOpen, setIsOpen] = useDropdown();
+
   const onDropDownClick = () => {
     setIsOpen((prev) => !prev);
   };
-
-  React.useEffect(() => {
-    const handler = (event: MouseEvent | TouchEvent) => {
-      if (isOpen && menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handler);
-    document.addEventListener('touchstart', handler);
-    return () => {
-      document.removeEventListener('mousedown', handler);
-      document.removeEventListener('touchstart', handler);
-    };
-  }, [isOpen]);
 
   const onScrollClick = (dayIndex: number) => {
     dayCarouselRef.current?.swiper.slideTo(dayIndex, 0);

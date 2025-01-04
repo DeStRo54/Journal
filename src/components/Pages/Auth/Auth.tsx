@@ -1,17 +1,15 @@
-import React from 'react';
-
 import styles from './Auth.module.css';
 import { useAuth } from './hooks/useAuth';
 import { Skeleton } from '@/components/shared/Skeleton';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Typhography } from '@/components/ui/Typhography';
+import { useDropdown } from '@/utils/hooks/useDropdown';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export const Auth = () => {
   const { form, stage, groups, func, state } = useAuth();
-  const [isOpen, setIsOpen] = React.useState(false);
-  const menuRef = React.useRef<HTMLDivElement>(null);
+  const [menuRef, isOpen, setIsOpen] = useDropdown();
 
   const acceptButtonText = stage === 'login' ? 'Войти' : 'Зарегистрироваться';
   const stageButtonText = stage === 'login' ? ' Нет аккаунта? Зарегистрироваться' : 'Есть аккаунт? Войти';
@@ -22,20 +20,6 @@ export const Auth = () => {
     form.setFieldValue('groupName', currentGroup.name);
     setIsOpen(false);
   };
-
-  React.useEffect(() => {
-    const handler = (event: MouseEvent | TouchEvent) => {
-      if (isOpen && menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handler);
-    document.addEventListener('touchstart', handler);
-    return () => {
-      document.removeEventListener('mousedown', handler);
-      document.removeEventListener('touchstart', handler);
-    };
-  }, [isOpen]);
 
   const getGroups = () => {
     setIsOpen((prev) => !prev);

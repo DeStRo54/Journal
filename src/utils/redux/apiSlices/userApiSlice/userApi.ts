@@ -1,5 +1,5 @@
 import { postUserAuth, PostUserAuthConfig } from '@/utils/api/requests/user/auth';
-import { GetUserConfig,getUserData } from '@/utils/api/requests/user/get';
+import { GetUserConfig, getUserData } from '@/utils/api/requests/user/get';
 import { postUserRegister, PostUserRegisterConfig } from '@/utils/api/requests/user/register';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 

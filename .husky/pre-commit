@@ -1,1 +1,1 @@
-npm ling-staged
+npx lint-staged

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './ModeratorBlock.module.css';
-import { Skeleton } from '@/components/shared/Skeleton';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Typhography } from '@/components/ui/Typhography';

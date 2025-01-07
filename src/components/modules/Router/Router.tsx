@@ -5,18 +5,20 @@ import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterP
 import { Layout } from '../Layout/Layout';
 
 import { ProtectedRoute } from './components/RotectedRoute';
-import { AdminPanel, Auth, Journal } from './constants.module';
-import { Skeleton } from '@/components/shared/Skeleton';
+import { AdminPanel, Auth, Journal, ProfileSettings } from './constants.module';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 
 export const Router = () => {
-  const isAuth = !!document.cookie.match('session_key='); // потом починить
+  const isAuth = !!document.cookie.match('session_key=');
   const userRole = useSelector(getUserRole);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<Layout />}>
         <Route path="/" element={<Navigate to={isAuth ? '/journal' : '/auth'} replace />} />
+
+        <Route path='*' element={<Navigate to='/' replace />} />
 
         <Route
           path="/auth"
@@ -39,12 +41,11 @@ export const Router = () => {
         />
 
         <Route
-          path="/settings"
+          path="/profile"
           element={
             <ProtectedRoute>
               <Suspense fallback={<Skeleton />}>
-                {/* <UserSettings /> */}
-                <div>Test</div>
+                <ProfileSettings />
               </Suspense>
             </ProtectedRoute>
           }

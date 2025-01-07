@@ -11,6 +11,7 @@ import { CarouselWeek } from './modules/CarouselWeek/CarouselWeek.tsx';
 import { Header } from './modules/Header/Header.tsx';
 import { useGetAllScheduleQuery } from '@/utils/redux/apiSlices/scheduleApiSlice/scheduleApi.ts';
 import { SwiperRef } from 'swiper/react';
+import { Skeleton } from '@/components/ui/Skeleton/index.tsx';
 
 const monthData: Months[] = [
   'Январь',
@@ -118,39 +119,44 @@ export const Journal = () => {
     monthNode.slideTo(Math.ceil((dayNodeIndex + 1) / 35) - 1, 0);
   };
 
+  /*вместо лоадера использовать Skeleton*/
+
   return (
     <main className={styles.container}>
-      <Header />
+      {getSchedule.isLoading && <Skeleton />}
       {success && (
-        <div className={styles['journal-body']} id="journal">
-          <CarouselMonth
-            monthsNumbers={monthsNumbers}
-            weekDays={weekDays}
-            values={values}
-            firstSessionDay={firstSessionDay}
-            currentDate={currentDate}
-            activeDateNode={activeWeekNode}
-            monthCarouselRef={monthCarouselRef}
-            dayCarouselRef={dayCarouselRef}
-          />
-          <CarouselWeek
-            monthsNumbers={monthsNumbers}
-            currentDate={currentDate}
-            activeWeekNode={activeWeekNode}
-            weekDays={weekDays}
-            firstSessionDay={firstSessionDay}
-            values={values}
-            onWeekNodeScroll={onWeekNodeScroll}
-            weekCarouselRef={weekCarouselRef}
-            dayCarouselRef={dayCarouselRef}
-          />
-          <CarouselDay
-            currentDateIndex={activeWeekNode}
-            apiDates={data}
-            onDayNodeScroll={onDayNodeScroll}
-            dayCarouselRef={dayCarouselRef}
-          />
-        </div>
+        <React.Fragment>
+          <Header />
+          <div className={styles['journal-body']} id="journal">
+            <CarouselMonth
+              monthsNumbers={monthsNumbers}
+              weekDays={weekDays}
+              values={values}
+              firstSessionDay={firstSessionDay}
+              currentDate={currentDate}
+              activeDateNode={activeWeekNode}
+              monthCarouselRef={monthCarouselRef}
+              dayCarouselRef={dayCarouselRef}
+            />
+            <CarouselWeek
+              monthsNumbers={monthsNumbers}
+              currentDate={currentDate}
+              activeWeekNode={activeWeekNode}
+              weekDays={weekDays}
+              firstSessionDay={firstSessionDay}
+              values={values}
+              onWeekNodeScroll={onWeekNodeScroll}
+              weekCarouselRef={weekCarouselRef}
+              dayCarouselRef={dayCarouselRef}
+            />
+            <CarouselDay
+              currentDateIndex={activeWeekNode}
+              apiDates={data}
+              onDayNodeScroll={onDayNodeScroll}
+              dayCarouselRef={dayCarouselRef}
+            />
+          </div>
+        </React.Fragment>
       )}
     </main>
   );

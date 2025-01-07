@@ -1,6 +1,6 @@
 import styles from './Auth.module.css';
 import { useAuth } from './hooks/useAuth';
-import { Skeleton } from '@/components/shared/Skeleton';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Typhography } from '@/components/ui/Typhography';

@@ -2,8 +2,6 @@ import { backendUrl } from '../constants/backendUrl';
 
 import axios from 'axios';
 
-axios.defaults.withXSRFToken = true;
-
 export const api = axios.create({
   withCredentials: true,
   baseURL: backendUrl,
@@ -12,7 +10,21 @@ export const api = axios.create({
   }
 });
 
-axios.interceptors.request.use((config) => {
-  config.withCredentials = true;
-  return config;
-});
+api.defaults.withXSRFToken = true;
+
+// api.interceptors.request.use((config) => {
+//   config.withCredentials = true;
+//   return config;
+// });
+
+//потом обязательно убрать
+
+api.interceptors.response.use(
+  async (response) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return response;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);

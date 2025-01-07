@@ -8,4 +8,8 @@ const AdminPanel = lazy(() =>
   import('@/components/Pages/AdminPanel/AdminPanel').then((module) => ({ default: module.AdminPanel }))
 );
 
-export { Auth, Journal, AdminPanel };
+const ProfileSettings = lazy(() =>
+  import('@/components/Pages/ProfileSettings/ProfileSettings').then((module) => ({ default: module.ProfileSettings }))
+);
+
+export { Auth, Journal, AdminPanel, ProfileSettings };

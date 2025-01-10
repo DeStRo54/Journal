@@ -1,18 +1,26 @@
+import React from 'react';
+
 import styles from './CarouselDay.module.css';
 import { FreeDay } from './components/FreeDay/FreeDay';
-import { LessonCard } from './components/LessonCard/LessonCard';
+import { Lesson } from './components/Lesson/Lesson';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
-interface carouselDayProps {
+interface carouselDayProps extends React.ComponentProps<'div'> {
   currentDateIndex: number;
   apiDates: DaySchedule[];
   onDayNodeScroll: () => void;
   dayCarouselRef: React.RefObject<SwiperRef>;
 }
 
-export const CarouselDay = ({ currentDateIndex, apiDates, onDayNodeScroll, dayCarouselRef }: carouselDayProps) => {
+export const CarouselDay = ({
+  currentDateIndex,
+  apiDates,
+  onDayNodeScroll,
+  dayCarouselRef,
+  ...props
+}: carouselDayProps) => {
   return (
-    <div className={styles['carousel-day']}>
+    <div {...props}>
       <Swiper
         ref={dayCarouselRef}
         lazyPreloadPrevNext={14}
@@ -25,7 +33,7 @@ export const CarouselDay = ({ currentDateIndex, apiDates, onDayNodeScroll, dayCa
           <SwiperSlide key={index} className={styles['swiper-layout']}>
             <div className={styles['day-card']}>
               {apiData.outputClasses.map((value, index) => (
-                <LessonCard key={index} apiData={value} />
+                <Lesson key={index} apiData={value} />
               ))}
               {apiData.outputClasses.length === 0 && <FreeDay />}
             </div>

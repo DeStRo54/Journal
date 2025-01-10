@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 
-import styles from './LessonInfo.module.css';
+import styles from './LessonCard.module.css';
 import { ModeratorBlock } from './ModeratorBlock/ModeratorBlock';
 import { Button } from '@/components/ui/Button';
 import { Slide } from '@/components/ui/Icons/Slide';
@@ -11,12 +11,12 @@ import { motion } from 'framer-motion';
 
 interface LessonInfoProps {
   apiData: OutputClass;
-  showDetails: () => void;
   homeworks: string[];
   addHomework: (homework: string) => void;
+  showDetails: () => void;
 }
 
-export const LessonInfo = ({ apiData, showDetails, homeworks, addHomework }: LessonInfoProps) => {
+export const LessonCard = ({ apiData, showDetails, homeworks, addHomework }: LessonInfoProps) => {
   const role = useSelector(getUserRole);
 
   const portalTarget = document.getElementById('journal');

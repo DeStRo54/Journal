@@ -9,7 +9,7 @@ import { getUser } from '@/utils/redux/storeSlices/userSlice/selectors';
 
 export const Header = () => {
   const navigate = useNavigate();
-  const { role, group_id } = useSelector(getUser);
+  const { role, group_name } = useSelector(getUser);
 
   const showAdminComponent = role === 2;
 
@@ -19,7 +19,7 @@ export const Header = () => {
   return (
     <header className={styles.header}>
       <Typhography tag="h1" variant="primary">
-        {group_id}
+        {group_name}
       </Typhography>
       <div className={styles.container}>
         {showAdminComponent && (

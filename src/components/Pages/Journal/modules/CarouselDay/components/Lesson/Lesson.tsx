@@ -1,12 +1,12 @@
 import React from 'react';
 
-import styles from './LessonCard.module.css';
-import { LessonInfo } from './LessonInfo/LessonInfo';
+import styles from './Lesson.module.css';
+import { LessonCard } from './LessonCard/LessonCard';
 import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
 
-interface LessonCardProps {
+interface LessonProps {
   apiData: OutputClass;
 }
 
@@ -29,7 +29,7 @@ const lessonColor = {
   Экзамен: 'exam'
 };
 
-export const LessonCard = ({ apiData }: LessonCardProps) => {
+export const Lesson = ({ apiData }: LessonProps) => {
   const para = apiData.class;
   const [homeworks, setHomeworks] = React.useState(apiData.homework.map((value) => value.homeworkText));
 
@@ -89,7 +89,7 @@ export const LessonCard = ({ apiData }: LessonCardProps) => {
       </div>
       <AnimatePresence>
         {showInfo && (
-          <LessonInfo apiData={apiData} showDetails={showDetails} homeworks={homeworks} addHomework={addHomework} />
+          <LessonCard apiData={apiData} showDetails={showDetails} homeworks={homeworks} addHomework={addHomework} />
         )}
       </AnimatePresence>
     </React.Fragment>

@@ -1,9 +1,3 @@
-.carousel-day {
-  @media (min-width: 1050px) {
-    width: 45%;
-  }
-}
-
 .swiper-layout {
   min-height: 500px;
 }

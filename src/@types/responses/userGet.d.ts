@@ -4,5 +4,5 @@ interface GetUserResponse {
   surname: string;
   email: string;
   role: number;
-  group_id: number;
+  group_name: string;
 }

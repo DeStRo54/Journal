@@ -1,11 +1,10 @@
 import React from 'react';
 
 import styles from './ModeratorBlock.module.css';
-import { Skeleton } from '@/components/ui/Skeleton';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { Typhography } from '@/components/ui/Typhography';
-import { OutputClass } from '@/utils/api/requests/schedule/get/response';
 import { usePostModeratorAddHomeworkClassMutation } from '@/utils/redux/apiSlices/moderatorApiSlice/moderatorApi';
 
 interface ModeratorBlockProps {

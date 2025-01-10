@@ -1,8 +1,9 @@
 import styles from './Auth.module.css';
 import { useAuth } from './hooks/useAuth';
-import { Skeleton } from '@/components/ui/Skeleton';
+import { ChooseMedia } from '@/components/modules/Router/components/ChooseMedia';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { Typhography } from '@/components/ui/Typhography';
 import { useDropdown } from '@/utils/hooks/useDropdown';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -24,6 +25,8 @@ export const Auth = () => {
   const getGroups = () => {
     setIsOpen((prev) => !prev);
   };
+
+  console.log(ChooseMedia());
 
   return (
     <main className={styles.container}>

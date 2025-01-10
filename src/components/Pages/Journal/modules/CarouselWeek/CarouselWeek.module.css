@@ -1,9 +1,5 @@
 .carousel-week {
   margin-bottom: 1.3rem;
-
-  @media (min-width: 1050px) {
-    display: none;
-  }
 }
 
 .navigation {
@@ -16,9 +12,9 @@
 }
 
 .carousel-week-slide {
-  padding: 0 2%;
-  display: flex;
+  display: flex !important;
   flex-direction: row;
+  padding: 0 2%;
 }
 
 .carousel-date-item {

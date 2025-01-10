@@ -1,8 +1,5 @@
-
-import styles from './ProfileSettings.module.css'
+import styles from './ProfileSettings.module.css';
 
 export const ProfileSettings = () => {
-  return (
-    <div className={styles.container}>ProfileSettings</div>
-  )
-}
+  return <div className={styles.container}>ProfileSettings</div>;
+};

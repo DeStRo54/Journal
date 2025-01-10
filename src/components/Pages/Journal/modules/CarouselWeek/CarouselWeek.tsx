@@ -51,7 +51,7 @@ export const CarouselWeek = ({
   return (
     <div className={styles['carousel-week']}>
       <div className={styles['navigation']}>
-        <Button className="custom-prev" variant="slide" rotate={true} onClick={onWeekNodeScroll}>
+        <Button className="custom-prev" variant="slide" rotate={true}>
           <Slide />
         </Button>
         <WeekHeader
@@ -61,12 +61,13 @@ export const CarouselWeek = ({
           index={currentDate.day}
           variant="mobile"
         />
-        <Button className="custom-next" variant="slide" onClick={onWeekNodeScroll}>
+        <Button className="custom-next" variant="slide">
           <Slide />
         </Button>
       </div>
       <Swiper
         ref={weekCarouselRef}
+        onSlideChange={onWeekNodeScroll}
         lazyPreloadPrevNext={20}
         initialSlide={currentSlide}
         freeMode={true}

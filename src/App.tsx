@@ -12,11 +12,11 @@ function App() {
         const { data } = await getUserData(undefined);
         dispatch(
           logIn({
-            role: 2, //data.role,
+            role: 2, //data.role
             name: data.name,
             surname: data.surname,
             email: data.email,
-            group_id: data.group_id
+            group_name: data.group_name
           })
         );
       } catch (error) {

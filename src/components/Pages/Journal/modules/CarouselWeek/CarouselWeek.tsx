@@ -7,6 +7,7 @@ import { getDaysForOtherCarousels } from '../../helpers/getDaysForOtherCarousels
 import { LessonsList } from '../shared/LessonsList/LessonsList';
 import { WeekHeader } from '../shared/WeekHeader/WeekHeader';
 
+import 'swiper/swiper-bundle.css';
 import styles from './CarouselWeek.module.css';
 import { Button } from '@/components/ui/Button';
 import { Slide } from '@/components/ui/Icons/Slide';

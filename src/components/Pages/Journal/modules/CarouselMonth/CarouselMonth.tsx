@@ -8,6 +8,7 @@ import { getDaysForOtherCarousels } from '../../helpers/getDaysForOtherCarousels
 import { LessonsList } from '../shared/LessonsList/LessonsList';
 import { WeekHeader } from '../shared/WeekHeader/WeekHeader';
 
+import 'swiper/swiper-bundle.css';
 import styles from './CarouselMonth.module.css';
 import { Button } from '@/components/ui/Button';
 import { Typhography } from '@/components/ui/Typhography';

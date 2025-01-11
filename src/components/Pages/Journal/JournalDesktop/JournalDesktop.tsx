@@ -6,7 +6,6 @@ import { CarouselDay } from '../modules/CarouselDay/CarouselDay';
 import { CarouselMonth } from '../modules/CarouselMonth/CarouselMonth';
 import { Header } from '../modules/Header/Header';
 
-import 'swiper/swiper-bundle.css';
 import styles from './JournalDesktop.module.css';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { SwiperRef } from 'swiper/react';
@@ -22,8 +21,8 @@ export const JournalDesktop = () => {
     day: currentDateIndex
   }));
 
-  const dayCarouselRef = React.useRef<SwiperRef | null>(null);
-  const monthCarouselRef = React.useRef<SwiperRef | null>(null);
+  const dayCarouselRef = React.useRef<SwiperRef>(null);
+  const monthCarouselRef = React.useRef<SwiperRef>(null);
 
   const onDayNodeScroll = () => {
     const dayNodeIndex = (dayCarouselRef.current as SwiperRef).swiper.realIndex;

@@ -8,6 +8,7 @@ import { AnimatePresence } from 'framer-motion';
 
 interface LessonProps {
   apiData: OutputClass;
+  updateHeight: () => void;
 }
 
 const lessonsNumbers = {
@@ -29,7 +30,7 @@ const lessonColor = {
   Экзамен: 'exam'
 };
 
-export const Lesson = ({ apiData }: LessonProps) => {
+export const Lesson = ({ apiData, updateHeight }: LessonProps) => {
   const para = apiData.class;
   const [homeworks, setHomeworks] = React.useState(apiData.homework.map((value) => value.homeworkText));
 
@@ -57,6 +58,7 @@ export const Lesson = ({ apiData }: LessonProps) => {
 
   const addHomework = (homework: string) => {
     setHomeworks((prev) => [...prev, homework]);
+    updateHeight();
   };
 
   return (

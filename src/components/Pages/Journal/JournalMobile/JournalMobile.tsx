@@ -6,7 +6,6 @@ import { CarouselDay } from '../modules/CarouselDay/CarouselDay';
 import { CarouselWeek } from '../modules/CarouselWeek/CarouselWeek';
 import { Header } from '../modules/Header/Header';
 
-import 'swiper/swiper-bundle.css';
 import styles from './JournalMobile.module.css';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { SwiperRef } from 'swiper/react';
@@ -22,8 +21,8 @@ export const JournalMobile = () => {
     day: currentDateIndex
   }));
 
-  const dayCarouselRef = React.useRef<SwiperRef | null>(null);
-  const weekCarouselRef = React.useRef<SwiperRef | null>(null);
+  const dayCarouselRef = React.useRef<SwiperRef>(null);
+  const weekCarouselRef = React.useRef<SwiperRef>(null);
 
   const onWeekNodeScroll = () => {
     const weekNodeIndex = (weekCarouselRef.current as SwiperRef).swiper.realIndex;

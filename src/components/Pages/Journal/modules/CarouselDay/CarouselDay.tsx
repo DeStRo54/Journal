@@ -1,11 +1,12 @@
 import React from 'react';
 
+import 'swiper/swiper-bundle.css';
 import styles from './CarouselDay.module.css';
 import { FreeDay } from './components/FreeDay/FreeDay';
 import { Lesson } from './components/Lesson/Lesson';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
-interface carouselDayProps extends React.ComponentProps<'div'> {
+interface CarouselDayProps extends React.ComponentProps<'div'> {
   currentDateIndex: number;
   apiDates: DaySchedule[];
   onDayNodeScroll: () => void;
@@ -18,7 +19,13 @@ export const CarouselDay = ({
   onDayNodeScroll,
   dayCarouselRef,
   ...props
-}: carouselDayProps) => {
+}: CarouselDayProps) => {
+  const updateHeight = () => {
+    if (dayCarouselRef.current) {
+      dayCarouselRef.current.swiper.wrapperEl.style.height = 'auto';
+    }
+  };
+
   return (
     <div {...props}>
       <Swiper
@@ -33,7 +40,7 @@ export const CarouselDay = ({
           <SwiperSlide key={index} className={styles['swiper-layout']}>
             <div className={styles['day-card']}>
               {apiData.outputClasses.map((value, index) => (
-                <Lesson key={index} apiData={value} />
+                <Lesson key={index} apiData={value} updateHeight={updateHeight} />
               ))}
               {apiData.outputClasses.length === 0 && <FreeDay />}
             </div>

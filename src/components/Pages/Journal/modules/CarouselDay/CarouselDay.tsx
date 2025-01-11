@@ -39,8 +39,11 @@ export const CarouselDay = ({
         {apiDates.map((apiData, index) => (
           <SwiperSlide key={index} className={styles['swiper-layout']}>
             <div className={styles['day-card']}>
-              {apiData.outputClasses.map((value, index) => (
-                <Lesson key={index} apiData={value} updateHeight={updateHeight} />
+              {apiData.independentHomeworks.map((value) => (
+                <p key={value.homeworkID}>{value.homeworkText}</p>
+              ))}
+              {apiData.outputClasses.map((value) => (
+                <Lesson key={value.class.startTime} apiData={value} updateHeight={updateHeight} />
               ))}
               {apiData.outputClasses.length === 0 && <FreeDay />}
             </div>

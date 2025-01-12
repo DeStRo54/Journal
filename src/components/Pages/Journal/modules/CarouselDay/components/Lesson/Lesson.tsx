@@ -2,9 +2,9 @@ import React from 'react';
 
 import styles from './Lesson.module.css';
 import { LessonCard } from './LessonCard/LessonCard';
+import { Modal } from '@/components/ui/Modal';
 import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
-import { AnimatePresence } from 'framer-motion';
 
 interface LessonProps {
   apiData: OutputClass;
@@ -30,29 +30,31 @@ const lessonColor = {
   Экзамен: 'exam'
 };
 
+const convertSummary = (rawDescrciption: string) => rawDescrciption.split(' ').slice(1).join(' ');
+
+const convertDateToTime = (rawDate: string) => {
+  const timePart = rawDate.split('T')[1];
+  const [hours, minutes] = timePart.split(':');
+  return `${hours}:${minutes}`;
+};
+
+const getTeacher = (rawDescrciption: string) => {
+  const stageA = rawDescrciption.split('\n')[0].split(' ');
+  const stageB = stageA.splice(1, stageA.length - 1);
+
+  if (stageB[0] === undefined) return '';
+
+  return `${stageB[0]} ${stageB[1]?.substring(0, 1)}. ${stageB[2]?.substring(0, 1)}.`;
+};
+
 export const Lesson = ({ apiData, updateHeight }: LessonProps) => {
   const para = apiData.class;
   const [homeworks, setHomeworks] = React.useState(apiData.homework.map((value) => value.homeworkText));
 
   const [showInfo, setShowInfo] = React.useState(false);
 
-  const convertDateToTime = (rawDate: string) => {
-    const timePart = rawDate.split('T')[1];
-    const [hours, minutes] = timePart.split(':');
-    return `${hours}:${minutes}`;
-  };
-
   const paraBegin = convertDateToTime(para.startTime);
   const paraEnd = convertDateToTime(para.endTime);
-
-  const getTeacher = (rawDescrciption: string) => {
-    const stageA = rawDescrciption.split('\n')[0].split(' ');
-    const stageB = stageA.splice(1, stageA.length - 1);
-
-    if (stageB[0] === undefined) return '';
-
-    return `${stageB[0]} ${stageB[1]?.substring(0, 1)}. ${stageB[2]?.substring(0, 1)}.`;
-  };
 
   const showDetails = () => setShowInfo(!showInfo);
 
@@ -65,7 +67,7 @@ export const Lesson = ({ apiData, updateHeight }: LessonProps) => {
     <React.Fragment>
       <div className={styles.container} onClick={showDetails}>
         <div className={styles.header}>
-          <h1 className={styles['subject']}>{para.summary}</h1>
+          <h1 className={styles['subject']}>{convertSummary(para.summary)}</h1>
           <p className={clsx(styles['type'], styles[lessonColor[para.category as keyof typeof lessonColor]])}>
             {para.category}
           </p>
@@ -89,11 +91,9 @@ export const Lesson = ({ apiData, updateHeight }: LessonProps) => {
           <Typhography tag="p" variant="additional" children={getTeacher(para.description)} />
         </div>
       </div>
-      <AnimatePresence>
-        {showInfo && (
-          <LessonCard apiData={apiData} showDetails={showDetails} homeworks={homeworks} addHomework={addHomework} />
-        )}
-      </AnimatePresence>
+      <Modal modalId="journal" showInfo={showInfo} showDetails={showDetails}>
+        <LessonCard apiData={apiData} homeworks={homeworks} showDetails={showDetails} addHomework={addHomework} />
+      </Modal>
     </React.Fragment>
   );
 };

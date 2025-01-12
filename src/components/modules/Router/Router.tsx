@@ -4,11 +4,12 @@ import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterP
 
 import { Layout } from '../Layout/Layout';
 
-import { ChooseMedia } from './components/ChooseMedia';
+import { ChooseMedia } from './helpers/ChooseMedia';
 import { ProtectedRoute } from './components/RotectedRoute';
 import { AdminPanel, Auth, JournalDesktop, JournalMobile, ProfileSettings } from './constants.module';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
+import { AdminRole } from '@/utils/constants/userRoles';
 
 export const Router = () => {
   const isAuth = !!document.cookie.match('session_key=');
@@ -68,7 +69,7 @@ export const Router = () => {
           element={
             <ProtectedRoute>
               <Suspense fallback={<Skeleton />}>
-                {userRole === 2 ? <AdminPanel /> : <Navigate to="/journal" />}
+                {userRole === AdminRole ? <AdminPanel /> : <Navigate to="/journal" />}
               </Suspense>
             </ProtectedRoute>
           }

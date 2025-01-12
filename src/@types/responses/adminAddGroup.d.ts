@@ -1,1 +1,1 @@
-type AdminAddGroupResponse = BaseMutationResponse;
+type AdminAddGroupResponse = BaseResponse;

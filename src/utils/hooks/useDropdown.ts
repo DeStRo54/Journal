@@ -1,8 +1,14 @@
 import React from 'react';
 
-export const useDropdown = <T extends HTMLElement = HTMLDivElement>() => {
+const useDropdown = <T extends HTMLElement = HTMLDivElement>() => {
   const menuRef = React.useRef<T>(null);
   const [isOpen, setIsOpen] = React.useState(false);
+
+  const action = {
+    open: () => setIsOpen(true),
+    close: () => setIsOpen(false),
+    toggle: () => setIsOpen((prev) => !prev)
+  }
 
   React.useEffect(() => {
     const handler = (event: MouseEvent | TouchEvent) => {
@@ -10,6 +16,7 @@ export const useDropdown = <T extends HTMLElement = HTMLDivElement>() => {
         setIsOpen(false);
       }
     };
+
     document.addEventListener('mousedown', handler);
     document.addEventListener('touchstart', handler);
     return () => {
@@ -18,5 +25,13 @@ export const useDropdown = <T extends HTMLElement = HTMLDivElement>() => {
     };
   }, [isOpen]);
 
-  return [menuRef, isOpen, setIsOpen] as const;
+  return { menuRef, isOpen, action };
 };
+
+type DropDownType<T extends HTMLElement = HTMLDivElement> = {
+  menuRef: React.RefObject<T>;
+  isOpen: boolean;
+  action: { open: () => void; close: () => void; toggle: () => void };
+};
+
+export { useDropdown, type DropDownType };

@@ -45,15 +45,15 @@ export const CarouselMonth = ({
   );
   const firstMonthsNodes = React.useMemo(() => createfirstMonthsNodes(values), []);
 
-  const [menuRef, isOpen, setIsOpen] = useDropdown();
+  const { menuRef, isOpen, action } = useDropdown();
 
   const onDropDownClick = () => {
-    setIsOpen((prev) => !prev);
+    action.toggle();
   };
 
   const onScrollClick = (dayIndex: number) => {
     dayCarouselRef.current?.swiper.slideTo(dayIndex, 0);
-    setIsOpen(false);
+    action.close();
   };
 
   return (

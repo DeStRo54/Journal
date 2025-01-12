@@ -1,1 +1,1 @@
-type UserAuthResponse = BaseMutationResponse;
+type UserAuthResponse = BaseResponse;

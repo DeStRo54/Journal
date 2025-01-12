@@ -1,6 +1,5 @@
 import styles from './Auth.module.css';
 import { useAuth } from './hooks/useAuth';
-import { ChooseMedia } from '@/components/modules/Router/components/ChooseMedia';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Skeleton } from '@/components/ui/Skeleton';
@@ -10,7 +9,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 export const Auth = () => {
   const { form, stage, groups, func, state } = useAuth();
-  const [menuRef, isOpen, setIsOpen] = useDropdown();
+  const { menuRef, isOpen, action } = useDropdown();
 
   const acceptButtonText = stage === 'login' ? 'Войти' : 'Зарегистрироваться';
   const stageButtonText = stage === 'login' ? ' Нет аккаунта? Зарегистрироваться' : 'Есть аккаунт? Войти';
@@ -19,14 +18,12 @@ export const Auth = () => {
 
   const chooseGroup = (currentGroup: groupType) => {
     form.setFieldValue('groupName', currentGroup.name);
-    setIsOpen(false);
+    action.close();
   };
 
   const getGroups = () => {
-    setIsOpen((prev) => !prev);
+    action.toggle();
   };
-
-  console.log(ChooseMedia());
 
   return (
     <main className={styles.container}>

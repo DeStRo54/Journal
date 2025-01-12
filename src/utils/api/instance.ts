@@ -1,10 +1,10 @@
-import { backendUrl } from '../constants/backendUrl';
+import { BackendUrl } from '../constants/backendUrl';
 
 import axios from 'axios';
 
 export const api = axios.create({
   withCredentials: true,
-  baseURL: backendUrl,
+  baseURL: BackendUrl,
   headers: {
     'Content-Type': 'application/json'
   }

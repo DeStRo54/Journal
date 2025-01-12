@@ -1,1 +1,1 @@
-type ModeratorAddHomeworkClassResponse = BaseMutationResponse;
+type ModeratorAddHomeworkClassResponse = BaseResponse;

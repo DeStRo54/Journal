@@ -1,1 +1,1 @@
-type AdminUpdateClassesResponse = BaseMutationResponse;
+type AdminUpdateClassesResponse = BaseResponse;

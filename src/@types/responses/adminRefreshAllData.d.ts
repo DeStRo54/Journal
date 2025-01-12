@@ -1,1 +1,1 @@
-type AdminRefreshAllDataResponse = BaseMutationResponse;
+type AdminRefreshAllDataResponse = BaseResponse;

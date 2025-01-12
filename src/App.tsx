@@ -12,7 +12,7 @@ function App() {
         const { data } = await getUserData(undefined);
         dispatch(
           logIn({
-            role: 2, //data.role
+            role: 3, //data.role
             name: data.name,
             surname: data.surname,
             email: data.email,

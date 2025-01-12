@@ -1,1 +1,1 @@
-type UserRegisterResponse = BaseMutationResponse;
+type UserRegisterResponse = BaseResponse;

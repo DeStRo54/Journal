@@ -16,8 +16,14 @@ interface LessonInfoProps {
   showDetails: () => void;
 }
 
+const RestructDescription = (description: string) => {
+  return description.split(' ').splice(1).join(' ').split('\n')[0];
+};
+
 export const LessonCard = ({ apiData, homeworks, showDetails, addHomework }: LessonInfoProps) => {
   const userRole = useSelector(getUserRole);
+
+  const description = RestructDescription(apiData.class.description);
 
   return (
     <motion.div
@@ -67,8 +73,8 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework }: Les
           <Typhography tag="p" variant="thirdy" children={apiData.class.location} />
         </section>
         <section className={styles['section']}>
-          <Typhography tag="h3" variant="additional" className={styles['info']} children={'Преподаватели'} />
-          <Typhography tag="p" variant="thirdy" children={apiData.class.description} />
+          <Typhography tag="h3" variant="additional" className={styles['info']} children={'Преподаватель'} />
+          <Typhography tag="p" variant="thirdy" children={description} />
         </section>
         {userRole > BaseRole && <ModeratorBlock apiData={apiData} addHomework={addHomework} />}
       </div>

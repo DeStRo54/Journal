@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styles from './LessonCard.module.css';
 import { ModeratorBlock } from './ModeratorBlock/ModeratorBlock';
 import { Button } from '@/components/ui/Button';
-import { AddLogo } from '@/components/ui/Icons/Add';
+import { DeleteLogo } from '@/components/ui/Icons/Delete';
 import { Slide } from '@/components/ui/Icons/Slide';
 import { Typhography } from '@/components/ui/Typhography';
 import { BaseRole } from '@/utils/constants/userRoles';
@@ -68,7 +68,7 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Задание'} />
           {homeworks.length === 0 && <Typhography tag="p" variant="thirdy" children={'Отсутствует'} />}
           <ul className={styles['homework-list']}>
-            {homeworks.map((homework) => (
+            {homeworks.map((homework, index) => (
               <motion.ol
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -77,13 +77,15 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
                 className={styles['homework-list-item']}
               >
                 <div className={styles['item-content']}>
+                  <p>{`${index + 1}. `}</p>
                   <p>{homework.homeworkText}</p>
-                  <Button
-                    variant="slide"
-                    rotate={true}
-                    onClick={() => deleteLessonHomework(homework.homeworkID)}
-                    children={<AddLogo />}
-                  />
+                  {userRole > BaseRole && (
+                    <Button
+                      variant="slide"
+                      onClick={() => deleteLessonHomework(homework.homeworkID)}
+                      children={<DeleteLogo />}
+                    />
+                  )}
                 </div>
               </motion.ol>
             ))}

@@ -6,7 +6,7 @@ export const FreeDay = () => {
   return (
     <div className={styles['container']}>
       {/* <BezParIcon className={styles['icon']} /> */}
-      <Typhography tag="p" variant="primary" children={`Без пар`} className={styles['title']} />
+      <Typhography tag="p" variant="header" children={`Без пар`} className={styles['title']} />
     </div>
   );
 };

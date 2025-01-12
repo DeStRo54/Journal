@@ -1,19 +1,21 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { LogInSchema, RegisterSchema, RegisterSchemaType } from '../schemas';
 
+import { EntryContext } from '@/App/modules/AuthContext';
+import { getUserData } from '@/utils/api/requests/user/get';
+import { ChooseMedia } from '@/utils/helpers/ChooseMedia';
 import { useGetAllGroupsQuery } from '@/utils/redux/apiSlices/groupApiSlice/groupApi';
 import { usePostAuthMutation, usePostRegisterMutation } from '@/utils/redux/apiSlices/userApiSlice/userApi';
-import { useFormik } from 'formik';
-import { ChooseMedia } from '@/utils/helpers/ChooseMedia';
-import { getUserData } from '@/utils/api/requests/user/get';
-import { useDispatch } from 'react-redux';
 import { logIn } from '@/utils/redux/storeSlices/userSlice/slice';
+import { useFormik } from 'formik';
 
 export const useAuth = () => {
   const [stage, setStage] = React.useState<'login' | 'register'>('login');
   const dispatch = useDispatch();
+  const { setIsEntry } = React.useContext(EntryContext);
   const navigate = useNavigate();
 
   const getAllGroups = useGetAllGroupsQuery(undefined, {
@@ -51,15 +53,15 @@ export const useAuth = () => {
   const currentState =
     stage === 'register'
       ? {
-          isLoading: isRegisterLoading,
-          isError: isRegisterError,
-          isSuccess: isRegisterSuccess
-        }
+        isLoading: isRegisterLoading,
+        isError: isRegisterError,
+        isSuccess: isRegisterSuccess
+      }
       : {
-          isLoading: isAuthLoading,
-          isError: isAuthError,
-          isSuccess: isAuthSuccess
-        };
+        isLoading: isAuthLoading,
+        isError: isAuthError,
+        isSuccess: isAuthSuccess
+      };
 
   const getUserAfterAuth = async () => {
     try {
@@ -73,6 +75,7 @@ export const useAuth = () => {
           group_name: data.group_name
         })
       );
+      setIsEntry();
       navigate(ChooseMedia);
     } catch (error) {
       console.log(error);

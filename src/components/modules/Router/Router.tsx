@@ -2,11 +2,11 @@ import { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from 'react-router-dom';
 
+import { ChooseMedia } from '../../../utils/helpers/ChooseMedia';
 import { Layout } from '../Layout/Layout';
 
 import { ProtectedRoute } from './components/RotectedRoute';
 import { AdminPanel, Auth, JournalDesktop, JournalMobile, ProfileSettings } from './constants.module';
-import { ChooseMedia } from '../../../utils/helpers/ChooseMedia';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { AdminRole } from '@/utils/constants/userRoles';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';

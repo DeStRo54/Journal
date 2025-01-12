@@ -83,7 +83,7 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
                     <Button
                       variant="slide"
                       onClick={() => deleteLessonHomework(homework.homeworkID)}
-                      children={<DeleteLogo />}
+                      children={<DeleteLogo className={styles['delete-icon']} />}
                     />
                   )}
                 </div>

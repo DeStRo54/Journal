@@ -1,6 +1,6 @@
-import { api } from "@/utils/api/instance";
+import { api } from '@/utils/api/instance';
 
 export type getUserRefreshConfig = AxiosRequestConfig | undefined;
 
-export const getUserRefresh = async (requestConfig: getUserRefreshConfig) =>
+export const getUserRefresh = async (requestConfig?: getUserRefreshConfig) =>
   api.get<UserRefreshResponse>('/user/refresh', requestConfig?.config);

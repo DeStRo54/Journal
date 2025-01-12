@@ -5,8 +5,8 @@ import styles from './Header.module.css';
 import { AdminLogo } from '@/components/ui/Icons/Admin';
 import { SettingsLogo } from '@/components/ui/Icons/Settings';
 import { Typhography } from '@/components/ui/Typhography';
-import { getUser } from '@/utils/redux/storeSlices/userSlice/selectors';
 import { AdminRole } from '@/utils/constants/userRoles';
+import { getUser } from '@/utils/redux/storeSlices/userSlice/selectors';
 
 export const Header = () => {
   const navigate = useNavigate();

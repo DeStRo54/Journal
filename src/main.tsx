@@ -8,6 +8,8 @@ import { store } from './utils/redux/store.ts';
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
-    <App />
+    <>
+      <App />
+    </>
   </Provider>
 );

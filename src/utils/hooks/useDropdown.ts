@@ -8,7 +8,7 @@ const useDropdown = <T extends HTMLElement = HTMLDivElement>() => {
     open: () => setIsOpen(true),
     close: () => setIsOpen(false),
     toggle: () => setIsOpen((prev) => !prev)
-  }
+  };
 
   React.useEffect(() => {
     const handler = (event: MouseEvent | TouchEvent) => {

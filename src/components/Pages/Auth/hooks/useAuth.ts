@@ -6,9 +6,14 @@ import { LogInSchema, RegisterSchema, RegisterSchemaType } from '../schemas';
 import { useGetAllGroupsQuery } from '@/utils/redux/apiSlices/groupApiSlice/groupApi';
 import { usePostAuthMutation, usePostRegisterMutation } from '@/utils/redux/apiSlices/userApiSlice/userApi';
 import { useFormik } from 'formik';
+import { ChooseMedia } from '@/utils/helpers/ChooseMedia';
+import { getUserData } from '@/utils/api/requests/user/get';
+import { useDispatch } from 'react-redux';
+import { logIn } from '@/utils/redux/storeSlices/userSlice/slice';
 
 export const useAuth = () => {
   const [stage, setStage] = React.useState<'login' | 'register'>('login');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const getAllGroups = useGetAllGroupsQuery(undefined, {
@@ -56,6 +61,24 @@ export const useAuth = () => {
           isSuccess: isAuthSuccess
         };
 
+  const getUserAfterAuth = async () => {
+    try {
+      const { data } = await getUserData();
+      dispatch(
+        logIn({
+          role: 3, //data.role
+          name: data.name,
+          surname: data.surname,
+          email: data.email,
+          group_name: data.group_name
+        })
+      );
+      navigate(ChooseMedia);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const setSubmit = async (values: RegisterSchemaType) => {
     if (stage !== 'login') {
       const postRegisterResponse = await postRegister({
@@ -81,7 +104,7 @@ export const useAuth = () => {
         }
       });
       if (!postAuthResponse.error) {
-        navigate('/journal');
+        getUserAfterAuth();
       }
     }
   };

@@ -4,17 +4,17 @@ import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterP
 
 import { Layout } from '../Layout/Layout';
 
-import { ChooseMedia } from './helpers/ChooseMedia';
 import { ProtectedRoute } from './components/RotectedRoute';
 import { AdminPanel, Auth, JournalDesktop, JournalMobile, ProfileSettings } from './constants.module';
+import { ChooseMedia } from '../../../utils/helpers/ChooseMedia';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 import { AdminRole } from '@/utils/constants/userRoles';
+import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 
 export const Router = () => {
   const isAuth = !!document.cookie.match('session_key=');
   const userRole = useSelector(getUserRole);
-  const screenType = ChooseMedia();
+  const screenType = ChooseMedia;
 
   const router = createBrowserRouter(
     createRoutesFromElements(

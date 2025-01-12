@@ -1,11 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
+import { AddHomework } from './AddHomework/AddHomework';
 import styles from './IndependentHomework.module.css';
 import { Typhography } from '@/components/ui/Typhography';
-import { useSelector } from 'react-redux';
-import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 import { BaseRole } from '@/utils/constants/userRoles';
-import { AddHomework } from './AddHomework/AddHomework';
+import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 
 interface IndependentHomeworkProps {
   Homeworks: Homework[];
@@ -21,7 +21,7 @@ export const IndependentHomework = ({ Homeworks }: IndependentHomeworkProps) => 
     <>
       {!!Homeworks.length && !!addedHomeworks.length && (
         <div className={styles['container']}>
-          <Typhography tag="p" variant="primary" children={`Общие задания`} className={styles['title']} />
+          <Typhography tag="p" variant="primary" children={`Задания на день`} className={styles['title']} />
           <ul className={styles['content']}>
             {Homeworks.map((homework) => (
               <li key={homework.homeworkID}>{homework.homeworkText}</li>

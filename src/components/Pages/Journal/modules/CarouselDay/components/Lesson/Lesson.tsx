@@ -49,7 +49,11 @@ const getTeacher = (rawDescrciption: string) => {
 
 export const Lesson = ({ apiData, updateHeight }: LessonProps) => {
   const para = apiData.class;
-  const [homeworks, setHomeworks] = React.useState(apiData.homework.map((value) => value.homeworkText));
+  const [homeworks, setHomeworks] = React.useState<HomeworkArray>(
+    apiData.homework.map((value) => {
+      return { homeworkText: value.homeworkText, homeworkID: value.homeworkID };
+    })
+  );
 
   const [showInfo, setShowInfo] = React.useState(false);
 
@@ -58,8 +62,13 @@ export const Lesson = ({ apiData, updateHeight }: LessonProps) => {
 
   const showDetails = () => setShowInfo(!showInfo);
 
-  const addHomework = (homework: string) => {
+  const addHomework = (homework: HomeworkElement) => {
     setHomeworks((prev) => [...prev, homework]);
+    updateHeight();
+  };
+
+  const deleteHomework = (id: number) => {
+    setHomeworks((prev) => prev.filter((homework) => homework.homeworkID !== id));
     updateHeight();
   };
 
@@ -75,9 +84,9 @@ export const Lesson = ({ apiData, updateHeight }: LessonProps) => {
         {homeworks.length > 0 && (
           <ul className={styles['homework-info']}>
             <h1>Задание</h1>
-            {homeworks.map((homework, index) => (
-              <ol key={index} className={styles['task']}>
-                {homework}
+            {homeworks.map((homework) => (
+              <ol key={homework.homeworkID} className={styles['task']}>
+                {homework.homeworkText}
               </ol>
             ))}
           </ul>
@@ -92,7 +101,13 @@ export const Lesson = ({ apiData, updateHeight }: LessonProps) => {
         </div>
       </div>
       <Modal modalId="journal" showInfo={showInfo} showDetails={showDetails}>
-        <LessonCard apiData={apiData} homeworks={homeworks} showDetails={showDetails} addHomework={addHomework} />
+        <LessonCard
+          apiData={apiData}
+          homeworks={homeworks}
+          showDetails={showDetails}
+          addHomework={addHomework}
+          deleteHomework={deleteHomework}
+        />
       </Modal>
     </React.Fragment>
   );

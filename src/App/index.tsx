@@ -1,10 +1,11 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { EntryContext } from './modules/AuthContext';
+import { Router } from '@/components/modules/Router/Router';
 import { getUserData } from '@/utils/api/requests/user/get';
 import { getUserRefresh } from '@/utils/api/requests/user/refresh';
 import { logIn } from '@/utils/redux/storeSlices/userSlice/slice';
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { EntryContext } from './modules/AuthContext';
-import { Router } from '@/components/modules/Router/Router';
 
 function App() {
   const dispatch = useDispatch();

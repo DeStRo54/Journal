@@ -1,1 +1,1 @@
-type ModeratorAddHomeworkDateResponse = BaseResponse;
+type ModeratorAddHomeworkDateResponse = { homework_id: number } & BaseResponse;

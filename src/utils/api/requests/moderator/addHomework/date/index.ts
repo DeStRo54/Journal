@@ -3,7 +3,7 @@ import { api } from '@/utils/api/instance';
 export type PostmModeratorAddHomeworkDateParams = {
   subjectId: number;
   homeworkText: string;
-  dueDate: Date;
+  dueDate: string;
 };
 
 export type PostModeratorAddHomeworkDateConfig = AxiosRequestConfig<PostmModeratorAddHomeworkDateParams>;

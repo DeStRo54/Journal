@@ -3,16 +3,19 @@ import { useSelector } from 'react-redux';
 import styles from './LessonCard.module.css';
 import { ModeratorBlock } from './ModeratorBlock/ModeratorBlock';
 import { Button } from '@/components/ui/Button';
+import { AddLogo } from '@/components/ui/Icons/Add';
 import { Slide } from '@/components/ui/Icons/Slide';
 import { Typhography } from '@/components/ui/Typhography';
 import { BaseRole } from '@/utils/constants/userRoles';
+import { useDeleteModeratorHomeworkMutation } from '@/utils/redux/apiSlices/moderatorApiSlice/moderatorApi';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 import { motion } from 'framer-motion';
 
 interface LessonInfoProps {
   apiData: OutputClass;
-  homeworks: string[];
-  addHomework: (homework: string) => void;
+  homeworks: HomeworkArray;
+  addHomework: (homework: HomeworkElement) => void;
+  deleteHomework: (id: number) => void;
   showDetails: () => void;
 }
 
@@ -20,10 +23,20 @@ const RestructDescription = (description: string) => {
   return description.split(' ').splice(1).join(' ').split('\n')[0];
 };
 
-export const LessonCard = ({ apiData, homeworks, showDetails, addHomework }: LessonInfoProps) => {
+export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, deleteHomework }: LessonInfoProps) => {
   const userRole = useSelector(getUserRole);
 
   const description = RestructDescription(apiData.class.description);
+
+  const [deleteModeratorHomeworkMutation] = useDeleteModeratorHomeworkMutation(); //потом попробую изолировать как-то
+
+  const deleteLessonHomework = async (id: number) => {
+    const response = await deleteModeratorHomeworkMutation({ params: { homeworkID: id } });
+
+    if (!response.error) {
+      deleteHomework(id);
+    }
+  };
 
   return (
     <motion.div
@@ -55,15 +68,23 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework }: Les
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Задание'} />
           {homeworks.length === 0 && <Typhography tag="p" variant="thirdy" children={'Отсутствует'} />}
           <ul className={styles['homework-list']}>
-            {homeworks.map((value, index) => (
+            {homeworks.map((homework) => (
               <motion.ol
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.35, ease: 'easeInOut' }}
-                key={index}
+                key={homework.homeworkID}
                 className={styles['homework-list-item']}
               >
-                {value}
+                <div className={styles['item-content']}>
+                  <p>{homework.homeworkText}</p>
+                  <Button
+                    variant="slide"
+                    rotate={true}
+                    onClick={() => deleteLessonHomework(homework.homeworkID)}
+                    children={<AddLogo />}
+                  />
+                </div>
               </motion.ol>
             ))}
           </ul>

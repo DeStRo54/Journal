@@ -65,7 +65,7 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
           <Typhography tag="p" variant="thirdy" children={apiData.class.category} />
         </section>
         <section className={styles['section']}>
-          <Typhography tag="h3" variant="additional" className={styles['info']} children={'Задание'} />
+          <Typhography tag="h3" variant="additional" className={styles['info']} children={'Задания'} />
           {homeworks.length === 0 && <Typhography tag="p" variant="thirdy" children={'Отсутствует'} />}
           <ul className={styles['homework-list']}>
             {homeworks.map((homework, index) => (
@@ -77,8 +77,10 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
                 className={styles['homework-list-item']}
               >
                 <div className={styles['item-content']}>
-                  <p>{`${index + 1}. `}</p>
-                  <p>{homework.homeworkText}</p>
+                  <div className={styles['content-text']}>
+                    <p>{`${index + 1}. `}</p>
+                    <p>{homework.homeworkText}</p>
+                  </div>
                   {userRole > BaseRole && (
                     <Button
                       variant="slide"

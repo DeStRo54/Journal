@@ -10,6 +10,7 @@ import { BaseRole } from '@/utils/constants/userRoles';
 import { useDeleteModeratorHomeworkMutation } from '@/utils/redux/apiSlices/moderatorApiSlice/moderatorApi';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 import { motion } from 'framer-motion';
+import { convertSummary } from '../helpers/convertSummary';
 
 interface LessonInfoProps {
   apiData: OutputClass;
@@ -58,7 +59,7 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
       <div className={styles['container']}>
         <section className={styles['section']}>
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Название предмета'} />
-          <Typhography tag="p" variant="thirdy" children={apiData.class.summary} />
+          <Typhography tag="p" variant="thirdy" children={convertSummary(apiData.class.summary)} />
         </section>
         <section className={styles['section']}>
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Тип занятия'} />
@@ -67,31 +68,28 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
         <section className={styles['section']}>
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Задания'} />
           {homeworks.length === 0 && <Typhography tag="p" variant="thirdy" children={'Отсутствует'} />}
-          <ul className={styles['homework-list']}>
+          <table className={styles['homework-list']}>
             {homeworks.map((homework, index) => (
-              <motion.ol
+              <motion.tr
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease: 'easeInOut' }}
                 key={homework.homeworkID}
                 className={styles['homework-list-item']}
               >
-                <div className={styles['item-content']}>
-                  <div className={styles['content-text']}>
-                    <p>{`${index + 1}. `}</p>
-                    <p>{homework.homeworkText}</p>
-                  </div>
-                  {userRole > BaseRole && (
-                    <Button
-                      variant="slide"
-                      onClick={() => deleteLessonHomework(homework.homeworkID)}
-                      children={<DeleteLogo className={styles['delete-icon']} />}
-                    />
-                  )}
-                </div>
-              </motion.ol>
+                <td><p>{`${index + 1}. `}</p></td>
+                <td><p>{homework.homeworkText}</p></td>
+                {userRole > BaseRole && (
+                  <td><Button
+                    variant="slide"
+                    onClick={() => deleteLessonHomework(homework.homeworkID)}
+                    children={<DeleteLogo className={styles['delete-icon']} />}
+                  /></td>
+                )}
+              </motion.tr>
             ))}
-          </ul>
+          </table>
         </section>
         <section className={styles['section']}>
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Место'} />
@@ -103,6 +101,6 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
         </section>
         {userRole > BaseRole && <ModeratorBlock apiData={apiData} addHomework={addHomework} />}
       </div>
-    </motion.div>
+    </motion.div >
   );
 };

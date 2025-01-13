@@ -5,6 +5,7 @@ import { LessonCard } from './LessonCard/LessonCard';
 import { Modal } from '@/components/ui/Modal';
 import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
+import { convertSummary } from './helpers/convertSummary';
 
 interface LessonProps {
   apiData: OutputClass;
@@ -29,8 +30,6 @@ const lessonColor = {
   Консультация: 'cons',
   Экзамен: 'exam'
 };
-
-const convertSummary = (rawDescrciption: string) => rawDescrciption.split(' ').slice(1).join(' ');
 
 const convertDateToTime = (rawDate: string) => {
   const timePart = rawDate.split('T')[1];

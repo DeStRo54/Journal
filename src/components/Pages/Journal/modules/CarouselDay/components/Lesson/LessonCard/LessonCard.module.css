@@ -64,9 +64,6 @@ body {
 
 .homework-list {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
   width: fit-content;
 }
 
@@ -75,24 +72,8 @@ body {
   color: var(--text-invert-color);
 }
 
-.item-content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.content-text {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  height: 24px;
-}
-
 .delete-icon {
+  margin-left: 8px;
   width: 24px !important;
   height: 24px !important;
 }

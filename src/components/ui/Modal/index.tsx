@@ -20,7 +20,8 @@ export const Modal = ({ modalId, showInfo, showDetails, children }: ModalProps) 
   return createPortal(
     <AnimatePresence>
       {showInfo && (
-        <motion.div
+        <motion.dialog
+          id={modalId}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -28,7 +29,7 @@ export const Modal = ({ modalId, showInfo, showDetails, children }: ModalProps) 
         >
           <div className={styles['background']} onClick={showDetails} />
           {children}
-        </motion.div>
+        </motion.dialog>
       )}
     </AnimatePresence>,
     portalTarget

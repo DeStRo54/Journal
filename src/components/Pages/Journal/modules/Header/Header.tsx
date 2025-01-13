@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import styles from './Header.module.css';
 import { AdminLogo } from '@/components/ui/Icons/Admin';
@@ -9,28 +9,22 @@ import { AdminRole } from '@/utils/constants/userRoles';
 import { getUser } from '@/utils/redux/storeSlices/userSlice/selectors';
 
 export const Header = () => {
-  const navigate = useNavigate();
   const { role, group_name } = useSelector(getUser);
 
   const showAdminComponent = role === AdminRole;
 
-  const goToAdminPanel = () => navigate('/admin');
-  const goToProfileSettings = () => navigate('/profile');
-
   return (
     <header className={styles.header}>
-      <Typhography tag="h1" variant="header">
-        {group_name}
-      </Typhography>
+      <Typhography tag="h1" variant="header" children={group_name} />
       <div className={styles.container}>
         {showAdminComponent && (
-          <Typhography tag="h1" variant="primary" onClick={goToAdminPanel}>
+          <Link to="/admin">
             <AdminLogo className={styles['icon']} />
-          </Typhography>
+          </Link>
         )}
-        <Typhography tag="h1" variant="primary" onClick={goToProfileSettings}>
+        <Link to="/profile">
           <SettingsLogo className={styles['icon']} />
-        </Typhography>
+        </Link>
       </div>
     </header>
   );

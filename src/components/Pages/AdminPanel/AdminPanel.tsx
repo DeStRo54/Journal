@@ -17,13 +17,13 @@ export const AdminPanel = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <article className={styles.container}>
       <Typhography tag="h1" variant="primary" className={styles.title}>
         Admin panel
       </Typhography>
       <Button variant="accept" onClick={addGroup}>
         Add group
       </Button>
-    </div>
+    </article>
   );
 };

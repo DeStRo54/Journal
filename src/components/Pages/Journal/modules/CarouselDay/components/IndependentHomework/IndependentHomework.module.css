@@ -22,6 +22,8 @@
   padding: 1rem 0.7rem;
   color: var(--text-invert-color);
   cursor: pointer;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease-in-out;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -29,4 +31,8 @@
   margin: 0 auto;
   width: 40px;
   height: 40px;
+}
+
+.active {
+  scale: 1.1;
 }

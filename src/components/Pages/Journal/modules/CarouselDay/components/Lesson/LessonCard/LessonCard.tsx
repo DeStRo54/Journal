@@ -40,7 +40,7 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
   };
 
   return (
-    <motion.div
+    <motion.aside
       initial={{ x: '100%' }}
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
@@ -56,18 +56,18 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
         </Button>
         <Typhography tag="h3" variant="secondary" children={'Предмет'} />
       </header>
-      <div className={styles['container']}>
-        <section className={styles['section']}>
+      <section className={styles['container']}>
+        <article className={styles['section']}>
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Название предмета'} />
           <Typhography tag="p" variant="thirdy" children={convertSummary(apiData.class.summary)} />
-        </section>
-        <section className={styles['section']}>
+        </article>
+        <article className={styles['section']}>
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Тип занятия'} />
           <Typhography tag="p" variant="thirdy" children={apiData.class.category} />
-        </section>
-        <section className={styles['section']}>
+        </article>
+        <article className={styles['section']}>
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Задание'} />
-          {homeworks.length === 0 && <Typhography tag="p" variant="thirdy" children={'Отсутствует'} />}
+          {homeworks.length === 0 && <Typhography tag="h3" variant="thirdy" children={'Отсутствует'} />}
           <table className={styles['homework-list']}>
             <tbody>
               {homeworks.map((homework, index) => (
@@ -92,17 +92,17 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
               ))}
             </tbody>
           </table>
-        </section>
-        <section className={styles['section']}>
+        </article>
+        <article className={styles['section']}>
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Место'} />
           <Typhography tag="p" variant="thirdy" children={apiData.class.location} />
-        </section>
-        <section className={styles['section']}>
+        </article>
+        <article className={styles['section']}>
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Преподаватель'} />
           <Typhography tag="p" variant="thirdy" children={description} />
-        </section>
+        </article>
         {userRole > BaseRole && <ModeratorBlock apiData={apiData} addHomework={addHomework} />}
-      </div>
-    </motion.div >
+      </section>
+    </motion.aside >
   );
 };

@@ -33,7 +33,7 @@ export const ModeratorBlock = ({ apiData, addHomework }: ModeratorBlockProps) =>
   };
 
   return (
-    <section className={styles['section']}>
+    <article className={styles['section']}>
       <Input
         onChange={(e) => setHomeworkText(e.target.value)}
         label="Добавить задание"
@@ -48,6 +48,6 @@ export const ModeratorBlock = ({ apiData, addHomework }: ModeratorBlockProps) =>
           Ошибка
         </Typhography>
       )}
-    </section>
+    </article>
   );
 };

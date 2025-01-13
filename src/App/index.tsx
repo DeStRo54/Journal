@@ -58,8 +58,6 @@ function App() {
     }
   };
 
-  console.log('a');
-
   React.useEffect(() => {
     if (isEntry) {
       userSessionRefresh();

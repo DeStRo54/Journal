@@ -50,8 +50,8 @@ export const CarouselWeek = ({
   );
 
   return (
-    <div className={styles['carousel-week']}>
-      <div className={styles['navigation']}>
+    <section className={styles['carousel-week']}>
+      <header className={styles['navigation']}>
         <Button className="custom-prev" variant="slide" rotate={true}>
           <Slide />
         </Button>
@@ -65,8 +65,9 @@ export const CarouselWeek = ({
         <Button className="custom-next" variant="slide">
           <Slide />
         </Button>
-      </div>
+      </header>
       <Swiper
+        tag='ul'
         ref={weekCarouselRef}
         onSlideChange={onWeekNodeScroll}
         lazyPreloadPrevNext={20}
@@ -80,28 +81,30 @@ export const CarouselWeek = ({
         }}
       >
         {daysByWeeks.map((week, slideIndex) => (
-          <SwiperSlide key={slideIndex} className={styles['carousel-week-slide']}>
-            {week.map((value, dayIndex) => (
-              <div
-                key={dayIndex}
-                className={styles['carousel-date-item']}
-                onClick={() => onDateNodeClick(findIndexByDate(values, value))}
-              >
-                <p className={styles['day']}>{weekDays[dayIndex]}</p>
-                <div
-                  className={clsx(
-                    styles['date-card'],
-                    currentSlide === slideIndex && dayIndexInSlide === dayIndex && styles.clicked
-                  )}
+          <SwiperSlide key={slideIndex} tag='li'>
+            <ul className={styles['carousel-week-slide']}>
+              {week.map((value, dayIndex) => (
+                <li
+                  key={dayIndex}
+                  className={styles['carousel-date-item']}
+                  onClick={() => onDateNodeClick(findIndexByDate(values, value))}
                 >
-                  <p className={styles['date']}>{value.day}</p>
-                </div>
-                {value.lessons.length > 0 && <LessonsList lessons={value.lessons} />}
-              </div>
-            ))}
+                  <p className={styles['day']}>{weekDays[dayIndex]}</p>
+                  <div
+                    className={clsx(
+                      styles['date-card'],
+                      currentSlide === slideIndex && dayIndexInSlide === dayIndex && styles.clicked
+                    )}
+                  >
+                    <p className={styles['date']}>{value.day}</p>
+                  </div>
+                  {value.lessons.length > 0 && <LessonsList lessons={value.lessons} />}
+                </li>
+              ))}
+            </ul>
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </section>
   );
 };

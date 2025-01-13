@@ -73,32 +73,32 @@ export const Lesson = ({ apiData, updateHeight }: LessonProps) => {
 
   return (
     <React.Fragment>
-      <div className={styles.container} onClick={showDetails}>
-        <div className={styles.header}>
-          <h1 className={styles['subject']}>{convertSummary(para.summary)}</h1>
+      <section className={styles.container} onClick={showDetails}>
+        <header className={styles.header}>
+          <h3 className={styles['subject']}>{convertSummary(para.summary)}</h3>
           <p className={clsx(styles['type'], styles[lessonColor[para.category as keyof typeof lessonColor]])}>
             {para.category}
           </p>
-        </div>
+        </header>
         {homeworks.length > 0 && (
-          <ul className={styles['homework-info']}>
-            <h1>Задание</h1>
+          <ol className={styles['homework-info']}>
+            <h4>Задание</h4>
             {homeworks.map((homework) => (
-              <ol key={homework.homeworkID} className={styles['task']}>
+              <li key={homework.homeworkID} className={styles['task']}>
                 {homework.homeworkText}
-              </ol>
+              </li>
             ))}
-          </ul>
+          </ol>
         )}
-        <div className={styles['time-info']}>
+        <article className={styles['time-info']}>
           <p>{`${lessonsNumbers[paraBegin as keyof typeof lessonsNumbers]} пара`}</p>
           <p>{`${paraBegin} - ${paraEnd}`}</p>
-        </div>
-        <div className={styles['cabinet-info']}>
+        </article>
+        <article className={styles['cabinet-info']}>
           <Typhography tag="p" variant="additional" children={para.location} />
           <Typhography tag="p" variant="additional" children={getTeacher(para.description)} />
-        </div>
-      </div>
+        </article>
+      </section>
       <Modal modalId="journal" showInfo={showInfo} showDetails={showDetails}>
         <LessonCard
           apiData={apiData}

@@ -11,7 +11,6 @@ import { WeekHeader } from '../shared/WeekHeader/WeekHeader';
 import 'swiper/swiper-bundle.css';
 import styles from './CarouselMonth.module.css';
 import { Button } from '@/components/ui/Button';
-import { Typhography } from '@/components/ui/Typhography';
 import { useDropdown } from '@/utils/hooks/useDropdown';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -57,8 +56,8 @@ export const CarouselMonth = ({
   };
 
   return (
-    <div className={styles['carousel-month']}>
-      <div className={styles['header']}>
+    <section className={styles['carousel-month']}>
+      <header className={styles['header']}>
         <div className={styles['date-container']}>
           <WeekHeader
             currentDate={values[currentDate.day]}
@@ -75,7 +74,7 @@ export const CarouselMonth = ({
             />
             <AnimatePresence>
               {isOpen && (
-                <motion.div
+                <motion.ul
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
@@ -83,52 +82,48 @@ export const CarouselMonth = ({
                   className={styles['dropdown-content']}
                 >
                   {firstMonthsNodes.map((value) => (
-                    <Typhography
-                      key={value[0]}
-                      tag="p"
-                      variant="secondary"
-                      className={styles['dropdown-item']}
-                      onClick={() => onScrollClick(value[1])}
-                    >
+                    <li className={styles['dropdown-item']} onClick={() => onScrollClick(value[1])}>
                       {value[0]}
-                    </Typhography>
+                    </li>
                   ))}
-                </motion.div>
+                </motion.ul>
               )}
             </AnimatePresence>
           </div>
         </div>
-        <div className={styles['week-container']}>
+        <ul className={styles['week-container']}>
           {weekDays.map((value, index) => (
-            <div key={index} className={styles['week-day']}>
-              <p>{value}</p>
-            </div>
+            <li key={index} className={styles['week-day']}>
+              {value}
+            </li>
           ))}
-        </div>
-      </div>
-      <Swiper ref={monthCarouselRef} initialSlide={currentSlide} speed={500}>
+        </ul>
+      </header>
+      <Swiper tag='ul' ref={monthCarouselRef} initialSlide={currentSlide} speed={500}>
         {daysByMonth.map((value, slideIndex) => (
-          <SwiperSlide key={slideIndex} className={styles['month-card']}>
-            {value.map((value, dayIndex) => (
-              <div
-                key={dayIndex}
-                className={styles['month-container']}
-                onClick={() => onScrollClick(findIndexByDate(values, value))}
-              >
-                <div
-                  className={clsx(
-                    styles['day-card'],
-                    currentSlide === slideIndex && dayIndexInSlide === dayIndex && styles.active
-                  )}
+          <SwiperSlide key={slideIndex} tag='li'>
+            <ul className={styles['month-card']}>
+              {value.map((value, dayIndex) => (
+                <li
+                  key={dayIndex}
+                  className={styles['month-container']}
+                  onClick={() => onScrollClick(findIndexByDate(values, value))}
                 >
-                  <p>{value.day}</p>
-                </div>
-                {value.lessons.length > 0 && <LessonsList lessons={value.lessons} />}
-              </div>
-            ))}
+                  <div
+                    className={clsx(
+                      styles['day-card'],
+                      currentSlide === slideIndex && dayIndexInSlide === dayIndex && styles.active
+                    )}
+                  >
+                    <p>{value.day}</p>
+                  </div>
+                  {value.lessons.length > 0 && <LessonsList lessons={value.lessons} />}
+                </li>
+              ))}
+            </ul>
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </section>
   );
 };

@@ -40,7 +40,7 @@ export const JournalDesktop = () => {
   };
 
   return (
-    <main className={styles.container}>
+    <article className={styles.container}>
       {getScheduleStatus.loading && <Skeleton />}
       {getScheduleStatus.success && (
         <React.Fragment>
@@ -66,6 +66,6 @@ export const JournalDesktop = () => {
           </div>
         </React.Fragment>
       )}
-    </main>
+    </article>
   );
 };

@@ -26,7 +26,7 @@ export const Auth = () => {
   };
 
   return (
-    <main className={styles.container}>
+    <article className={styles.container}>
       <h1 className={styles.title}>Здесь будет какой-то заголовок и логотип</h1>
       <form onSubmit={form.handleSubmit} className={styles.form}>
         <div>
@@ -128,6 +128,6 @@ export const Auth = () => {
 
         <Button type="reset" variant="question" onClick={func.changeStage} children={stageButtonText} />
       </form>
-    </main>
+    </article>
   );
 };

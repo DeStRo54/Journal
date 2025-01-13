@@ -1,14 +1,17 @@
 import { motion } from 'framer-motion';
 import styles from './AddHomework.module.css';
+import { Button } from '@/components/ui/Button';
+import { Slide } from '@/components/ui/Icons/Slide';
+import { Typhography } from '@/components/ui/Typhography';
 
 interface AddHomeworkProps {
   addHomework: (homework: HomeworkElement) => void;
+  onClose: () => void;
 }
 
-export const AddHomework = ({ }: AddHomeworkProps) => {
-
+export const AddHomework = ({ onClose }: AddHomeworkProps) => {
   return (
-    <motion.div
+    <motion.aside
       initial={{ x: '100%' }}
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
@@ -17,7 +20,12 @@ export const AddHomework = ({ }: AddHomeworkProps) => {
         ease: 'easeInOut'
       }}
       className={styles['layout']}>
-      Test
-    </motion.div>
+      <header className={styles['header']}>
+        <Button variant="slide" rotate={true} className={styles['close']} onClick={onClose}>
+          <Slide />
+        </Button>
+        <Typhography tag="h3" variant="secondary" children={'Предмет'} />
+      </header>
+    </motion.aside>
   );
 };

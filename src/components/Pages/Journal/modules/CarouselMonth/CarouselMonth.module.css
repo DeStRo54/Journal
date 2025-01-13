@@ -63,6 +63,8 @@
 }
 
 .dropdown-item {
+  color: var(--text-invert-color);
+  font-size: 18px;
   padding: 0.5rem;
   cursor: pointer;
   text-align: left;

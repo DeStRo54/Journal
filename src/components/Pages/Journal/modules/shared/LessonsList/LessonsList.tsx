@@ -18,7 +18,7 @@ export const LessonsList = ({ lessons }: LessonsListProps) => {
   return (
     <ul className={styles['list']}>
       {lessons.map((lesson) => (
-        <ol
+        <li
           key={lesson.class.startTime}
           className={clsx(styles['item'], styles[lessonColor[lesson.class.category as keyof typeof lessonColor]])}
         />

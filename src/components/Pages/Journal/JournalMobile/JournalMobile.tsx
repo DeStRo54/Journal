@@ -50,7 +50,7 @@ export const JournalMobile = () => {
   };
 
   return (
-    <main className={styles.container}>
+    <article className={styles.container}>
       {getScheduleStatus.loading && <Skeleton />}
       {getScheduleStatus.success && (
         <React.Fragment>
@@ -76,6 +76,6 @@ export const JournalMobile = () => {
           </div>
         </React.Fragment>
       )}
-    </main>
+    </article>
   );
 };

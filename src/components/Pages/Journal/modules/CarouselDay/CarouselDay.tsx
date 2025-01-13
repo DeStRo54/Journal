@@ -28,8 +28,9 @@ export const CarouselDay = ({
   };
 
   return (
-    <div {...props}>
+    <section {...props}>
       <Swiper
+        tag='ul'
         ref={dayCarouselRef}
         lazyPreloadPrevNext={14}
         freeMode={true}
@@ -38,7 +39,7 @@ export const CarouselDay = ({
         autoHeight={true}
       >
         {apiDates.map((apiData, index) => (
-          <SwiperSlide key={index} className={styles['swiper-layout']}>
+          <SwiperSlide key={index} tag='li' className={styles['swiper-layout']}>
             <div className={styles['day-card']}>
               {apiData.outputClasses.length === 0 && <FreeDay />}
               {apiData.outputClasses.map((value) => (
@@ -49,6 +50,6 @@ export const CarouselDay = ({
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </section>
   );
 };

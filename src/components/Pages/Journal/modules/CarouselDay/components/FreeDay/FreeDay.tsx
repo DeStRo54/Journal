@@ -4,9 +4,9 @@ import { Typhography } from '@/components/ui/Typhography';
 
 export const FreeDay = () => {
   return (
-    <div className={styles['container']}>
+    <article className={styles['container']}>
       {/* <BezParIcon className={styles['icon']} /> */}
-      <Typhography tag="p" variant="header" children={`Без пар`} className={styles['title']} />
-    </div>
+      <Typhography tag="h2" variant="header" children={`Без пар`} className={styles['title']} />
+    </article>
   );
 };

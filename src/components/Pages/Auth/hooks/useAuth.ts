@@ -15,7 +15,7 @@ import { useFormik } from 'formik';
 export const useAuth = () => {
   const [stage, setStage] = React.useState<'login' | 'register'>('login');
   const dispatch = useDispatch();
-  const { setIsEntry } = React.useContext(EntryContext);
+  const { isEntry, setIsEntry } = React.useContext(EntryContext);
   const navigate = useNavigate();
 
   const getAllGroups = useGetAllGroupsQuery(undefined, {
@@ -53,15 +53,15 @@ export const useAuth = () => {
   const currentState =
     stage === 'register'
       ? {
-          isLoading: isRegisterLoading,
-          isError: isRegisterError,
-          isSuccess: isRegisterSuccess
-        }
+        isLoading: isRegisterLoading,
+        isError: isRegisterError,
+        isSuccess: isRegisterSuccess
+      }
       : {
-          isLoading: isAuthLoading,
-          isError: isAuthError,
-          isSuccess: isAuthSuccess
-        };
+        isLoading: isAuthLoading,
+        isError: isAuthError,
+        isSuccess: isAuthSuccess
+      };
 
   const getUserAfterAuth = async () => {
     try {
@@ -75,6 +75,9 @@ export const useAuth = () => {
           group_name: data.group_name
         })
       );
+      if (isEntry) {
+        setIsEntry();
+      }
       setIsEntry();
       navigate(ChooseMedia);
     } catch (error) {

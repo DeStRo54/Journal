@@ -10,31 +10,28 @@ import { logIn } from '@/utils/redux/storeSlices/userSlice/slice';
 function App() {
   const dispatch = useDispatch();
   const { isEntry } = React.useContext(EntryContext);
-  const refreshCookies = () => {
-    getUserRefresh()
-      .then((res) => res)
-      .catch((err) => {
-        console.log(err);
-      });
+  const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const refreshCookies = async () => {
+    try {
+      await getUserRefresh();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const setUserData = () => {
-    getUserData()
-      .then((res) => res.data)
-      .then((data) => {
-        dispatch(
-          logIn({
-            role: 3, //data.role
-            name: data.name,
-            surname: data.surname,
-            email: data.email,
-            group_name: data.group_name
-          })
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const setUserData = async () => {
+    try {
+      const { data } = await getUserData();
+      dispatch(logIn({
+        role: 3, //data.role
+        name: data.name,
+        surname: data.surname,
+        email: data.email,
+        group_name: data.group_name
+      }));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getTimeUpdateSession = (cookie: string) => {
@@ -44,30 +41,43 @@ function App() {
     return expiresDate.getTime() - currentDate.getTime();
   };
 
-  const userSessionRefresh = () => {
-    const timeToRefresh = getTimeUpdateSession('session_expires=') - 60 * 1000;
+  const userSessionRefresh = async () => {
+    try {
+      const timeToRefresh = getTimeUpdateSession('session_expires=') - 60 * 1000;
 
-    setTimeout(() => {
-      (async () => {
-        try {
-          await getUserRefresh();
-          userSessionRefresh();
-        } catch (error) {
-          console.log(error);
-        }
-      })();
-    }, timeToRefresh);
+      if (timeToRefresh > 0) {
+        timeoutRef.current = setTimeout(() => {
+          (async () => {
+            await refreshCookies();
+            userSessionRefresh();
+          })();
+        }, timeToRefresh);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  if (isEntry) {
-    userSessionRefresh();
-  }
+  console.log('a');
 
-  if (!isEntry && document.cookie.match('session_key=')) {
-    refreshCookies();
-    setUserData();
-    userSessionRefresh();
-  }
+  React.useEffect(() => {
+    if (isEntry) {
+      userSessionRefresh();
+    }
+
+    if (!isEntry && document.cookie.match('session_key=')) {
+      refreshCookies();
+      setUserData();
+      userSessionRefresh();
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    }
+  }, [isEntry])
 
   return <Router />;
 }

@@ -14,8 +14,13 @@ interface IndependentHomeworkProps {
 export const IndependentHomework = ({ Homeworks }: IndependentHomeworkProps) => {
   const userRole = useSelector(getUserRole);
 
-  const [addedHomeworks, setAddedHomeworks] = React.useState<string[]>([]);
-  const addHomework = (homework: string) => setAddedHomeworks((prev) => [...prev, homework]);
+  const [addedHomeworks, setAddedHomeworks] = React.useState<HomeworkArray>(Homeworks.map((homework) => {
+    return {
+      homeworkText: homework.homeworkText,
+      homeworkID: homework.homeworkID
+    }
+  }));
+  const addHomework = (homework: HomeworkElement) => setAddedHomeworks((prev) => [...prev, homework]);
 
   return (
     <>

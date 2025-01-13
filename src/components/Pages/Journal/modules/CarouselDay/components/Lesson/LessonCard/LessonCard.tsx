@@ -66,29 +66,31 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
           <Typhography tag="p" variant="thirdy" children={apiData.class.category} />
         </section>
         <section className={styles['section']}>
-          <Typhography tag="h3" variant="additional" className={styles['info']} children={'Задания'} />
+          <Typhography tag="h3" variant="additional" className={styles['info']} children={'Задание'} />
           {homeworks.length === 0 && <Typhography tag="p" variant="thirdy" children={'Отсутствует'} />}
           <table className={styles['homework-list']}>
-            {homeworks.map((homework, index) => (
-              <motion.tr
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: 'easeInOut' }}
-                key={homework.homeworkID}
-                className={styles['homework-list-item']}
-              >
-                <td><p>{`${index + 1}. `}</p></td>
-                <td><p>{homework.homeworkText}</p></td>
-                {userRole > BaseRole && (
-                  <td><Button
-                    variant="slide"
-                    onClick={() => deleteLessonHomework(homework.homeworkID)}
-                    children={<DeleteLogo className={styles['delete-icon']} />}
-                  /></td>
-                )}
-              </motion.tr>
-            ))}
+            <tbody>
+              {homeworks.map((homework, index) => (
+                <motion.tr
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35, ease: 'easeInOut' }}
+                  key={homework.homeworkID}
+                  className={styles['homework-list-item']}
+                >
+                  <td><p>{`${index + 1}. `}</p></td>
+                  <td><p>{homework.homeworkText}</p></td>
+                  {userRole > BaseRole && (
+                    <td><Button
+                      variant="slide"
+                      onClick={() => deleteLessonHomework(homework.homeworkID)}
+                      children={<DeleteLogo className={styles['delete-icon']} />}
+                    /></td>
+                  )}
+                </motion.tr>
+              ))}
+            </tbody>
           </table>
         </section>
         <section className={styles['section']}>

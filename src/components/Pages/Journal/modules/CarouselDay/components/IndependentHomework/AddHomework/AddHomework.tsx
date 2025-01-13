@@ -1,6 +1,5 @@
+import { motion } from 'framer-motion';
 import styles from './AddHomework.module.css';
-import { Button } from '@/components/ui/Button';
-import { AddLogo } from '@/components/ui/Icons/Add';
 
 interface AddHomeworkProps {
   addHomework: (homework: HomeworkElement) => void;
@@ -9,8 +8,16 @@ interface AddHomeworkProps {
 export const AddHomework = ({ }: AddHomeworkProps) => {
 
   return (
-    <div className={styles['content']}>
-      <Button variant="slide" rotate={true} onClick={() => { }} children={<AddLogo />} />
-    </div>
+    <motion.div
+      initial={{ x: '100%' }}
+      animate={{ x: 0 }}
+      exit={{ x: '100%' }}
+      transition={{
+        duration: 0.35,
+        ease: 'easeInOut'
+      }}
+      className={styles['layout']}>
+      Test
+    </motion.div>
   );
 };

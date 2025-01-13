@@ -6,6 +6,9 @@ import styles from './IndependentHomework.module.css';
 import { Typhography } from '@/components/ui/Typhography';
 import { BaseRole } from '@/utils/constants/userRoles';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
+import { Button } from '@/components/ui/Button';
+import { AddLogo } from '@/components/ui/Icons/Add';
+import { Modal } from '@/components/ui/Modal';
 
 interface IndependentHomeworkProps {
   Homeworks: Homework[];
@@ -13,6 +16,9 @@ interface IndependentHomeworkProps {
 
 export const IndependentHomework = ({ Homeworks }: IndependentHomeworkProps) => {
   const userRole = useSelector(getUserRole);
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const onClose = () => setIsOpen(false);
 
   const [addedHomeworks, setAddedHomeworks] = React.useState<HomeworkArray>(Homeworks.map((homework) => {
     return {
@@ -34,7 +40,13 @@ export const IndependentHomework = ({ Homeworks }: IndependentHomeworkProps) => 
           </ul>
         </div>
       )}
-      {userRole > BaseRole && <AddHomework addHomework={addHomework} />}
+      {userRole > BaseRole &&
+        <div className={styles['mod-content']} onClick={() => { setIsOpen(true) }}>
+          <AddLogo className={styles['add-icon']} />
+        </div>}
+      <Modal showInfo={isOpen} showDetails={onClose} modalId={'journal'}>
+        <AddHomework addHomework={addHomework} />
+      </Modal>
     </>
   );
 };

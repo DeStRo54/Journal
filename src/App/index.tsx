@@ -43,16 +43,19 @@ function App() {
 
   const userSessionRefresh = async () => {
     try {
-      const timeToRefresh = getTimeUpdateSession('session_expires=') - 60 * 1000;
+      const timeToRefresh = getTimeUpdateSession('session_expires=') - 40 * 1000;
 
       if (timeToRefresh > 0) {
         timeoutRef.current = setTimeout(() => {
           (async () => {
             await refreshCookies();
-            userSessionRefresh();
+            await userSessionRefresh();
           })();
         }, timeToRefresh);
+        return;
       }
+      await userSessionRefresh();
+
     } catch (error) {
       console.log(error);
     }

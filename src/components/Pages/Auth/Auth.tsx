@@ -2,7 +2,7 @@ import styles from './Auth.module.css';
 import { useAuth } from './hooks/useAuth';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Skeleton } from '@/components/ui/Skeleton';
+import { Loader } from '@/components/ui/Loader';
 import { Typhography } from '@/components/ui/Typhography';
 import { useDropdown } from '@/utils/hooks/useDropdown';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -122,7 +122,7 @@ export const Auth = () => {
           type="submit"
           variant="accept"
           disabled={state.isLoading}
-          children={state.isLoading ? <Skeleton /> : acceptButtonText}
+          children={state.isLoading ? <Loader /> : acceptButtonText}
         />
         {state.isError && <Typhography tag="h1" variant="secondary" children={'Ошибка, повторите попытку позже!'} />}
 

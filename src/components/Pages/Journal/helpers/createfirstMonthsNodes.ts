@@ -1,4 +1,4 @@
-type uniqData = [Months, number][];
+type uniqData = [number, number][];
 
 export const createfirstMonthsNodes = (values: CustomDates) => {
   const new_values = [] as uniqData;

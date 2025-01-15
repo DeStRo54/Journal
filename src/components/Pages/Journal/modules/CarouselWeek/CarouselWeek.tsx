@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 
+import { firstSessionDay, monthsNumbers, weekDays } from '../../constants';
 import { findDayIndex } from '../../helpers/findDayIndex';
 import { findIndexByDate } from '../../helpers/findIndexByDate';
 import { getDaysForOtherCarousels } from '../../helpers/getDaysForOtherCarousels';
@@ -18,9 +19,6 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 interface carouselWeekProps {
   currentDate: CustomDate;
   activeWeekNode: number;
-  weekDays: string[];
-  firstSessionDay: CustomDate;
-  monthsNumbers: number[];
   values: ValuesDates;
   onWeekNodeScroll: () => void;
   weekCarouselRef: React.RefObject<SwiperRef>;
@@ -30,10 +28,7 @@ interface carouselWeekProps {
 export const CarouselWeek = ({
   currentDate,
   activeWeekNode,
-  weekDays,
   values,
-  firstSessionDay,
-  monthsNumbers,
   onWeekNodeScroll,
   weekCarouselRef,
   dayCarouselRef
@@ -67,7 +62,7 @@ export const CarouselWeek = ({
         </Button>
       </header>
       <Swiper
-        tag='ul'
+        tag="ul"
         ref={weekCarouselRef}
         onSlideChange={onWeekNodeScroll}
         lazyPreloadPrevNext={20}
@@ -81,7 +76,7 @@ export const CarouselWeek = ({
         }}
       >
         {daysByWeeks.map((week, slideIndex) => (
-          <SwiperSlide key={slideIndex} tag='li'>
+          <SwiperSlide key={slideIndex} tag="li">
             <ul className={styles['carousel-week-slide']}>
               {week.map((value, dayIndex) => (
                 <li

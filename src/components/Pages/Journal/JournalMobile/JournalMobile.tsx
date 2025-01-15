@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { firstSessionDay, monthsNumbers, weekDays } from '../constants';
+import { Header } from '../../../modules/Header/Header';
 import { useRestructSheduleData } from '../hooks/useRestructSheduleData';
 import { CarouselDay } from '../modules/CarouselDay/CarouselDay';
 import { CarouselWeek } from '../modules/CarouselWeek/CarouselWeek';
-import { Header } from '../modules/Header/Header';
 
 import styles from './JournalMobile.module.css';
-import { Skeleton } from '@/components/ui/Skeleton';
+import { Loader } from '@/components/ui/Loader';
 import { SwiperRef } from 'swiper/react';
 
 export const JournalMobile = () => {
@@ -51,23 +50,21 @@ export const JournalMobile = () => {
 
   return (
     <article className={styles.container}>
-      {getScheduleStatus.loading && <Skeleton />}
+      {getScheduleStatus.loading && <Loader />}
       {getScheduleStatus.success && (
         <React.Fragment>
           <Header />
           <div className={styles['journal-body']} id="journal">
             <CarouselWeek
-              monthsNumbers={monthsNumbers}
               currentDate={currentDate}
               activeWeekNode={activeWeekNode}
-              weekDays={weekDays}
-              firstSessionDay={firstSessionDay}
               values={values}
               onWeekNodeScroll={onWeekNodeScroll}
               weekCarouselRef={weekCarouselRef}
               dayCarouselRef={dayCarouselRef}
             />
             <CarouselDay
+              values={values}
               currentDateIndex={activeWeekNode}
               apiDates={data}
               onDayNodeScroll={onDayNodeScroll}

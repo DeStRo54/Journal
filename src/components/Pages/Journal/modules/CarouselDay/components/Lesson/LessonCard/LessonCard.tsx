@@ -1,7 +1,9 @@
 import { useSelector } from 'react-redux';
 
+import { convertSummary } from '../helpers/convertSummary';
+
+import { AddLessonHomework } from './AddLessonHomework/AddLessonHomework';
 import styles from './LessonCard.module.css';
-import { ModeratorBlock } from './ModeratorBlock/ModeratorBlock';
 import { Button } from '@/components/ui/Button';
 import { DeleteLogo } from '@/components/ui/Icons/Delete';
 import { Slide } from '@/components/ui/Icons/Slide';
@@ -10,7 +12,6 @@ import { BaseRole } from '@/utils/constants/userRoles';
 import { useDeleteModeratorHomeworkMutation } from '@/utils/redux/apiSlices/moderatorApiSlice/moderatorApi';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 import { motion } from 'framer-motion';
-import { convertSummary } from '../helpers/convertSummary';
 
 interface LessonInfoProps {
   apiData: OutputClass;
@@ -79,14 +80,20 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
                   key={homework.homeworkID}
                   className={styles['homework-list-item']}
                 >
-                  <td><p>{`${index + 1}. `}</p></td>
-                  <td><p>{homework.homeworkText}</p></td>
+                  <td>
+                    <p>{`${index + 1}. `}</p>
+                  </td>
+                  <td>
+                    <p>{homework.homeworkText}</p>
+                  </td>
                   {userRole > BaseRole && (
-                    <td><Button
-                      variant="slide"
-                      onClick={() => deleteLessonHomework(homework.homeworkID)}
-                      children={<DeleteLogo className={styles['delete-icon']} />}
-                    /></td>
+                    <td>
+                      <Button
+                        variant="slide"
+                        onClick={() => deleteLessonHomework(homework.homeworkID)}
+                        children={<DeleteLogo className={styles['delete-icon']} />}
+                      />
+                    </td>
                   )}
                 </motion.tr>
               ))}
@@ -101,8 +108,8 @@ export const LessonCard = ({ apiData, homeworks, showDetails, addHomework, delet
           <Typhography tag="h3" variant="additional" className={styles['info']} children={'Преподаватель'} />
           <Typhography tag="p" variant="thirdy" children={description} />
         </article>
-        {userRole > BaseRole && <ModeratorBlock apiData={apiData} addHomework={addHomework} />}
+        {userRole > BaseRole && <AddLessonHomework apiData={apiData} addHomework={addHomework} />}
       </section>
-    </motion.aside >
+    </motion.aside>
   );
 };

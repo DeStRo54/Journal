@@ -5,9 +5,8 @@ import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterP
 import { ChooseMedia } from '../../../utils/helpers/ChooseMedia';
 import { Layout } from '../Layout/Layout';
 
-import { ProtectedRoute } from './components/RotectedRoute';
 import { AdminPanel, Auth, JournalDesktop, JournalMobile, ProfileSettings } from './constants.module';
-import { Skeleton } from '@/components/ui/Skeleton';
+import { Loader } from '@/components/ui/Loader';
 import { AdminRole } from '@/utils/constants/userRoles';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
 
@@ -25,55 +24,50 @@ export const Router = () => {
         <Route
           path="/auth"
           element={
-            <Suspense fallback={<Skeleton />}>
+            <Suspense fallback={<Loader />}>
               <Auth />
             </Suspense>
           }
         />
+        {isAuth && (
+          <>
+            <Route
+              path="/journal-mobile"
+              element={
+                <Suspense fallback={<Loader />}>
+                  {screenType === '/journal-mobile' ? <JournalMobile /> : <Navigate to={screenType} />}
+                </Suspense>
+              }
+            />
 
-        <Route
-          path="/journal-mobile"
-          element={
-            <ProtectedRoute>
-              <Suspense fallback={<Skeleton />}>
-                {screenType === '/journal-mobile' ? <JournalMobile /> : <Navigate to={screenType} />}
-              </Suspense>
-            </ProtectedRoute>
-          }
-        />
+            <Route
+              path="/journal-desktop"
+              element={
+                <Suspense fallback={<Loader />}>
+                  {screenType === '/journal-desktop' ? <JournalDesktop /> : <Navigate to={screenType} />}
+                </Suspense>
+              }
+            />
 
-        <Route
-          path="/journal-desktop"
-          element={
-            <ProtectedRoute>
-              <Suspense fallback={<Skeleton />}>
-                {screenType === '/journal-desktop' ? <JournalDesktop /> : <Navigate to={screenType} />}
-              </Suspense>
-            </ProtectedRoute>
-          }
-        />
+            <Route
+              path="/profile"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <ProfileSettings />
+                </Suspense>
+              }
+            />
 
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Suspense fallback={<Skeleton />}>
-                <ProfileSettings />
-              </Suspense>
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <Suspense fallback={<Skeleton />}>
-                {userRole === AdminRole ? <AdminPanel /> : <Navigate to="/journal" />}
-              </Suspense>
-            </ProtectedRoute>
-          }
-        />
+            <Route
+              path="/admin"
+              element={
+                <Suspense fallback={<Loader />}>
+                  {userRole === AdminRole ? <AdminPanel /> : <Navigate to={screenType} />}
+                </Suspense>
+              }
+            />
+          </>
+        )}
       </Route>
     )
   );

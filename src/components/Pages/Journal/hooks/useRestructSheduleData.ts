@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { monthData, today } from '../constants';
+import { today } from '../constants';
 import { createDate } from '../helpers/createDate';
 import { findIndexByDate } from '../helpers/findIndexByDate';
 
@@ -46,7 +46,7 @@ export const useRestructSheduleData = () => {
     () =>
       findIndexByDate(values, {
         year: today.getFullYear(),
-        month: monthData[today.getMonth()],
+        month: today.getMonth() + 1,
         day: today.getDate()
       }),
     []

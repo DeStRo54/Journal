@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 
+import { firstSessionDay, monthData, monthsNumbers, weekDays } from '../../constants';
 import { createfirstMonthsNodes } from '../../helpers/createfirstMonthsNodes';
 import { findDayIndex } from '../../helpers/findDayIndex';
 import { findIndexByDate } from '../../helpers/findIndexByDate';
@@ -19,20 +20,14 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 interface carouselWeekProps {
   currentDate: CustomDate;
   activeDateNode: number;
-  weekDays: string[];
-  firstSessionDay: CustomDate;
-  monthsNumbers: number[];
   values: ValuesDates;
   monthCarouselRef: React.RefObject<SwiperRef>;
   dayCarouselRef: React.RefObject<SwiperRef>;
 }
 
 export const CarouselMonth = ({
-  weekDays,
   activeDateNode,
   values,
-  firstSessionDay,
-  monthsNumbers,
   monthCarouselRef,
   currentDate,
   dayCarouselRef
@@ -68,7 +63,7 @@ export const CarouselMonth = ({
           />
           <div className={styles['dropdown']} ref={menuRef}>
             <Button
-              children={`${daysByMonth[currentSlide][dayIndexInSlide].month}`}
+              children={`${monthData[daysByMonth[currentSlide][dayIndexInSlide].month]}`}
               className={clsx(styles['dropdown-btn'], isOpen && styles['dropdown-active'])}
               onClick={onDropDownClick}
             />
@@ -81,9 +76,9 @@ export const CarouselMonth = ({
                   transition={{ duration: 0.25, ease: 'easeInOut' }}
                   className={styles['dropdown-content']}
                 >
-                  {firstMonthsNodes.map((value) => (
-                    <li className={styles['dropdown-item']} onClick={() => onScrollClick(value[1])}>
-                      {value[0]}
+                  {firstMonthsNodes.map((value, index) => (
+                    <li key={index} className={styles['dropdown-item']} onClick={() => onScrollClick(value[1])}>
+                      {monthData[value[0]]}
                     </li>
                   ))}
                 </motion.ul>
@@ -99,9 +94,9 @@ export const CarouselMonth = ({
           ))}
         </ul>
       </header>
-      <Swiper tag='ul' ref={monthCarouselRef} initialSlide={currentSlide} speed={500}>
+      <Swiper tag="ul" ref={monthCarouselRef} initialSlide={currentSlide} speed={500}>
         {daysByMonth.map((value, slideIndex) => (
-          <SwiperSlide key={slideIndex} tag='li'>
+          <SwiperSlide key={slideIndex} tag="li">
             <ul className={styles['month-card']}>
               {value.map((value, dayIndex) => (
                 <li

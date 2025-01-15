@@ -1,9 +1,9 @@
 import React from 'react';
 
-import styles from './ModeratorBlock.module.css';
+import styles from './AddLessonHomework.module.css';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Skeleton } from '@/components/ui/Skeleton';
+import { Loader } from '@/components/ui/Loader';
 import { Typhography } from '@/components/ui/Typhography';
 import { usePostModeratorAddHomeworkClassMutation } from '@/utils/redux/apiSlices/moderatorApiSlice/moderatorApi';
 
@@ -12,7 +12,7 @@ interface ModeratorBlockProps {
   addHomework: (homework: HomeworkElement) => void;
 }
 
-export const ModeratorBlock = ({ apiData, addHomework }: ModeratorBlockProps) => {
+export const AddLessonHomework = ({ apiData, addHomework }: ModeratorBlockProps) => {
   const [postModeratorAddHomeworkClassMutation, { isLoading, isError }] = usePostModeratorAddHomeworkClassMutation();
   const [homeworkText, setHomeworkText] = React.useState('');
 
@@ -41,7 +41,7 @@ export const ModeratorBlock = ({ apiData, addHomework }: ModeratorBlockProps) =>
         name={`${apiData.class.startTime}`}
       />
       <Button variant="accept" disabled={isLoading || !homeworkText} onClick={sendLessonHomework}>
-        {isLoading ? <Skeleton /> : 'Добавить'}
+        {isLoading ? <Loader /> : 'Добавить'}
       </Button>
       {isError && (
         <Typhography tag="p" variant="thirdy">

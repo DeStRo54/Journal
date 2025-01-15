@@ -3,27 +3,30 @@ import { useSelector } from 'react-redux';
 
 import { AddHomework } from './AddHomework/AddHomework';
 import styles from './IndependentHomework.module.css';
+import { AddLogo } from '@/components/ui/Icons/Add';
+import { Modal } from '@/components/ui/Modal';
 import { Typhography } from '@/components/ui/Typhography';
 import { BaseRole } from '@/utils/constants/userRoles';
 import { getUserRole } from '@/utils/redux/storeSlices/userSlice/selectors';
-import { AddLogo } from '@/components/ui/Icons/Add';
-import { Modal } from '@/components/ui/Modal';
 import clsx from 'clsx';
 
 interface IndependentHomeworkProps {
   Homeworks: Homework[];
+  currentValue: ValuesDate;
 }
 
-export const IndependentHomework = ({ Homeworks }: IndependentHomeworkProps) => {
+export const IndependentHomework = ({ Homeworks, currentValue }: IndependentHomeworkProps) => {
   const userRole = useSelector(getUserRole);
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const [addedHomeworks, setAddedHomeworks] = React.useState<HomeworkArray>(Homeworks.map((homework) => {
-    return {
-      homeworkText: homework.homeworkText,
-      homeworkID: homework.homeworkID
-    }
-  }));
+  const [addedHomeworks, setAddedHomeworks] = React.useState<HomeworkArray>(
+    Homeworks.map((homework) => {
+      return {
+        homeworkText: homework.homeworkText,
+        homeworkID: homework.homeworkID
+      };
+    })
+  );
 
   const onClose = () => setIsOpen(false);
 
@@ -41,12 +44,18 @@ export const IndependentHomework = ({ Homeworks }: IndependentHomeworkProps) => 
           </ul>
         </article>
       )}
-      {userRole > BaseRole &&
-        <article className={clsx(styles['mod-content'], isOpen && styles['active'])} onClick={() => { setIsOpen(true) }}>
+      {userRole > BaseRole && (
+        <article
+          className={clsx(styles['mod-content'], isOpen && styles['active'])}
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        >
           <AddLogo className={styles['add-icon']} />
-        </article>}
+        </article>
+      )}
       <Modal showInfo={isOpen} showDetails={onClose} modalId={'journal'}>
-        <AddHomework addHomework={addHomework} onClose={onClose} />
+        <AddHomework currentValue={currentValue} addHomework={addHomework} onClose={onClose} />
       </Modal>
     </>
   );

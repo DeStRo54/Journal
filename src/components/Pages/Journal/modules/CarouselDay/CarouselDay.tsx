@@ -8,6 +8,7 @@ import { Lesson } from './components/Lesson/Lesson';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 interface CarouselDayProps extends React.ComponentProps<'div'> {
+  values: ValuesDates;
   currentDateIndex: number;
   apiDates: DaySchedule[];
   onDayNodeScroll: () => void;
@@ -17,6 +18,7 @@ interface CarouselDayProps extends React.ComponentProps<'div'> {
 export const CarouselDay = ({
   currentDateIndex,
   apiDates,
+  values,
   onDayNodeScroll,
   dayCarouselRef,
   ...props
@@ -30,7 +32,7 @@ export const CarouselDay = ({
   return (
     <section {...props}>
       <Swiper
-        tag='ul'
+        tag="ul"
         ref={dayCarouselRef}
         lazyPreloadPrevNext={14}
         freeMode={true}
@@ -39,13 +41,13 @@ export const CarouselDay = ({
         autoHeight={true}
       >
         {apiDates.map((apiData, index) => (
-          <SwiperSlide key={index} tag='li' className={styles['swiper-layout']}>
+          <SwiperSlide key={index} tag="li" className={styles['swiper-layout']}>
             <div className={styles['day-card']}>
               {apiData.outputClasses.length === 0 && <FreeDay />}
               {apiData.outputClasses.map((value) => (
                 <Lesson key={value.class.startTime} apiData={value} updateHeight={updateHeight} />
               ))}
-              <IndependentHomework Homeworks={apiData.independentHomeworks} />
+              <IndependentHomework Homeworks={apiData.independentHomeworks} currentValue={values[index]} />
             </div>
           </SwiperSlide>
         ))}

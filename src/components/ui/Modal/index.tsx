@@ -2,16 +2,17 @@ import { createPortal } from 'react-dom';
 
 import styles from './Modal.module.css';
 import { AnimatePresence, motion } from 'framer-motion';
+import clsx from 'clsx';
 
-type ModalIdVariants = 'journal';
+type ModalIdVariants = 'journal' | 'admin';
 
-interface ModalProps extends React.ComponentProps<'div'> {
+interface ModalProps extends React.ComponentProps<'dialog'> {
   modalId: ModalIdVariants;
   showInfo: boolean;
   showDetails: () => void;
 }
 
-export const Modal = ({ modalId, showInfo, showDetails, children }: ModalProps) => {
+export const Modal = ({ modalId, showInfo, showDetails, children, className }: ModalProps) => {
   const portalTarget = document.getElementById(modalId);
   if (!portalTarget) {
     return null;
@@ -25,7 +26,7 @@ export const Modal = ({ modalId, showInfo, showDetails, children }: ModalProps) 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className={styles['environment']}
+          className={clsx(styles['environment'], className)}
         >
           <div className={styles['background']} onClick={showDetails} />
           {children}

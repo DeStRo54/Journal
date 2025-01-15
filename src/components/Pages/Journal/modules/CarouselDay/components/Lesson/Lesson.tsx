@@ -1,11 +1,11 @@
 import React from 'react';
 
+import { convertSummary } from './helpers/convertSummary';
 import styles from './Lesson.module.css';
 import { LessonCard } from './LessonCard/LessonCard';
 import { Modal } from '@/components/ui/Modal';
 import { Typhography } from '@/components/ui/Typhography';
 import clsx from 'clsx';
-import { convertSummary } from './helpers/convertSummary';
 
 interface LessonProps {
   apiData: OutputClass;
@@ -47,6 +47,8 @@ const getTeacher = (rawDescrciption: string) => {
 };
 
 export const Lesson = ({ apiData, updateHeight }: LessonProps) => {
+  const [showInfo, setShowInfo] = React.useState(false);
+
   const para = apiData.class;
   const [homeworks, setHomeworks] = React.useState<HomeworkArray>(
     apiData.homework.map((value) => {
@@ -54,12 +56,10 @@ export const Lesson = ({ apiData, updateHeight }: LessonProps) => {
     })
   );
 
-  const [showInfo, setShowInfo] = React.useState(false);
-
   const paraBegin = convertDateToTime(para.startTime);
   const paraEnd = convertDateToTime(para.endTime);
 
-  const showDetails = () => setShowInfo(!showInfo);
+  const showDetails = () => setShowInfo((prev) => !prev);
 
   const addHomework = (homework: HomeworkElement) => {
     setHomeworks((prev) => [...prev, homework]);

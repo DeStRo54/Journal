@@ -6,6 +6,7 @@ import { AdminLogo } from '@/components/ui/Icons/Admin';
 import { SettingsLogo } from '@/components/ui/Icons/Settings';
 import { Typhography } from '@/components/ui/Typhography';
 import { AdminRole } from '@/utils/constants/userRoles';
+import { ChooseMedia } from '@/utils/helpers/ChooseMedia';
 import { getUser } from '@/utils/redux/storeSlices/userSlice/selectors';
 
 export const Header = () => {
@@ -15,7 +16,9 @@ export const Header = () => {
 
   return (
     <header className={styles.header}>
-      <Typhography tag="h1" variant="header" children={group_name} />
+      <Link to={ChooseMedia}>
+        <Typhography tag="h1" variant="header" children={group_name} />
+      </Link>
       <div className={styles.container}>
         {showAdminComponent && (
           <Link to="/admin">

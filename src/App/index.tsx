@@ -22,13 +22,15 @@ function App() {
   const setUserData = async () => {
     try {
       const { data } = await getUserData();
-      dispatch(logIn({
-        role: 3, //data.role
-        name: data.name,
-        surname: data.surname,
-        email: data.email,
-        group_name: data.group_name
-      }));
+      dispatch(
+        logIn({
+          role: 3, //data.role
+          name: data.name,
+          surname: data.surname,
+          email: data.email,
+          group_name: data.group_name
+        })
+      );
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +57,6 @@ function App() {
         return;
       }
       await userSessionRefresh();
-
     } catch (error) {
       console.log(error);
     }
@@ -77,8 +78,8 @@ function App() {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = null;
       }
-    }
-  }, [isEntry])
+    };
+  }, [isEntry]);
 
   return <Router />;
 }

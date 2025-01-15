@@ -1,6 +1,6 @@
-import styles from './Skeleton.module.css';
+import styles from './Loader.module.css';
 
-export const Skeleton = () => {
+export const Loader = () => {
   return (
     <div className={styles['circular-skeleton']}>
       <div className={styles['spinner']}></div>

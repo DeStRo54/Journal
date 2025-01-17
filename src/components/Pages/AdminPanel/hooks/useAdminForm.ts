@@ -1,6 +1,7 @@
+import { AdminSchema, AdminSchemasType } from '../shemas';
+
 import { usePostAdminAddGroupMutation } from '@/utils/redux/apiSlices/adminApiSlice/adminApi';
 import { useFormik } from 'formik';
-import { AdminSchema, AdminSchemasType } from '../shemas';
 
 export const useAdminForm = () => {
   const [postGroup, { isLoading, isError }] = usePostAdminAddGroupMutation();
@@ -11,7 +12,7 @@ export const useAdminForm = () => {
     initialValues: {
       adminGroup: '',
       adminCourse: '',
-      adminIcal: '',
+      adminIcal: ''
     },
     onSubmit: async (values) => {
       console.log(values);
@@ -29,7 +30,7 @@ export const useAdminForm = () => {
     form,
     state: {
       isLoading: isLoading,
-      isError: isError,
+      isError: isError
     }
   };
 };

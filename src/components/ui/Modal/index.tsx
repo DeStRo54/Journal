@@ -1,8 +1,8 @@
 import { createPortal } from 'react-dom';
 
 import styles from './Modal.module.css';
-import { AnimatePresence, motion } from 'framer-motion';
 import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type ModalIdVariants = 'journal' | 'admin';
 

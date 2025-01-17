@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 
+import { adminApi } from './apiSlices/adminApiSlice/adminApi';
 import { groupApi } from './apiSlices/groupApiSlice/groupApi';
 import { moderatorApi } from './apiSlices/moderatorApiSlice/moderatorApi';
 import { scheduleApi } from './apiSlices/scheduleApiSlice/scheduleApi';
@@ -13,6 +14,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [groupApi.reducerPath]: groupApi.reducer,
     [moderatorApi.reducerPath]: moderatorApi.reducer,
+    [adminApi.reducerPath]: adminApi.reducer,
     [scheduleApi.reducerPath]: scheduleApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
@@ -20,6 +22,7 @@ export const store = configureStore({
       userApi.middleware,
       groupApi.middleware,
       moderatorApi.middleware,
+      adminApi.middleware,
       scheduleApi.middleware
     )
 });

@@ -4,6 +4,8 @@ import { defineConfig } from 'vite';
 import { ManifestOptions, VitePWA } from 'vite-plugin-pwa';
 
 const manifest: Partial<ManifestOptions> | false = {
+  name: 'HomeworkManager',
+  short_name: 'HM',
   theme_color: '#17171C',
   background_color: '#17171C',
   icons: [
@@ -40,7 +42,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-        globDirectory: 'dist',
+        globDirectory: 'dist'
       },
       manifest: manifest,
       devOptions: {

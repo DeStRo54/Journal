@@ -4,4 +4,4 @@ interface CurrentGroup {
   course: number;
 }
 
-type AllGroupsResponse = CurrentGroup[];
+type AllGroupsResponse = CurrentGroup[] & BaseResponse;

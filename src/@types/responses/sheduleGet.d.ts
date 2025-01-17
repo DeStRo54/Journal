@@ -29,4 +29,4 @@ type DaySchedule = {
 
 type AllScheduleResponse = {
   [date: string]: DaySchedule;
-};
+} & BaseResponse;

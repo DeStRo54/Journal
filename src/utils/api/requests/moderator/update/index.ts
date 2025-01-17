@@ -1,11 +1,11 @@
 import { api } from '@/utils/api/instance';
 
-type patchModeratorHomeworkParams = {
+type PatchModeratorHomeworkParams = {
   homeworkID: number;
   homeworkText: string;
 };
 
-export type patchModeratorHomeworkConfig = AxiosRequestConfig<patchModeratorHomeworkParams>;
+export type PatchModeratorHomeworkConfig = AxiosRequestConfig<PatchModeratorHomeworkParams>;
 
-export const patchModeratorHomework = async ({ params, config }: patchModeratorHomeworkConfig) =>
+export const patchModeratorHomework = async ({ params, config }: PatchModeratorHomeworkConfig) =>
   api.patch<ModeratorUpdateResponse>('/moderator/update', params, config);
